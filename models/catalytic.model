@@ -1,0 +1,12 @@
+$Reactions
+ [X => Y, mod[E], rates[k1,k2,k3]]
+ [Y -> Nil, k]
+$IC
+ X = 1.0
+ Y = 0.0
+ E = 1.0
+$Rates
+ k1 = 1.0
+ k2 = 1.0
+ k3 = 1.0
+ k = .001

@@ -1,0 +1,17 @@
+$Reactions
+ [U |-> V, GRN[v, b, n, h]]
+ [V |-> W, GRN[v, b, n, h]]
+ [W |-> U, GRN[v, b, n, h]]
+ [V -> Nil, k]
+ [U -> Nil, k]
+ [W -> Nil, k]
+$IC
+ U = .5
+ V = .4
+ W = 0.6
+$Rates
+ v = 1
+ n = 2
+ h = 1
+ k = 0.5
+ b = -10

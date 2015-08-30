@@ -1,0 +1,15 @@
+$Reactions
+ [X  <=> XP,   mod[Z, ZPP], rates[a, d, k, 0,  a, d, k]]
+ [XP <=> XPP,  mod[Z, ZPP], rates[a, d, k, 0, a, d, k]]
+ [Y  <=> YP,   mod[X, XPP], rates[a, d, k, 0, a, d, k]] 
+ [YP <=> YPP,  mod[X, XPP], rates[a, d, k, 0, a, d, k]] 
+ [Z  <=> ZP,   mod[Y, YPP], rates[a, d, k, 0, a, d, k]]
+ [ZP <=> ZPP,  mod[Y, YPP], rates[a, d, k, 0, a, d, k]]
+$IC
+ X = 10.0
+ Y = 15.0
+ Z = 20.0
+$Rates
+ a = 1.0
+ d = 1.0
+ k = 1.0

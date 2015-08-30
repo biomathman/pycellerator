@@ -1,0 +1,8 @@
+# Oregonator Data File
+# Reference: Field and Noyes, J Chem Phys 60: 1877 (1974)
+#
+[Br + BrO3 -> HBrO2 + HOBr, k1] 
+[Br + HBrO2 -> 2*HOBr, k2]
+[BrO3 + HBrO2 -> 2*Ce + 2*HBrO2, k3] 
+[2*HBrO2-> BrO3 + HOBr, k4] 
+[Ce -> 0.5*Br, k5]

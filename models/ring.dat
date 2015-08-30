@@ -1,0 +1,6 @@
+ [X  <=> XP,   mod[Z, ZPP], rates[a, d, k, 0, a, d, k]]  # first reaction
+ [XP <=> XPP,  mod[Z, ZPP], rates[a, d, k, 0, a, d, k]]  #second reaction
+ [Y  <=> YP,   mod[X, XPP], rates[a, d, k, 0, a, d, k]] 
+ [YP <=> YPP,  mod[X, XPP], rates[a, d, k, 0, a, d, k]] 
+ [Z  <=> ZP,   mod[Y, YPP], rates[a, d, k, 0, a, d, k]]
+ [ZP <=> ZPP,  mod[Y, YPP], rates[a, d, k, 0, a, d, k]]

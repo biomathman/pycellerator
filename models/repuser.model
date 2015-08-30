@@ -1,0 +1,28 @@
+$reactions
+[PX -> Nil, Beta]
+[PY -> Nil, Beta]
+[PZ -> Nil, Beta]
+[X -> X + PX, Beta]
+[Y -> Y + PY, Beta]
+[Z -> Z + PZ, Beta]
+[PZ |-> X, Hill[alpha1, n, K, 0, 1]]
+[PX |-> Y, Hill[alpha1, n, K, 0, 1]]
+[PY |-> Z, Hill[alpha1, n, K, 0, 1]]
+[X <-> Nil, rates[k1, alpha0]]
+[Y <-> Nil, rates[k1, alpha0]]
+[Z <-> Nil, rates[k1, alpha0]]
+[PY |-> Z, USER[alpha, -1, n, 0, "lambda x: 1/(K**n+x)"]]
+[PZ |-> X, USER[alpha, -1, n, 0, "lambda x: 1/(K**n+x)"]]
+[PX |-> Y, USER[alpha, -1, n, 0, "lambda x: 1/(K**n+x)"]]
+$rates
+alpha = 250
+alpha0 = 0
+alpha1 = 0
+Beta = 5
+n = 2.1 
+k1 = 1
+K = 1
+$ic
+PX = 5
+PZ = 15
+$

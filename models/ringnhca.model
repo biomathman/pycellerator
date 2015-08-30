@@ -1,0 +1,19 @@
+$Reactions
+ [U |-> V, NHCA[v,TP,TM,n,m,K]]
+ [V |-> W, NHCA[v,TP,TM,n,m,K]]
+ [W |-> U, NHCA[v,TP,TM,n,m,K]]
+ [V -> Nil, k]
+ [U -> Nil, k]
+ [W -> Nil, k]
+$IC
+ U = .6
+ V = .75
+ W = .5
+$Rates
+ v = 1
+ n = 2
+ m = 2
+ K = 10
+ k = 1
+ TP=.2
+ TM=-5

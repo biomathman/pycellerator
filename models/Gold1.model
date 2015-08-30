@@ -1,0 +1,31 @@
+# Goldbeter, A. A minimal cascade model for the mitotic
+# oscillator involving cyclin and cdc2 kinase. Proc. Natl.
+# Acad. Sci. USA 88:9107-1101 (1991).
+$REACTIONS
+ [C <-> Nil, rates[kd, vi]]
+ [C |--> Nil, mod[X], Hill[vd, 1, Kd, 0,1 ]]
+ [M |--> Nil, mod[Nil], Hill[v2, 1, K2, 0, 1]]
+ [X |--> Nil, mod[Nil], Hill[v4, 1, K4, 0, 1]]
+ [Nil -> X, "vm3*f(M,X)"]
+ [C |-> M, Hill["vm1*g(M)", 1, Kc, 0, 1]]
+$IC
+ C = 0.1
+ M = 0.2
+ X = 0.3
+$FUNCTIONS
+ f(m,x) =  m * (1-x)/(K3+1-x)
+ g(m) = (1-m)/(K1+1-m)
+$RATES
+ vd = 0.1
+ vi = 0.023
+ v2 = 0.167
+ v4 = 0.1
+ vm1 = 0.5
+ vm3 = 0.2
+ kd = 0.00333
+ K1 = 0.1
+ K2 = 0.1
+ K3 = 0.1
+ K4 = 0.1
+ Kc = 0.3
+ Kd = 0.02

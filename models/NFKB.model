@@ -1,0 +1,57 @@
+$Reactions
+ [IkBa + NFkB <-> IkBa_NFkB, rates[a1, d1]]
+ [IKK_IkBa + NFkB <-> IKK_IkBa_NFkB, rates[a2, d2]]
+ [NFkB <-> NFkBn, rates[tr1, tr2]]
+ [IkBa_NFkB -> NFkB, deg1]
+ [IkBan + NFkBn <-> IkBan_NFkBn, rates[a1, d1]] 
+ [IkBa + IKK <-> IKK_IkBa, rates[a3, d3]]
+ [IkBat -> Nil, deg3]
+ [IkBa <-> IkBan, rates[tr3, tr4]]
+ [IKK_IkBa_NFkB -> IKK + NFkB, k1] 
+ [IKK_IkBa -> IKK, k2]
+ [IkBat |-> IkBa, Hill[v1, n1, K1]]
+ [IkBa_NFkB <-> IkBan_NFkBn, rates[tr5, tr6]]
+ [IkBa -> Nil, deg2]
+ [NFkBn |-> IkBat, Hill[v2, n2, K2]] 
+ [Nil -> IkBat, trb]
+ [IkBa_NFkB + IKK <-> IKK_IkBa_NFkB, rates[a4, d4]] 
+ [IKK -> Nil, adapt]
+$IC
+ NFkB = 0.003053
+ IkBa = 0.372
+ IkBa_NFkB = 0.09826
+ NFkBn = .00047638
+ IkBan = 0.11937
+ IkBan_NFkBn = 0.001985
+ IKK = 0.1
+ IkBat = 0.008454217
+ IKK_IkBa_NFkB = 0
+ IKK_IkBa = 0
+$Rates
+ v1 = 2.448
+ K1 = 10
+ n1 = 1
+ v2 = 1.02713
+ K2 = 1
+ n2 = 2
+ a1 =  30 
+ a2= 30
+ a3= 1.35
+ a4= 11.1
+ tr1= 5.4 
+ tr2= 0.0048
+ tr3= 0.018
+ tr4= 0.012
+ tr5= 0
+ tr6= 0.82944
+ d1= 0.03 
+ d2= 0.03
+ d3= 0.0075
+ d4= 0.105
+ deg1= 0.00135 
+ deg2= 0.00675 
+ deg3= 0.0168
+ k1= 1.221
+ k2= 0.2442 
+ trb=0.0000921375
+ adapt= 0.0072

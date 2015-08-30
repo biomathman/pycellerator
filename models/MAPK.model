@@ -1,0 +1,54 @@
+#
+# MAPK Oscillations Using Mass-Action Kinetics
+#
+$Reactions
+#
+# kinases
+#
+ [Nil<->S, rates[a0, d0]]
+ [KKK => KKKp, mod[S], rates[a1,d1,k1]]
+ [KK => KKp =>KKpp, mod[KKKp,KKKp], rates[a3,d3,k3]]
+ [MAPK => Kp => Kpp, mod[KKpp], rates[a3,d3,k3]]
+#
+# competitive inhibition
+#
+ [KKK_S + Kpp <-> KKK_S_Kpp, rates[a7, d7]]
+#
+# phosphatases
+#
+ [KKKp => KKK, mod[KKKph], rates[a4,d4,k4]]
+ [KKpp => KKp => KK, mod[KKph], rates[a5,d5,k5]]
+ [Kpp => Kp => MAPK, mod[Kph], rates[a6,d6,k6]]
+$IC
+  KKK =  100
+  KKKp =  0
+  KK =  300
+  KKp =  0
+  KKpp =  0
+  MAPK =  300
+  Kp =  0
+  Kpp =  0
+  S =  1
+  Kph =  1
+  KKph =  1
+  KKKph =  10
+$Rates
+ a0 =  1
+ d0 =  1
+ a1 = 1 
+ d1 = 7.5
+ k1 = 2.5  
+ a3 =  1
+ d3 =  10 
+ k3 = 0.025 
+ a4 =  1
+ d4 = 1
+ k4 = 1
+ a5 =  1
+ d5 =  1
+ k5 =  1
+ a6 =  1
+ d6 =   1
+ k6 =  1
+ a7 =  1
+ d7 =  1

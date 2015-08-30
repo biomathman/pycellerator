@@ -1,0 +1,6 @@
+ [X :--> XP, mod[Z], MMH[K,v]]
+ [XP:--> X,  mod[ZP],MMH[K,v]]
+ [Y :--> YP, mod[X], MMH[K,v]]
+ [YP:--> Y,  mod[XP],MMH[K,v]]
+ [Z :--> ZP, mod[Y], MMH[K,v]]
+ [ZP:--> Z,  mod[YP],MMH[K,v]]
