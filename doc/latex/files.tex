@@ -1,0 +1,105 @@
+\chapter{File Formats}
+
+\section{Reaction Files}
+
+Reaction files are lists of cellerator reactions, with at most one reaction per line. A single reaction may be spread over multiple lines if the last character on the line is the backslash (\verb|\|) character.  Reaction syntax is as described in chapter \ref{chapter:arrows}. Blank lines are ignored, and the cross-hatch character (\verb.#.) indicates the beginning of a comment.\footnote{The crosshatch was chosen as the comment delimiter because it will be familiar to Python users.} Comments are terminated by an end-of-line. An example is given by the following:
+
+
+\begin{Verbatim}[frame=single]
+# Oregonator Data File
+# Reference: Field and Noyes, J Chem Phys 60: 1877 (1974)
+#
+[Br + BrO3 -> HBrO2 + HOBr, k1] 
+[Br + HBrO2 -> 2*HOBr, k2]
+[BrO3 + HBrO2 -> 2*Ce + 2*HBrO2, k3] 
+[2*HBrO2-> BrO3 + HOBr, k4] 
+[Ce -> 0.5*Br, k5]
+\end{Verbatim}
+\newpage
+\section{Model Files}
+
+A model file contains reactions, initial conditions, rate constants, function definitions (optional) and frozen variables (optional). Each of theses lists (except for the reactions) is optional. Each lists is indicated by an indicator {\tt \$Assignments, \$Functions, \$Reactions, \$IC, \$Rates} or {\tt \$Frozen} as illustrated in the following example. The order of the different sections does not matter, i.e., {\tt Rates} may precede {\tt IC}, etc. Comments and blank lines are ignored
+
+\underline{The {\tt \$Assignments} section} should be followed by a list of assignment statements of the form 
+$${\tt variable = expression}$$
+where {\tt variable} is any model variable and {\tt expression} is any valid python expression, such as 
+\begin{align*}
+	{\tt A} &{\tt = B+C-4D}\\
+	{\tt C} &{\tt =pow(B,4)+A}
+\end{align*}
+\underline{The {\tt \$Functions} section} contains a list of Functions that may be reference elsewhere in the model. Functions are defined with the syntax
+$${\tt fname(var1,var2,...) = expression}$$
+where {\tt fname} is the name of the function; {\tt var1,var2,...} are the arguments of the function, and {\tt expression} is any valid python infix expression. For example, 
+\begin{align*}
+    & {\tt f(m,x) =  m * (1-x)/(K3+1-x)}\\
+    & {\tt g(m) = (1-m)/(K1+1-m)}
+\end{align*}
+In the first function definition, the function has two arguments, {\tt m} and {\tt x}, which must be passed to it; the function must be then referenced as, say {\tt f(P,Q)} in a kinetic law, which would represent the expression ${\tt P*(1-Q)/(K3+1-Q)}$. The reference to {\tt K3} is a reference to a global parameter in the model. The second function has only one variable; a reference {\tt g(U)} in a kinetic law would represent the expression ${\tt (1-U)/(K1+1-U)}$ where {\tt K1} is also a global parameter of the model. 
+
+
+\underline{The {\tt \$Reactions} section} contains a list of Reactions as described in Chapter \ref{chapter:arrows}, e.g., 
+$$ {\tt  [Br + BrO3 -> HBrO2 + HOBr, k1] }$$
+
+\underline{The {\tt \$Frozen} section} contains a list of frozen variables, one variable per line. Frozen variables do not normally change their values in a reaction; however, they are allowed to change their values in (a) an assignment rule; or (b) a {\tt using} reaction (which corresponds to an SBML rate rule). 
+	
+\underline{The {\tt \$IC} section} contains initial conditions, one per line, in the form 
+$${\tt variable = value}$$	
+	
+\begin{Verbatim}[frame=single]
+# Oregonator Data File
+# Reference: Field and Noyes, J Chem Phys 60: 1877 (1974)
+#
+$Reactions
+ [Br + BrO3 -> HBrO2 + HOBr, k1] 
+ [Br + HBrO2 -> 2*HOBr, k2]
+ [BrO3 + HBrO2 -> 2*Ce + 2*HBrO2, k3] 
+ [2*HBrO2-> BrO3 + HOBr, k4] # but BrO3 is frozen
+ [Ce -> 0.5*Br, k5]
+$IC
+ HBrO2 = .001
+ Br = .003
+ Ce = .05
+ BrO3 = .1
+ HOBr = 0
+$Rates
+ k1 = 1.3
+ k2 = 2.0E6
+ k3 = 34
+ k4 = 3000.0
+ k5 = 0.02
+$Frozen
+ BrO3
+\end{Verbatim}
+
+An example of the {\tt \$FUNCTIONS} keyword is illustrated by this alternative version of the Goldbeter mitotic model (compare to the one given in section \ref{section:Goldbeter}): 
+
+\begin{Verbatim}[frame=single]
+$REACTIONS
+ [C <-> Nil, rates[kd, vi]]
+ [C |--> Nil, mod[X], Hill[vd, 1, Kd, 0,1 ]]
+ [M |--> Nil, mod[Nil], Hill[v2, 1, K2, 0, 1]]
+ [X |--> Nil, mod[Nil], Hill[v4, 1, K4, 0, 1]]
+ [Nil -> X, "vm3*f(M,X)"]
+ [C |-> M, Hill["vm1*g(M)", 1, Kc, 0, 1]]
+$IC
+ C = 0.1
+ M = 0.2
+ X = 0.3
+$FUNCTIONS
+ f(m,x) =  m * (1-x)/(K3+1-x)
+ g(m) = (1-m)/(K1+1-m)
+$RATES
+ vd = 0.1
+ vi = 0.023
+ v2 = 0.167
+ v4 = 0.1
+ vm1 = 0.5
+ vm3 = 0.2
+ kd = 0.00333
+ K1 = 0.1
+ K2 = 0.1
+ K3 = 0.1
+ K4 = 0.1
+ Kc = 0.3
+ Kd = 0.02
+\end{Verbatim}

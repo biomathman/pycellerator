@@ -1,0 +1,39 @@
+\chapter[Planned Features]{Additional Features Planned/Under Development}
+\label{chapter:future}
+Last revised \today
+\begin{itemize}
+\setlength{\parskip}{0pt}
+\setlength{\itemsep}{0pt}
+\setlength{\topsep}{0pt}
+\item[\checkmark] (Done) Implement parser, expander, interpreter, solver
+\item[\checkmark] (Done, except for specified exceptions below) Implement all Cellerator arrows 
+\item[\checkmark] (Done)  Reaction cascades
+\item[\checkmark] (Done) Implement pyxlr8r $\leftrightarrow$ Cellerator converters for all reactions 
+\item[\checkmark] (Done) Equations as rate constants
+\item[\checkmark] (Done) Products of species in {\tt rational} arrows, as in Cellerator
+\item[\checkmark] (Done) User defined reactions
+\item[\checkmark] (Done) Indexed variables/arrays
+\item[\checkmark] (Done) Function definitions in input file
+\item[\checkmark] (Done) SBML Import (limited SBML Subset)
+\item[\checkmark] (Done) SBML Output (limited: TBD: assignments, functions)
+\item Cambium input/output
+\item[\checkmark] (Done) Produce separate stand-alone run-files
+\item GnuPlot output formats
+\item Installers for Windows \& Mac
+\item GUI
+\item Stochastic (SSA) simulator
+\item Umbral transformations in SSA simulator
+\item Additional integrators besides {\tt scipy.integrate.odeint}
+\item Additional parametric control on integration (e.g., events) 
+\item[\checkmark] (Done) Add {\tt kmech}-like features
+\item Multicelluar ({\tt Cellzilla}/{\tt Growzilla}-like capability)
+\item Additional examples for other arrows/features 
+\item[\checkmark] (done) Parser to directly read model files as well as reaction files
+\item King-Altman method\cite{King-Altman,Cornish-Bowden}
+\item Hybrid Simulations \cite{GY-Diss,GY-MIT, GY-INPREP}.
+\item Boundary Condition Option as in {\tt xlr8r}, e.g., pulse-train IC
+\item More meaningful error messages when parser fails
+\item Solver scripts for (parallelizable) parameter optimization
+\item Analysis: Jacobian (\checkmark (done)); Find steady state(\checkmark (done))
+\item Replace pyparsing with faster input handler.
+\end{itemize}

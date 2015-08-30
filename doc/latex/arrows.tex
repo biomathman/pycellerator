@@ -1,0 +1,880 @@
+\chapter[Arrows]{pycellerator Arrow Reference}
+\label{chapter:arrows}
+
+\section{Introduction}
+
+Reactions in pycellerator are specified in textfiles using a arrow based language that can be typed using any standard ASCII or UTF keyboard. All of the characters needed to type a reaction exist on standard US keyboards. A summary of the arrow forms available in pycellerator is given in Table 3.1. 
+
+The canonical form for an arrow form  is 
+\begin{equation*}
+{\text{\tt[LHS {\rm{\it arrow}} RHS, mod[{\rm {\it modifiers}}], rates[{\rm {\it rate constants}}]]}}
+\end{equation*}
+or
+\begin{equation*}
+{\text{\tt[LHS {\rm{\it arrow}} RHS, rates[{\rm {\it rate constants}}]]}}
+\end{equation*}
+All of the square brackets are required and:
+
+{\tt LHS} indicates a species, list of species, or sum of species that give the input to the reaction. Depending on the type of reaction, their concentrations or amounts may or may not change as a result of the reaction, but they will always affect the calculation of the output species. 
+
+{\tt RHS} indicates a species, list of species, or sum of species that give the output of the reaction. Each species in {\tt RHS} will will normally change in concentration or amount as a result of the reaction. 
+
+{\it arrow} determines the type of reaction. It typically looks something like ${\text {\tt ->, -->, =>, |->}}$, etc. 
+
+{\it modifiers} indicates a list of species that affect the output of the reaction; like input reaction, their concentrations may or may not be affected by the reactions. The definition of whether a species goes in the {\tt mod} or {\it modifiers} list depends on the definition of the reaction in the following sections, and not on the biochemical process. This is a computational distinction only. In general, {\tt modifiers} correspond to catalysts in enzymatic reactions. The normal distinction used is that for \textbf{catalytic} arrows  (e.g., ${\text {\tt |->}}$) the amount of catalyst does not change, but in \textbf{enzymatic} arrows  (e.g., ${\text {\tt =>, <=>}}$) the amount of enzyme may, in fact, change. 
+
+
+\pagebreak
+
+
+\renewcommand{\arraystretch}{2.5}
+%\begin{table}[ht]%\caption{toodly doo}
+\begin{scriptsize}
+\begin{center}
+Table 3.1
+\end{center}
+\begin{tabular}{|p{1in}|lp{3in}|p{1.5in}|l|}
+\hline\textbf{Name} &\multicolumn{2}{|l|}{\textbf{Arrow}} & \textbf{Typical ODE Term}&\textbf{Ref} \\
+\hline
+\LJ{Simple Mass Action}&1& {\tt [X $->$ Y, k]}&\multirow{2}{*}{$\displaystyle{(s_{i,r}-s_{i,l}) k \prod_{i\in \text{LHS}}\text{X}_i^{e_i}}$}&\ref{section:Simple-Mass-Action}\\
+\cline{2-3}\cline{5-5}\LJ{Mass Action, Stoichiometry}&2& {\tt [e1 X1 + e2 X2 + $\cdots$ $->$ s1 Y1 + s2 Y2 + $\cdots$, k]} & & \ref{section:simple-mass-action-stoich}\\
+\cline{2-5}\LJ{Mass Action, Reversible}&3& {\tt [e1 X1 + $\cdots$ $<->$ s1 Y1 + $\cdots$, rates[k1,k2]]} &  Expanded into a pair of type (1) or (2) reactions.&\ref{section:reversible-mass-action}\\
+\cline{2-5}\LJ{Simple Catalytic}&4&
+\LMM{
+$\text{\tt [e1 A1 + e2 A2 + }\cdots  $
+$\text{\tt --> s1 B1 + s2 B2 +} \cdots \text{\tt ,} $ 
+$\text{\tt mod[X], k]}$} & Expanded into a single  type (1) or (2) reaction. &\ref{section:simple-mass-action-cat}\\
+\cline{2-5}\LJ{Catalytic, w/ Intermediate Complex}&5& {\tt [A => B, mod[X], rates[k1, k2, k3, k4]]} & Expanded into three or four type (1) reactions &\ref{section:cat-mass-action}\\
+\cline{2-5}\LJ{Catalytic, Reversible, w/ Int. Complex}&6&{\tt [A <=> B, mod[X,Y], rates[k1, k2,...,k8]]} & Expanded into two type (5) reactions. & \ref{section:cat-mass-action-reversible}\\
+\cline{2-5}\LJ{Catalytic, Two Int. Species}&7&{\tt [A :=> B, mod[E], rates[k1,k2,...,k6]} & Expanded into six type (1) reactions & \ref{section:cat-mass-action-two-complex}\\
+\hline\multirow{2}{*}{\textbf{Hill Functions}}&8&{\tt [A |-> B, Hill[v,n,K,$\alpha$,T]]}&\multirow{2}{*}{$\displaystyle{\dfrac{vEk(\sum T_i A_i + \alpha)^n}{K^n + (\sum T_i A_i + \alpha)^n}}$}&\multirow{2}{*}{\ref{section:Hill}}\\
+\cline{2-3}&9&{\tt [A |--> B, mod[E], Hill[v,n,K,$\alpha$,T]]}&&\\
+\hline{\multirow{2}{*}{\LJ{GRN (Genetic Regulatory Network Model)}}}      &10&{\tt [A |-> B, GRN[v,$\beta$,n,h]]}& \multirow{2}{*}{$\displaystyle{\dfrac{vE}{1+\exp(-h-\sum\beta_i A_i^{n_i})}}$}&\multirow{2}{*}{\ref{section:GRN}}\\
+\cline{2-3}&11&{\tt [A |--> B, mod[E], GRN[v,$\beta$,n,h]]}&&\\
+\hline{\multirow{2}{*}{\textbf{S-System}}}      &12&{\tt [A |-> B, SSystem[$\tau$, k$_{+}$, k$_{-}$, c$_{+}$,c$_{-}$]]}& \multirow{2}{*}{$\dfrac{k_+ \prod A_i^{C_{i,+}} -k_{-}\prod A_{i}^{C_{i,-}}}{\tau}$}&\multirow{2}{*}{\ref{section:SSystem}}\\
+\cline{2-3}&13&{\tt [A |--> B, mod[E], SSystem[$\tau$, k$_{+}$, k$_{-}$, c$_{+}$,c$_{-}$]]}&&\\
+\hline\multirow{2}{*}{\LJ{MMH (Michaelis- Menten- Henri)}}& 14 &{\tt[A :->B, MMH[K,v]]} or  {\tt[A :->B, MMH[k1,k2,k3]]} &
+\multirow{2}{*}{$\dfrac{vAE}{K+A}$ or $\dfrac{k_3 A E}{(k_2+k_3)/k_1 + A}$}& \multirow{2}{*}{\ref{subsection:MMH}} \\
+\cline{2-3} & 15 &{\tt[A :-->B, mod[X], MMH[K,v]]} or  {\tt[A :->B,mod[X], MMH[k1,k2,k3]]} &&  \\
+\hline
+\LJ{Rational Function} & 16 & {\tt[[[A1,A2,..],[X1,X2,..]]==>S,rational[a,d,m,n]]}&$\dfrac{a_0 + \sum a_i A_i^{n_i}}{d_0 + \sum d_i X_i^{m_i}} $ & \ref{subsection:Rational} \\
+\hline\multirow{2}{*}{\LJ{MWC (Monod-Wyman-Changeaux)}}&17&
+{\tt[S==>P, mod[E], MWC[k, n, c, L, K]]} & 
+\multicolumn{2}{l|}{
+
+$\dfrac{k \mathcal{E} \left(c L
+   s (c s+1)^{n-1}+s
+   (s+1)^{n-1}\right)}{L (c
+   s+1)^n+(s+1)^n}$ }
+\\
+\cline{2-3}\cline{5-5} &18& {\tt[S==>P, mod[E, [[A1,A2,..],[I1,I2,..]], MWC[k, n, c, L, K]]}&See reference for multiple Activator/Inhibitor equations.&\ref{subsection:MWC}\\
+\hline \LJ{NHCA (Non-hierarchical coop. act.}&19&{\tt A|-> B, NCHA[v, Tp, Tm, n, m, k]}& 
+\LM{$\dfrac{vA^m}{kB^m+A^m}$,   $A\hspace{-2pt}=\hspace{-2pt}1\hspace{-2pt}+\hspace{-2pt}T_{p}X^n$, $B\hspace{-2pt}=\hspace{-2pt}1\hspace{-2pt}+\hspace{-2pt}T_{m}X^n$} & \ref{section:NHCA}\\
+\hline
+\end{tabular}
+
+
+\newpage
+
+\begin{center}
+Table 3.1 (continued)
+\end{center}
+\begin{tabular}{|p{1in}|lp{3in}|p{1.5in}|l|}
+\hline\textbf{Name} &\multicolumn{2}{|l|}{\textbf{Arrow}} & \textbf{Typical ODE Term}&\textbf{Ref} \\
+
+\hline 
+\multirow{2}{*}{\LJ{USER}} &20&  $\TT{[ X1+X2+}\cdots \TT{|->Y, USER[v, T, n, h, f]]}$ & $v f(h-\sum T_i P_i^{X_i})$&\ref{subsection:USER} \\
+&& {\tt f} should by a Python lambda expression of a single variable && \\
+\hline
+\multirow{2}{*}{\LJ{using}}&21& $\TT{[s1*X1+s2*X2+} \cdots {\tt -> q1*X1+}\cdots\tt{, using["expr"]]}$ & $X_i' = q_i-s_i)X_i$ & \ref{section:USERST}\\
+&& {\tt expr} should be Python infix expression depending on variables defined in the model. &&
+\\
+\hline
+\end{tabular}
+
+\vspace{24pt}
+
+
+\end{scriptsize}
+%\end{table}
+
+
+
+
+\renewcommand{\arraystretch}{1.0}
+
+
+
+{\tt rates} is a keyword that varies with the type of arrow; typical keywords include {\tt MWC} (for Monod-Wyman-Changeaux); {\tt MMH} (for  Michaelis-Menten-Henri); {\tt Hill} (for Hill functions); and so forth. 
+
+{\it rate constants} is a list of symbols or numbers that give the rate constants or other parameters used in the reaction equation. The definition of these parameters is different for each type of reaction, and is described in the following sections and subsections. 
+
+%************************************************************************
+\section[Equations for Rates]{Substituting Equations for Rate Constants}
+\label{section:EARC}
+
+In any of the arrow expressions that follow in the remainder of the chapter, any rate constant may be replaced by any valid Python expression in quotation marks. Fore example, the hypothetical reaction
+
+\begin{verbatim}
+    [X -> Y, "v/(K+X)"]
+\end{verbatim}
+
+is perfectly valid. Since the reaction itself is written in the form of a mass action equation, the expression is treated as a rate constant $k$ and the odes are $\TT{[Y]}'==\TT{[X]}'=k\TT{[X]}$, where $k$ is to be replaced with the expression in quotes. It will thus produce the differential equation terms:
+\begin{align*}
+\TT{[Y]}' = -\TT{[X]}' = \dfrac{v \TT{[X]}}{K+\TT{[X]}}
+\end{align*}
+
+This allows users to define virtually any rate law in a reaction. 
+
+See also User Defined Regulatory Arrows in section \ref{subsection:USER} and User Defined Stoichiometric Arrows in section \ref{section:USERST}. User defined stoichiometric arrows will not multiply the expression by the mass-action product (the product of the species on the left, each raised to their individual stoichiometries), as this method will, but will retain a balance of stoichiometry, with the each reactant and product changing unless their stoichiometries are balanced. The user defined regulatory reactions, on the other hand, will  not generate any ODE terms for the reactants on the left-hand side of the arrow. 
+
+%************************************************************************
+\section{Indexed Species}
+
+An array index may be attached to a species variable using parenthesis as a delimiter, as in the following example:
+
+
+{\tt \hspace{.5in} [K(3,0) <=> K(3,1), mod[RAFK, RAFph], rates[a1,d1,k1,0,a2,d2,k2,0]]}
+
+The index may also be applied to a modifier variable, and within the initial condition section of the model file, e.g., 
+
+{\tt \hspace{.5in} K[3,0] = 0.7 }
+
+See the examples chapter (MAPK cascade with indexed stages) for an example. 
+
+\paragraph{Implementation Note:} When instantiated in the {\tt Reaction} class, the indices are expanded into the variable name, and separated with underscores e.g., {\tt K[i,j]} becomes {\tt K\_i\_j}; this variables are implemented in this expanded form in the solver and displayed this way on plots. 
+
+
+%************************************************************************
+\section[{\tt Nil} \& {\tt EmpytSet} Species] {The {\tt Nil} and {\tt EmptySet} Species}
+
+The species {\tt Nil} is used to represent the vacuum or the empty set. No ODE term is ever generated for the species {\tt Nil}. 
+
+The variable {\tt EmptySet} is predefined in Sympy and should not be used in models. If it is used in an SBML file it will be converted to {\tt Nil}. 
+
+
+For example, the reaction
+$$\TT{[Nil->A, k]}$$
+denotes creation and represents a special case of mass-action reaction, in which $A'=k$ (rather than $A'=k\times\tt{[Nil]}$ as it would be in any other reaction). 
+
+Similarly, the reaction
+$$\TT{[A->Nil, k]}$$
+represents destruction, and is treated normally for the species {\tt A}, but no differential equation term is generated for {\tt Nil}.
+%************************************************************************
+\section{Mass Action Arrows}
+
+\subsection{Simple Mass Action}
+\label{section:Simple-Mass-Action}
+
+\underline{{\tt pycellerator} Arrow}: \begin{center}
+\fbox{{\tt [X $->$ Y, k]}}
+\end{center}
+
+{\tt X, Y} are identifiers representing chemical species;  {\tt k} is either an identifier or a number representing a rate constant. 
+
+\underline{Equivalent {\tt xlr8r} Arrow}: \begin{center}
+{\tt \{X $\to$ Y, k\}}
+\end{center}
+
+\underline{Typical biochemical notation}: $$\text{X} \overset{k}{\to} \text{Y}$$
+
+\underline{Interpreted differential equation terms}: 
+\begin{align*}
+\dfrac{d\text{Y}}{dt} = 
+-\dfrac{d\text{X}}{dt} = k \text{X}
+\end{align*}
+
+
+
+\subsection{Simple Mass Action, with stoichiometry}
+\label{section:simple-mass-action-stoich}
+
+
+\underline{{\tt pycellerator} Arrows}: \begin{center}
+\fbox{{\tt [e1 X1 + e2 X2 + $\cdots ->$ s1 Y1 + s2 Y2 + $\cdots$ , k]}},
+
+\fbox{{\tt [e1 $*$ X1 + e2 $*$ X2 + $\cdots ->$ s1 $*$ Y1 + s2 $*$ Y2 + $\cdots$ , k]}}
+\end{center} 
+
+\underline{Species}: {\tt X1, X2, ...,  Y1,Y2, ...} are identifiers representing chemical species.
+
+\underline{Stoichiometry}: {\tt e1, e2, ..., s1, s2, ...} are either identifiers or numbers representing stoichiometries before and after the reaction. The multiplication symbols ($*$) are optional. 
+
+If any stoichiometry is an identifier, there must be either an $*$ or a blank space between it and the corresponding species identifier. If the stoichiometry is numerical the blank space is optional. For example {\tt 3X}, {\tt 3$*$X}, and {\tt 3\ X}, will all be treated as a species {\tt X} with stoichiometry 3, and  {\tt s H20} and {\tt s$*$H20} will both be interpreted as a species {\tt H20} with stoichiometry {\tt s}, whereas {\tt sH20} will be interpreted as a single species {\tt sH20} with a stoichiometry of 1. 
+
+
+\underline{Equivalent {\tt xlr8r} Arrow}: \begin{center}
+{\tt \{e1 X1 + e2 X2 + $\cdots$  $\to$ s1 Y1 + s2 Y2 + $\cdots$, k\}}
+\end{center}
+
+\underline{Typical biochemical notation}: $$e_1 \text{X}_1 + e_2 \text{X}_2 + \cdots \overset{k}{\to} s_1\text{Y}_1 + s_2\text{Y}_2 + \cdots$$
+
+\underline{Interpreted differential equation terms}: 
+\begin{align*}
+\dfrac{d\text{U}_i}{dt} &=
+(s_{i,r}-s_{i,l}) k \text{X}_1^{e_1} \text{X}_2^{e_2} \cdots
+\end{align*}
+where $s_{i,r}$ and $s_{i,l}$ are the stoichiometry of $\text{U}_i$ on the right-hand-side and left-hand-side of the reaction, respectively, and $\text{U}_i$ refers to any species either on either side of the equation (either an $\text{X}_i$ or a $\text{Y}_i$). The product is taken over all the terms on the left-hand-side of the reaction, each term raised to its respective stoichiometry (this is also known as the law of mass action).  
+
+
+\subsection{Simple Mass Action, Catalyzed}
+\label{section:simple-mass-action-cat}
+
+\underline{{\tt pycellerator} Arrows}: \begin{center}
+\fbox{{\tt [e1 A1 + e2 A2 + $\cdots -->$ s1 B1 + s2 B2 + $\cdots$, mod[X], k]}},
+
+\fbox{{\tt [e1 $*$ A1 + e2 $*$ A2 + $\cdots -->$ s1 $*$ B1 + s2 $*$ B2 + $\cdots$, mod[X], k]}}
+\end{center} 
+The stoichiometries are optional. Multiplication symbols ($*$) or spaces are optional if numerical stoichiometries are used, but are required if symbolic stoichiometries are used. 
+
+\underline{Equivalent {\tt xlr8r} Arrow}: 
+$$\tt\{e_1 A_1 + e_2 A_2 + \cdots \overset{X}{\to} s_1 B_1 + s_2 B_2 + \cdots, k\}$$
+
+\underline{Typical biochemical notation}: $$\tt{X + e_1 A_1 + e_2 A_2 + \cdots \overset{k}{\to} S + s_1 B_1 + s_2 B_2 + \cdots}$$
+
+\underline{Interpreted differential equation terms}: 
+The reaction is expanded into a single reaction of the form 
+
+ \begin{center}
+{\tt [X + e1 A1 + e2 A2 + $\cdots ->$ X + s1 B1 + s2 B2 + $\cdots$, mod[X], k]}
+\end{center} 
+as described in section \ref{section:simple-mass-action-stoich}.
+
+
+\subsection{Reversible Mass Action}
+\label{section:reversible-mass-action}
+
+
+\underline{{\tt pycellerator} Arrow}: \begin{center}
+\fbox{{\tt [e1 X1 + e2 X2 + $\cdots <->$ s1 Y1 + s2 Y2 + $\cdots$ , rates[k1,k2]]}} 
+\end{center}
+The stoichiometries are optional.
+
+\underline{Equivalent {\tt xlr8r} Arrow}: \begin{center}
+{\tt \{e1 X1 + e2 X2 + $\cdots$  $\rightleftarrows$ s1 Y1 + s2 Y2 + $\cdots$, k1, k2\}}
+\end{center}
+\underline{Typical biochemical notation}: $$e_1 \text{X}_1 + e_2 \text{X}_2 + \cdots \underset{k2}{\overset{k}{\rightleftarrows}} s_1\text{Y}_1 + s_2\text{Y}_2 + \cdots$$
+
+
+
+\underline{Interpreted differential equation terms}: 
+
+This arrow is reduced to the pair of simple mass action equations, as described in section \ref{section:simple-mass-action-stoich}: 
+
+\begin{center}
+{\tt [e1 X1 + e2 X2 + $\cdots ->$ s1 Y1 + s2 Y2 + $\cdots$ , k1]}\\
+{\tt [s1 Y1 + s2 Y2 + $\cdots ->$ e1 X1 + e2 X2 + $\cdots$  , k2]}
+\end{center}
+
+The contributions to the differential equations are then computed as described in section \ref{section:simple-mass-action-stoich}.
+
+\subsection{Catalytic Mass Action, Intermediate Substrate/Catalyst Complex Formation}
+\label{section:cat-mass-action}
+
+\underline{{\tt pycellerator} Arrow}: \begin{center}
+\fbox{\tt 
+[A => B, mod[X], rates[k1, k2, k3, k4]]
+} 
+\end{center}
+\underline{Equivalent {\tt xlr8r} Arrow}:
+$$\tt\{A \overset{X}{\rightleftarrows} B,k1,k2,k3,k4 \}$$
+
+\underline{Typical biochemical notation}: 
+$$ X+A\underset{k_2}{\overset{k_1}  \rightleftarrows } XA \underset{k_4}{ \overset{k_3}{\rightleftarrows}} X+B$$
+
+Typically {\tt k4} is omitted, in which case it is assumed to be zero. If fewer than four parameters are given they are zero-filled to the right. 
+
+This arrow is expanded into the following collection of simple mass action arrows as described in section \ref{section:simple-mass-action-stoich}:
+
+\begin{center}
+{\tt [X + A -> A\_X, k1]}\\
+{\tt [A\_X -> X + A, k2]}\\
+{\tt [A\_X -> X + B, k3]}\\
+{\tt [X + B -> B\_X, k4]}
+\end{center}
+
+The name of the intermediate complex is automatically generated by concatenating the names of the substrate and the catalyst with an underscore. The resulting contributions to the differential equations for {\tt [A], [B], [X]} and {\tt [X\_A]} in the above scheme are then: 
+
+\begin{align*}
+{\tt [A]}'&=k_2 {\tt [A\_X]} - k_1 {\tt [A][X]}\\
+{\tt [B]}'&=k_3 {\tt [A\_X]} -  k_4 {\tt [B][X]}\\
+{\tt [X]}'&=-k_1 {\tt [A][X]} + (k_2+k_3) {\tt [A\_X]}- k_4 {\tt [B][X]}\\
+{\tt [A\_X]}'&= k_1 {\tt [A][X]} - (k_2 + k_3) {\tt [A\_X]} + k_4 {\tt [B][X]}
+\end{align*}
+
+\subsection{Catalytic Mass Action, Intermediate Substrate/Catalyst Complex Formation, Reversible}
+\label{section:cat-mass-action-reversible}
+\underline{{\tt pycellerator} Arrow}: \begin{center}
+\fbox{\tt 
+[A <=> B, mod[X, Y], rates[k1, k2, k3, k4, k5, k6, k7, k8]]
+} 
+\end{center}
+
+If fewer than 8 rate constants are given they are zero-filled to the right. 
+
+\underline{Equivalent {\tt xlr8r} Arrow}:
+$$\tt\{A \underset{Y}{\overset{X}{\rightleftarrows}} B,k1,k2,k3,k4, k5, k6, k7, k8 \}$$
+
+\underline{Typical biochemical notation}: 
+$$ X+A\underset{k_2}{\overset{k_1}  \rightleftarrows } XA \underset{k_4}{ \overset{k_3}{\rightleftarrows}} X+B$$
+$$ Y+B\underset{k_6}{\overset{k_5}  \rightleftarrows }  YB \underset{k_8}{ \overset{k_7}{\rightleftarrows}} Y+A$$
+
+When computing the differential equation contribution, this arrow is expanded into the following pair of catalytic mass action reactions with intermediate complex formation, as described in section \ref{section:cat-mass-action}: 
+\begin{center}
+{\tt [A => B, mod[X], rates[k1, k2, k3, k4]]}\\
+{\tt [B => A, mod[Y], rates[k5, k6, k7, k8]]}
+\end{center}
+These reactions are subsequently broken down in simple mass action reactions as described in section \ref{section:simple-mass-action-stoich}. 
+\begin{center}
+{\tt [A+X->A\_X,k1]}\\
+{\tt [A\_X->A+X,k2]}\\
+{\tt [A\_X->B+X,k3]}\\
+{\tt [B+X->A\_X,k4]}\\
+{\tt [B+Y->B\_Y,k5]}\\
+{\tt [B\_Y->B+Y,k6]}\\
+{\tt [B\_Y->A+Y,k7]}\\
+{\tt [A+Y->B\_Y,k8]}
+\end{center}
+The contributions to the ODE are computed as described based on these reduced reactions, as described in \ref{section:simple-mass-action-stoich}: 
+\begin{align*}
+{\tt [A]}'    &=  k_2{\tt [A\_X]} + k_7{\tt [B\_Y]} - A*X*k1 - A*Y*k8\\
+{\tt [B]}'    &=  k_3{\tt [A\_X]} + k_6{\tt [B\_Y]} - B*X*k4 - B*Y*k5\\
+{\tt [A\_X]}' &= -(k_2+k_3){\tt [A\_X]} + k_1{\tt [A][X]} + k_4{\tt [B][X]}\\
+{\tt [B\_Y]}' &= -(k_6+k_7){\tt [B\_Y]} + k_8{\tt [A][Y]} + k_5{\tt [B][Y]}\\
+{\tt [Y]}'    &=  (k_6+k_7){\tt [B\_Y]} - k_8{\tt [A][Y]} - k_5{\tt [B][Y]}\\
+{\tt [X]}   ' &=  (k_2+k_3){\tt [A\_X]} - k_8{\tt [A][X]} - k_4{\tt [B][X]}
+\end{align*}
+
+
+\subsection{Catalytic Mass Action with Substrate/Enzyme and Product/Enzyme Intermediate Complexes}
+\label{section:cat-mass-action-two-complex}
+\underline{{\tt pycellerator} Arrow}: \begin{center}
+\fbox{\tt 
+[A :=> B, mod[X], rates[k1, k2, k3, k4, k5, k6]]
+} 
+\end{center}
+
+\underline{Equivalent {\tt xlr8r} Arrow}:
+$$\tt\{A \overset{X}{\rightleftharpoons} B,k1,k2,\dots,k6 \}$$
+
+\underline{Typical biochemical notation}:
+$$ A+X\underset{k_2}{\overset{k_1}  \rightleftarrows } AX \underset{k_4}{ \overset{k_3}{\rightleftarrows} } BX \underset{k_6}{\overset{k_5}{\rightleftarrows}} B+X$$
+
+
+\underline{Interpreted differential equation terms}:
+This arrow is expanded into the following collection of simple mass action arrows as described in section \ref{section:simple-mass-action-stoich}:
+\begin{center}
+{\tt [A+X->A\_X,k1]}\\
+{\tt [A\_X->A+X,k2]}\\
+{\tt [A\_X->B\_X,k3]}\\
+{\tt [B\_X->A\_X\,k4]}\\
+{\tt [B\_X->B+X,k5]}\\
+{\tt [B+X->B\_X,k6]}
+\end{center}
+These are then converted into terms in the differential equations as described above in \ref{section:simple-mass-action-stoich}:
+\begin{align*}
+{\tt [A]'}    &= k_2{\tt [A\_X]} - k_1 {\tt [A][X]}\\
+{\tt [X]'}    &= k_2{\tt [A\_X]} + k_5 {\tt [B\_X]} - k_1 {\tt [A][X]} - k_6 {\tt [B][X]}\\
+{\tt [B]'}    &= k_5{\tt [B\_X]} - k_6 {\tt [B][X]}\\
+{\tt [B\_X]'} &= k_3{\tt [A\_X]} - (k_4+k_5) {\tt [B\_X]} + k_6 {\tt [B][X]}\\
+{\tt [A\_X]'} &= k_4{\tt [B\_X]} - (k_2+k3_) {\tt [A\_X]} + k_1 {\tt [A][X]}
+\end{align*}
+
+
+
+\section{Equilibrium / Steady-State Models}
+\subsection{Michaelis-Menten-Henri (MMH) Reactions }
+\label{subsection:MMH}
+\underline{{\tt pycellerator} Arrows}:
+%\begin{center}
+%\begin{minipage}{3in}
+\begin{align}
+&\boxed{\text {\tt [A :-> B, MMH[K, v]]}}\label{eq:MM1}\\
+&\boxed{\text {\tt [A :-> B, MMH[k1, k2, k3]]}}\label{eq:MM2}\\
+&\boxed{\text {\tt [A :-> B, mod[X], MMH[K, v]]}} \label{eq:MM3}\\
+&\boxed{\text {\tt [A :-> B, mod[X], MMH[k1, k2, k3]]}}\label{eq:MM4}
+\end{align}
+%\end{minipage}
+%\end{center}
+
+\underline{Equivalent {\tt xlr8r} Arrow}: 
+\begin{align*}
+\{ {\tt A} &\implies {\tt B, MM[K,v]}\} \\
+\{ {\tt A} &\implies {\tt B, MM[k1, k2, k3]}\} \\
+\{ {\tt A} &\overset{\tt X}{\implies} {\tt B, MM[K,v]}\}\\
+\{ {\tt A} &\overset{\tt X}{\implies} {\tt B, MM[k1, k2, k3]}\}
+\end{align*}
+
+
+\underline{Typical Biochemical Notation}: 
+
+Non-standard. 
+
+\underline{Interpreted Differential Equation}:
+
+\begin{align*}
+{\tt[B]'} &= -{\tt[A]'} = \dfrac{v{\tt[A]}}{K+{\tt[A]}} &\text{for \ref{eq:MM1}}\\
+{\tt[B]'} &= -{\tt[A]'} = \dfrac{k_3 {\tt[A]}}{(k_2+k_3)/k_1+{\tt[A]}} &\text{for \ref{eq:MM2}}\\
+{\tt[B]'} &= -{\tt[A]'} = \dfrac{v{\tt[A][X]}}{K+{\tt[A]}} &\text{for \ref{eq:MM3}}\\
+{\tt[B]'} &= -{\tt[A]'} = \dfrac{k_3{\tt[A][X]}}{(k_2+k_3)/k_1+{\tt[A]}} &\text{for \ref{eq:MM4}}
+\end{align*}
+
+\subsection{Monod-Wyman-Changeaux (MWC) Reactions}
+\label{subsection:MWC}
+\underline{{\tt pycellerator} Arrows}:
+\begin{align}
+&\boxed{\text{\tt[S==>P,mod[E],MWC[k,n,c,L,K]]}} \label{eq:MWC1}\\
+&\boxed{\text{\tt[[S1,S2,..]==>P,mod[E,[A1,A2,..],[I1,I2,..]],MWC[k,n,c,L,},K_1\text{\tt]]}} \label{eq:MWC2}\\\
+&\text{where }K_1 = \TT{[K}_{\TT{S1}}\TT{,K}_{\TT{S2}}\TT{,..],[K}_{\TT{A1}}\TT{,K}_{\TT{A2}}\TT{,..],[K}_{\TT{I1}}\TT{,K}_{\TT{I2}}\TT{,..]}\\
+&\boxed{
+\text{\tt[[S1,S2,..]==>P},\text{\tt mod[E,[A1,A1,..],[I1,I2,..],}X \text{\tt],} \text{\tt MWC[k,n,c,L,}K_2\text{\tt]]}
+} \label{eq:MWC3}\\
+&\text{where }
+X = \overbrace{\TT{[CS}_{11}\TT{,CS}_{12}\TT{,..]}}^{\text{{\tt S1} inhibitors}} \TT{,}
+    \overbrace{\TT{[CS}_{21}\TT{,CS}_{22}\TT{,..]}}^{\text{{\tt S2} inhibitors}} \TT{,..,}\nonumber\\&\hspace{1in}
+    \underbrace{\TT{[CA}_{11}\TT{,CA}_{12}\TT{,..]}}_{\text{{\tt A1} inhibitors}} \TT{,}
+    \underbrace{\TT{[CA}_{21}\TT{,CA}_{22}\TT{,..]}}_{\text{{\tt A2} inhibitors}}  \TT{,..}\\&\hspace{1in}
+\text{are competitive inhibitors, and, } \nonumber\\
+&\text{where }K_2 = \TT{[K}_{\TT{S1}}\TT{,K}_{\TT{S2}}\TT{,..],[K}_{\TT{A1}}\TT{,K}_{\TT{A2}}\TT{,..],[K}_{\TT{I1}}\TT{,K}_{\TT{I2}}\TT{,..],..}\nonumber\\
+&\hspace{1in}\TT{[K}_{\TT{CS11}} \TT{,K}_{\TT{CS12}}\TT{,..],[K}_{\TT{CS21}}\TT{, K}_{\TT{CS22}}\TT{,..]..}\nonumber \\
+&\hspace{1in}\TT{[K}_{\TT{CA11}}\TT{,K}_{\TT{CA12}}\TT{,..],[K}_{\TT{CA21}}\TT{,K}_{\TT{CA22}}\TT{,..],..}
+\end{align}
+
+\underline{Equivalent {\tt xlr8r} Arrow}: 
+\begin{align*}
+&\TT{\{S} \overset{\TT{Enz}}{\implies} \TT{P, MWC[k,n,c,L,K]} \TT{\}}&\text{(for \eqref{eq:MWC1})}\\
+&\TT{\{} \underset{\text{\tt \{\{A1,A2,..,\},\{I1,I2,..\}\} }}{ {\TT{S} \overset{\TT{Enz}}{\implies} \TT{P}}} \TT{, MWC[k,n,c,L,K,..]} \TT{\}}&\text{(for \eqref{eq:MWC2})}\\
+&\TT{\{} \underset{\text{\tt \{\{A1,A2,..,\},\{I1,I2,..\},\{CS1,..\},..,\{CA1,..\},..\} }}{ {\TT{S} \overset{\TT{Enz}}{\implies} \TT{P}}} \TT{, MWC[k,n,c,L,K,..]} \TT{\}}&\text{(for \eqref{eq:MWC3})}
+\end{align*}
+
+\underline{Typical Biochemical Notation}: 
+
+Not standardized. 
+
+\underline{Interpreted Differential Equation}:
+
+The ODE terms for equation \eqref{eq:MWC1} are based on the theory of \cite{MWC}. Let $c=\TT{[S]/K}$. Then 
+
+\begin{align*}
+\TT{[P]}' = -\TT{[S]}' &= \TT{[E]}\dfrac{{s \left(1 + s\right)^{n-1}} + {L s c \left(1 + s c\right)^{n-1}}}
+              {\left(1 + s\right)^{n} + L \left(1 + {s c}\right)^{n-1}}
+              &\text{ for \eqref{eq:MWC1}}
+\end{align*}
+The terms for reactions \eqref{eq:MWC2} and \eqref{eq:MWC3} are described in \cite{GMWC}. For the first arrow, let 
+\begin{align*}
+s_j = \dfrac{\TT{[S]}_j}{\TT{K}_{\TT{S}j}}, 
+a_j = \dfrac{\TT{[A]}_j}{\TT{K}_{\TT{a}j}}, 
+i_j = \dfrac{\TT{[I]}_j}{\TT{K}_{\TT{I}j}}
+\end{align*}
+Then
+\begin{align*}
+\TT{[P]}' = -\TT{[S]}' &= \TT{[E]}\dfrac{
+{\prod(1+a_j)^n \prod s_j \prod(1 + s_j)^{n-1}} + {L \prod(1+i_j)^n \prod (cs_j ) \prod (1 + c s_j)^{n-1}}}
+              {\prod(1+a_j)^n\prod (1 + s_j)^{n} + L \prod(1+i_j)^n\prod(1 + {c s_j})^{n-1}}
+              &\text{ for \eqref{eq:MWC2}}
+\end{align*}
+For \eqref{eq:MWC3} we can also normalize the competitive inhibitors as
+\begin{align*}
+&\overline{s_j} = c \sum_k \dfrac{\TT{[CS]}_{jk}}{\TT{K}_{\TT{CS}jk}},\hspace{.5in}
+\overline{a_j} = c \sum_k \dfrac{\TT{[CA]}_{jk}}{\TT{K}_{\TT{CA}jk}}\\
+\end{align*}
+and then
+\begin{align*}
+\TT{[P]}' &= -\TT{[S]}' \\
+&= \TT{[E]}\dfrac{
+{\prod(1+a_j\overline{a_j})^n \prod s_j \prod(1 + s_j+\overline{s_j})^{n-1}} + {L \prod(1+i_j)^n \prod (cs_j ) \prod (1 + c s_j + \overline{sj})^{n-1}}}
+              {\prod(1+a_j+\overline{a_j})^n\prod (1 + s_j)^{n} + L \prod(1+i_j)^n\prod(1 + {c s_j} + \overline{s_j})^{n-1}}
+              &\text{ for \eqref{eq:MWC3}}
+\end{align*}
+
+ 
+\subsection{Non-regulatory Hill Functions}
+These are described below in section \ref{section:Hill}.
+
+\section{Regulatory Arrows}
+\subsection{Hill Functions}
+\label{section:Hill}
+\underline{{\tt pycellerator} Arrows}:
+\begin{align}
+&\boxed{\text {\tt [A |-> B, Hill[v, n, K, a, T]]}}\label{eq:Hill1}\\
+&\boxed{\text {\tt [[P,Q,...] |-> R, Hill[v, n, K, a, [TP,TQ,...]]]}}\label{eq:Hill2}\\
+&\boxed{\text {\tt [[X,Y,Z,...] |--> U, mod[E], Hill[v, n, K, a, [TX,TY, TZ,...]]]}}\label{eq:Hill3}
+\end{align}
+
+Note that the third form \eqref{eq:Hill3} is not actually a regulatory arrow, as each of the species on the left is also affected by the arrow. 
+
+\underline{Equivalent {\tt xlr8r} Arrows}: 
+\begin{align*}
+& \{{\tt A} \mapsto {\tt B}, \text{\tt Hill[v, n, K, a, T]}\} & \text{for \ref{eq:Hill1}}\\
+& \{\{{\tt P, Q, \dots}\} \mapsto {\tt R}, \text{\tt Hill[v, n, K, a, \{TP, TQ, \dots\}]}\} & \text{for \ref{eq:Hill2}}\\
+& \{\{{\tt X, Y, Z, \dots }\} \overset{\tt E}{\mapsto} {\tt U}, \text{\tt Hill[v, n, K, a, \{TX, TY, TZ, \dots\}]}\} & \text{for \ref{eq:Hill3}}\\
+\end{align*}
+\underline{Typical Biochemical Notation}: 
+
+Not standardized.
+
+\underline{Interpreted Differential Equation}:
+
+For \eqref{eq:Hill1} and \eqref{eq:Hill2} only the amount of the product changes, and not the amount of any of the reactants on the left-hand-side of the reaction:
+
+\begin{align}
+&{\tt [B]'}= \dfrac{v  ( a + T {\tt [A]} )^n}{K^n + (a+T{\tt [A]})^n} & \text{for \ref{eq:Hill1}}\\
+&{\tt [R]'}= \dfrac{v  (a + T_P{\tt [P]} + T_Q{\tt [Q]} + \cdots)^n}{K^n + (a + T_P{\tt [P]} + T_Q{\tt [Q]} + \cdots)^n} & \text{for \ref{eq:Hill2}}\\
+&{\tt [U]'}= \dfrac{v {\tt [E]} ( a + T_X{\tt [X]} + T_Y{\tt [Y]}+ \cdots )^n}{K^n + (a + T_X{\tt [X]} + T_Y{\tt [Y]} + \cdots)^n} & \text{for \ref{eq:Hill3}}
+\end{align}
+
+For the third form \eqref{eq:Hill3}, the products on the left all change also, 
+
+\begin{align}
+&{\tt [X]'}={\tt[Y]'}=\cdots =  -\dfrac{v {\tt [E]} ( a + T_X{\tt [X]} + T_Y{\tt [Y]}+ \cdots )^n}{K^n + (a + T_X{\tt [X]} + T_Y{\tt [Y]} + \cdots)^n} & \text{for \ref{eq:Hill3} only}
+\end{align}
+
+
+\underline{Difference from {\tt xlr8r}}: In {\tt xlr8r} the combination of arrows
+\begin{equation}
+\begin{split}
+\{ & \{ {\tt A1} \mapsto {\tt B}, {\tt Hill[v, n, K, a, T1]}\}, \\
+   & \{ {\tt A2} \mapsto {\tt B}, {\tt Hill[v, n, K, a, T2]}\}, \\
+   & \{ {\tt A3} \mapsto {\tt B}, {\tt Hill[v, n, K, a, T3]}\},    
+   \dots \}
+\end{split}
+\end{equation}
+will be given ODE terms
+\begin{equation}\label{eq:Hill-old-union}
+{\tt [B]'} = \dfrac{v  ( a + T_1 {\tt [A1]} +T_2 {\tt [A2]} + T_3 {\tt [A3]} + \cdots )^n}{K^n + (a + T_1 {\tt [A1]} +T_2 {\tt [A2]} + T_3 {\tt [A3]} + \cdots )^n}
+\end{equation}
+whereas in {\tt pycellerator} it will be interpreted as:
+\begin{equation} \label{eq:Hill-non-union}
+{\tt [B]'} = \dfrac{v  ( a +T_1 {\tt [A1]})^n}{K^n + (a+ T_1 {\tt [A1]}^n}
+           + \dfrac{v  ( a+ T_2 {\tt [A2]})^n}{K^n + (a+T_2 {\tt [A2]})^n} 
+           + \dfrac{v  ( a +T_3 {\tt [A3]})^n}{K^n + (a+ T_3 {\tt [A3]})^n}
+\end{equation}
+To get an interpretation of the form \eqref{eq:Hill-old-union} one must use the arrow form \eqref{eq:Hill2}. Unfortunately, it is not possible to represent equations of the form given by \eqref{eq:Hill-non-union} in {\tt xlr8r}, even though such combinations are frequently used in the modeling literature, unless the user explicitly coded the equation as part of the rate constant. This is the motivation for the change in {\tt pycellerator}. 
+
+
+
+\subsection{GRN Arrows}
+\label{section:GRN}
+\underline{{\tt pycellerator} Arrows}:
+\begin{align}
+&\boxed{\text {\tt [A |-> B, GRN[v, T, n, h]]}}\label{eq:GRN1}\\
+&\boxed{\text {\tt [[P,Q,...] |-> R, GRN[v, [TP,TQ,...], n, h]]}}\label{eq:GRN2}\\
+&\boxed{\text {\tt [[X,Y,...] |--> U, mod[E], GRN[v, [TX,TY,...], n, h]]}}\label{eq:GRN3}
+\end{align}
+
+\underline{Equivalent {\tt xlr8r} Arrow}: 
+\begin{align*}
+& \{{\tt A} \mapsto {\tt B}, \text{\tt GRN[v,T,n,h]}\} & \text{for \ref{eq:GRN1}}\\
+& \{\{{\tt P, Q, \dots}\} \mapsto {\tt R}, \text{\tt GRN[v, \{TP, TQ, \dots\},n,h]}\} & \text{for \ref{eq:GRN2}}\\
+& \{\{{\tt X, Y, \dots }\} \overset{\tt E}{\mapsto} {\tt U}, \text{\tt GRN[v,  \{TX, TY, \dots\},n,h]}\} & \text{for \ref{eq:GRN3}}\\
+\end{align*}
+
+Note that the third form of this arrow, \ref{eq:GRN3}, is not actually implemented in {\tt xlr8r}, only proposed.
+
+
+\underline{Typical Biochemical Notation}: 
+
+Not standardized.
+
+\underline{Interpreted Differential Equation}:
+\begin{align}
+\text{\tt[B]'} &= \dfrac{v}{1+\exp(-h-T\text{\tt [A]}^n)} & \text{for \eqref{eq:GRN1}}\\
+\text{\tt[R]'} &= \dfrac{v}{1+\exp(-h-T_P \text{\tt [P]}^n - T_Q \text{\tt [Q]}^n + \cdots )} &\text{ for \eqref{eq:GRN2}}\\
+\text{\tt[U]'} &= \dfrac{v}{1+\exp(-h-T_X \text{\tt [X]}^n - T_Y \text{\tt [Y]}^n + \cdots )} &\text{ for \eqref{eq:GRN3}}
+\end{align}
+
+\underline{Difference from {\tt xlr8r}}: In {\tt xlr8r} the combination of arrows
+\begin{equation}
+\begin{split}
+\{ & \{ {\tt A1} \mapsto {\tt B}, {\tt GRN[v, T1, n, h]}\}, \\
+   & \{ {\tt A2} \mapsto {\tt B}, {\tt GRN[v, T2, n, h]}\}, \\
+   & \{ {\tt A3} \mapsto {\tt B}, {\tt GRN[v, T2, n, h]}\},    
+   \dots \}
+\end{split}
+\end{equation}
+will be given ODE terms
+\begin{equation}\label{eq:GRNUnion}
+\text{\tt [B]'} = \dfrac{v}{1+\exp\left(-h - T_1 \text{\tt [A1]}^n - T_2 \text{\tt [A2]}^n - \cdots \right)}
+\end{equation}
+whereas in {\tt pycellerator} it will be given the ODE
+\begin{equation*}
+\text{\tt [B]'} = \dfrac{v}{1+\exp\left(-h - T_1 \text{\tt [A1]}^n  \right)}
++  \dfrac{v}{1+\exp\left(-h - T_2 \text{\tt [A2]}^n  \right)} + \cdots 
+\end{equation*}
+The version given by equation \eqref{eq:GRNUnion} can still be obtained by using the arrow form $\text{\tt[[A1,A2,..]|-->B]}$
+
+
+\subsection{S-Systems}
+\label{section:SSystem}
+\underline{{\tt pycellerator} Arrows}:
+\begin{align}
+&\boxed{\TT{[S |-> P, SSystem[tau, a, b, g, h]]}} \label{eq:SSystem1}\\
+&\boxed{\TT{[[S1,S2,..] |-> P, SSystem[tau, a, b, [g1,g2,..], [h1,h2,..]]}} \label{eq:SSystem2}
+\end{align}
+
+
+\underline{Equivalent {\tt xlr8r} Arrow}: 
+\begin{align*}
+&\TT{\{S}{\mapsto}\TT{P, } \TT{SSystem[tau,a,b,g,h]}\} & \text{for \eqref{eq:SSystem1}}\\
+&\TT{\{S1,S2,..}{\mapsto}\TT{P, } \TT{SSystem[tau,a,b,\{g1,g2,..\},\{g1,h2,..\}]}\}&\text{for \eqref{eq:SSystem2}}
+\end{align*}
+
+
+
+\underline{Typical Biochemical Notation}: 
+
+Not standardized.
+
+\underline{Interpreted Differential Equation}:
+\begin{align}
+&\TT{[P]'}=\dfrac{1}{\tau}(a\TT{[S]}^g-b\TT{[S]}^h)&\text{for \eqref{eq:SSystem1}}\\
+&\TT{[P]'}=\dfrac{1}{\tau}(a\prod_i\TT{[Si]}_i^{g_i}-b\prod_i\TT{[S]}_i^{h_i})&\text{for \eqref{eq:SSystem2}}
+\end{align}
+
+S-System reactions are numerically unstable when any $\TT{[S]}_i\to 0$ if the corresponding $g_i < 0$, because this would lead to a division by zero condition. The numerical ``trick'' that is used to fix this is to set concentrations to a small number $\epsilon$ rather than $0$ in this case. The default value for $\epsilon$ is $10^{-37}$ but may be reset in the solver module with the keyword {\tt -epsilon \textit{value}}. 
+
+This reaction is described in detail in \cite{SSYS1, SSYS2}.
+
+\subsection{NHCA}
+\label{section:NHCA}
+\underline{{\tt pycellerator} Arrows}:
+\begin{align}
+&\boxed{\TT{[A |-> B, mod[X], NHCA[v,TP,TM,n,m,k]]}} \label{eq:NHCA1} \\
+&\boxed{\TT{[[A1,A2,..] |-> B, mod[X], NHCA[v,[TP1,..],[TM1,..],[n1,..],m,k]]}} \label{eq:NHCA2}
+\end{align}
+
+
+\underline{Equivalent {\tt xlr8r} Arrow}: 
+\begin{align*}
+&\TT{\{A}\overset{\TT{X}}{\mapsto}\TT{B, } \TT{NHCA[v,\{TP,TM\},n,m,k]}\} &\text{for \eqref{eq:NHCA1}}\\
+&\TT{\{\{A1,A2,..\}}\overset{\TT{X}}{\mapsto}\TT{B, } \TT{NHCA[v,\{\{TP1,TP2,..\},\{TM1,TM2,..\}\},\{n1,n2,..\},m,k]}\}&\text{for \eqref{eq:NHCA2}}
+\end{align*}
+
+Note that the second form, \eqref{eq:NHCA2}, is not actually implemented in {\tt xlr8r}, only proposed. 
+
+\underline{Typical Biochemical Notation}: 
+
+Not standardized.
+
+\underline{Interpreted Differential Equation}:
+
+This reaction is described in more detail in \cite{ICSB2001}.
+
+\begin{align*}
+\TT{[B]}'&=v\TT{[E]}\dfrac
+{(1+T_P \TT{[A]}^{n})^{m}}
+{k(1+T_M\TT{[A]}^n)^{m} + (1+T_P\TT{[A]}^n)^{m}}
+&\text{ for \eqref{eq:NHCA1}}
+\\
+\TT{[B]}'&=v\TT{[E]}\dfrac
+{\prod_i(1+T_{Pi} \TT{[A]}_i^{n_i})^{m}}
+{k\prod_i (1+T_{Mi}\TT{[A]}_i^{n_i})^{m} + \prod_i(1+T_{Pi}\TT{[A]}_i^{n_i})^{m}}
+&\text{ for \eqref{eq:NHCA2}}
+\end{align*}
+
+\subsection{Rational Functions}
+\label{subsection:Rational}
+\underline{{\tt pycellerator} Arrows}:
+\begin{align*}
+{\text{\tt[[[X1,X2,..],[Y1,Y2,..]]]==>Z, rational[}}&{\text{\tt[a0,a1,a2,...],}}\\
+&{\text{\tt[d0,d1,d2,...],}}\\
+&{\text{\tt[m0,m1,m2,...],}}\\
+&{\text{\tt[n0,n1,n2,...]]]}}
+\end{align*}
+
+As with {\tt xlr8r}, any of the input species may represent a product, for example, 
+\begin{align*}
+\TT{[[[O*S,O*S*N],}&\TT{[O,O*S,O*S*N,O*G]] ==>N},\\
+&\TT{ rational[[e0,e1,e2],[1,f0,f1,f2,f3],[],[]]]}
+\end{align*}
+The asterisks must be specified between the species if the product-form is used.
+
+\underline{Equivalent {\tt xlr8r} Arrow}: 
+\begin{align*}
+{\text{\tt\{\{\{X1,X2,..\},\{Y1,Y2,..\}\}\}}}\implies{\text{\tt Z, rational\{}}&{\text{\tt\{a0,a1,a2,...\},}}\\
+&{\text{\tt\{d0,d1,d2,...\},}}\\
+&{\text{\tt\{m1,m2,...\},}}\\
+&{\text{\tt\{n1,n2,...\}\}\}}}
+\end{align*}
+
+
+\underline{Typical Biochemical Notation}: 
+
+Not standardized.
+
+\underline{Interpreted Differential Equation}:
+For the input reaction
+\begin{center}
+{\tt [[[X1,X2,X3,\dots], [Y1,Y2,\dots]]==>Z, rational[[a0,a1,a2,a3], [d0,d1,d2,d3],[m0,m1,m2,m3],[n0,n1,n2,n3]]]}
+\end{center}
+the ODE term produced is: 
+\begin{equation*}
+{\tt [Z]'} = 
+\dfrac{a_0^{m_0} + a_1{\tt [X1]}^{m_1} + a_2{\tt [X2]}^{m_2} + a_3{\tt [X3]}^{m_2} + \cdots}
+{d_0^{n_0} + d_1{\tt {[Y1]}}^{n_1} + d_2{\tt [Y2]}^{n_2} + d_3{\tt [Y3]}^{n_3}+ \cdots}
+\end{equation*}
+
+\underline{Difference From {\tt xlr8r}}: In {\tt pycellerator} the first value in each list of exponents is applied to the leading constants, rather than to the first parameter, so that {\tt pycellerator} expects the same number of exponents as coefficients. In {\tt xlr8r} there is no way to specify an exponent on the first coefficient, and {\tt xlr8r} expects one fewer exponents than coefficients. Thus {\tt xlr8r } would ignore the extra exponents and interpret the above reaction as follows: 
+
+\begin{equation*}
+{\tt [Z]'} = 
+\dfrac{a_0 + a_1{\tt [X1]}^{m_0} + a_2{\tt [X2]}^{m_1} + a_3{\tt [X3]}^{m_2} + \cdots}
+{d_0 + d_1{\tt [Y1]}^{n_0} + d_2{\tt [Y2]}^{n_1} + d_3{\tt [Y3]}^{n_2}+ \cdots}
+\end{equation*}
+
+\subsection{User Defined Regulatory Arrows}
+
+
+\label{subsection:USER}
+\underline{{\tt pycellerator} Arrows}:
+\begin{align}
+& \fbox{\TT{[A |-> B, USER[v, T, n, h, f]]}} \label{eq:USERArrow1}\\
+& \fbox{\TT{[[P1,P2,...]|->  Q, USER[v, T, n, h, f]]}} \label{eq:USERArrow2} \\
+& \fbox{\TT{[[X1,X2,...]|--> Y, mod[E], USER[v, T, n, h, f]]}} \label{eq:USERArrow3}
+\end{align}
+In \eqref{eq:USERArrow2} and \eqref{eq:USERArrow3} the expressions for {\tt T} and {\tt n} may be either single symbols, numbers, or lists of length up to the length of the number of reactants on the left-hand side of the arrow. If there are fewer values, the list will be extended with the final value provided (the rightmost value). 
+
+In each case, the function {\tt f} must be a valid Python {\tt lambda} expression of a single variable, enclosed in quotation marks. For example, 
+\begin{equation}
+\TT{ [[P,Q] |-> R, USER[v, T, n, h, "lambda x: 1/(1+exp(-x))"]]}\label{eq:UserExample}
+\end{equation}
+represents a {\tt USER} equivalent version of the standard GRN reaction. 
+
+
+\underline{Equivalent {\tt xlr8r} Arrow}: 
+\begin{align*}
+& \TT{\{A} \mapsto \TT{ B, USER[v, T, n, h, f]\}}            &\text{(for \eqref{eq:USERArrow1})}\\
+& \TT{\{\{P1,P2,...\}} \mapsto \TT{  Q, USER[v, T, n, h, f]\}} &\text{(for \eqref{eq:USERArrow2})}
+\end{align*}
+The equivalent of \eqref{eq:UserExample} is 
+\begin{equation*}
+\TT{ \{\{P,Q\}} \mapsto \TT{ R, USER[v, T, n, h, 1/(1+Exp[\#])\&]\}}
+\end{equation*}
+
+In {\tt xlr8r} there is no equivalent reaction for \eqref{eq:USERArrow3}. 
+
+\underline{Typical Biochemical Notation}: 
+
+Not standardized.
+
+\underline{Interpreted Differential Equation}:
+For the input reaction \eqref{eq:USERArrow1}, 
+\begin{align*}
+&\TT{[B]}' = \TT{v} f(\TT{h}-\TT{T} \TT{[A]}^{\TT{n}}) &\text{(for \eqref{eq:USERArrow1})}\\
+&\TT{[Q]}' = \TT{v} f(\TT{h}-\TT{T}_1 \TT{[P1]}^{\TT{n}_1}-\TT{T}_2 \TT{[P2]}^{\TT{n}_2}-\cdots) &\text{(for \eqref{eq:USERArrow2})}\\
+&\TT{[Y]}' = \TT{v[E]} f(\TT{h}-\TT{T}_1 \TT{[X1]}^{\TT{n}_1}-\TT{T}_2 \TT{[X2]}^{\TT{n}_2}-\cdots) &\text{(for \eqref{eq:USERArrow3})}
+\end{align*}
+
+\underline{Difference From {\tt xlr8r}}:
+
+In {\tt pycellerator} the head of the rate list must be the word {\tt USER}; in {\tt xlr8r} it may be any symbol not otherwise assigned.
+
+In {\tt pycellerator} the function {\tt f} must be a Python {\tt lambda} expression. In {\tt xlr8r}, while a Mathematica lambda expression (otherwise known as a pure function, such as \verb.1/(1+Exp[#])&.) is permitted but it is not required, and the name of any previously defined function may be substituted. 
+
+\newpage
+
+\section{User Defined Stoichiometric Arrows}
+\label{section:USERST}
+
+\underline{{\tt pycellerator} Arrows}:
+\begin{align}
+& \fbox{\TT{[s1*A1+s2*A2+... -> q1*A1+q2*A2+..., using["}{\tt \textit{expression}}\TT{"]]}} \label{eq:USERSTArrow1}
+\end{align}
+where the {\tt s1,s2,..} and {\tt q1,q2,...} are (possibly zero) stoichiometries and {\tt "\textit{expression}"} is a valid mathematical expression expressed in syntactically correct python. It must be enclosed in quotation marks. The asterisks between the stoichiometries and the species in the reaction are optional. 
+
+\underline{Interpreted Differential Equation}:
+\begin{equation}
+\frac{d\TT{[X]}}{dt} = (\TT{qi}-\TT{si}) \times \text{(expression)}
+\end{equation}
+
+
+For example:
+\begin{align*}
+& {\TT{[B + 3S -> 4P + 5S, using["A*B**3"]]}} 
+\end{align*}
+returns the collection of ODE terms:
+\begin{align*}
+\TT{[P]}' &= 4\TT{[A][B]}^3\\
+\TT{[S]}' &= 2\TT{[A][B]}^3\\
+\TT{[B]}' &= -\TT{[A][B]}^3
+\end{align*}
+
+Compare with User Defined Regulatory Arrows (Section \ref{subsection:USER}) and Equations as Rate Constants (Section \ref{section:EARC}), which are similar but produce slightly different results. 
+
+\newpage
+
+\section{Cascades}
+
+Any mass action, catalytic mass action, MMH, Hill Function, GRN, S-System, or NHCA reaction can be written in a cascade as a single reaction. A \textbf{cascade} is defined as sequence of repeated reactions with the same arrow and the same rate constants. For example, the reactions
+\begin{verbatim}
+    [A => B, mod[E], rates[k1,k2,k3]]
+    [B => C, mod[F], rates[k1,k2,k3]]
+    [C => D, mod[G], rates[k1,k2,k3]]
+\end{verbatim}
+can be written as a single reaction cascade:
+\begin{verbatim}
+    [A => B => C => D, mod[E, F, G], rates[k1,k2,k3]] 
+\end{verbatim}
+Reactions without modifies can also be written as cascades:
+\begin{verbatim}
+    [P :-> Q :-> R, MMH[KD, v]]
+\end{verbatim}
+which represents the pair of reactions 
+\begin{verbatim}
+    [P :-> Q, MMH[KD, v]]
+    [Q :-> R, MMH[KD, v]]
+\end{verbatim}
+Note that if different rate constants are required at different states in the cascade, the reactions must be written separately, and not as part of a cascade.
+
+Different types of arrows cannot be combined together, thus a cascade cannot be written as \verb.A->B|->C. but must be written as two separate reactions. 
+
+An example of a model with a cascade is given by the MAP-Kinase model with oscillations in section \ref{section:MAPK}. 
+
+
+\section{Flux Arrows}
+Reactions that represent fluxes are a fundamentally different type of entity than reactions used in kinetic models, as described in theprevious sections. This is because {\tt Flux} reactions do not (necessarily) have a rate law (or ODE) associated with them, although they normally have a total rate, given by product of a velocity and a stoichiometry. 
+
+Normally a model will be composed \textbf{either} entirely of kinetic arrows \textbf{or} entirely of flux arrows. In the present implementation of {\tt pycellerator} one is not allowed to combine the two in a model.  The Mathematica implementation of {\tt xlr8r} does not support {\tt Flux} reactions at all (at the current time). 
+
+The format of a flux arrow is 
+\begin{equation}
+\TT{[ \textit{lhs}}\TT{->}\TT{\textit{rhs}},  \TT{Flux[\textit{low}<\textit{id}<\textit{up},\textit{obj},\textit{flux}] ]}
+\end{equation}
+where $\TTI{lhs}$ and $\TTI{rhs}$ are stoichiometric expressions such as $\TT{3A + B}$ or $\TT{X}$, and the other terms are defined in the following table:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+{\tt pycellerator} & COBRA SBML Variable & Description \\ \hline
+$\TTI{low}$ & {\tt LOWER\_BOUND} &  numerical lower bound or {\tt -inf} if unbounded\\
+$\TTI{up}$  & {\tt UPPER\_BOUND} &  numerical upper bound or {\tt inf} if unbounded\\
+$\TTI{id}$  & SBML reaction {\tt Id} & variable name used to refer to reaction flux\\
+$\TTI{obj}$ & {\tt OBJECTIVE\_COEFFICIENT} & Used to determine objective function\\
+&& component of \textbf{f} vector. \\
+$\TTI{flux}$ & {\tt FLUX\_VALUE} & Value to assign to flux. \\
+&& Not required to perform FBA optimization. \\
+&&Sometimes used for SBML L2.4 kinetic law.\\ \hline
+\end{tabular}
+\end{center}
+
+An example is 
+\begin{equation}
+\TT{[ES -> E + S, Flux[0 < v < 1, 1, 0]}
+\end{equation}
+
+Note that the ``less-than'' sign must be used, though the constraint interval is typically closed, and not open. In the case of equality, a constraint of the form 
+\begin{equation}
+{\tt 1 < v < 1}
+\end{equation}
+would be used to indicate a constraint meaning ${\tt v}=1$.
+
+Flux optimization will solve the linear programming problem 
+\begin{align}
+	\text{maximize}\hspace{5mm} & \mathbf{v^Tf}\\
+	\text{subject to} \hspace{5mm} & \mathbf{Nv=0}\\
+	\text{and}\hspace{5mm} & \TTI{low}_1 < v_1 < \TTI{up}_1\\
+	\text{and}\hspace{5mm} & \TTI{low}_2 < v_2 < \TTI{up}_2\\
+	&\vdots \nonumber
+\end{align}
+where \textbf{v} is the vector of fluxes $(v_1, v_2, \dots)^{\tt T}$, \textbf{N} is the stoichiometry matrix, and \textbf{f} is the vector of objective coefficients. 
+ 

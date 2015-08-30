@@ -1,0 +1,120 @@
+\documentclass[11pt,letterpaper]{book}
+\usepackage[latin1]{inputenc}
+\usepackage[margin=.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{multirow}
+\usepackage{rotating} 
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{scalefnt}
+\usepackage{datetime}
+\usepackage[toc,lof]{multitoc}
+\hypersetup{
+    %bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={py[xlr8r] User Reference Notes},    % title
+    pdfauthor={Bruce E Shapiro},     % author
+    pdfsubject={py[cellerator], pycellerator,  cellerator, python, ipython},   % subject of the document
+    pdfcreator={Math 370},   % creator of the document
+    pdfproducer={PDFLaTeX}, % producer of the document
+    pdfkeywords={py[cellerator], pycellerator, cellerator}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,          % color of internal links
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=blue           % color of external links
+}
+\title{
+\includegraphics[width=\textwidth]{pycellerator-logo.png}
+}
+\author{\Huge{Reference Notes}}
+\date{\href{mailto:bruce.e.shapiro@csun.edu}{bruce.e.shapiro@csun.edu} \\ Department of Mathematics\\California State University, Northridge\\\vspace{2ex}Revised: \today\ at \currenttime}
+
+
+\newcommand{\LJ}[1]{{
+\begin{minipage}{1in}
+\begin{flushleft}\textbf{#1}\end{flushleft}
+\end{minipage}
+}}
+\newcommand{\LM}[1]{{
+\begin{minipage}{2in}
+\begin{flushleft}{#1}\end{flushleft}
+\end{minipage}
+}}
+\newcommand{\LMM}[1]{{
+\begin{minipage}{3in}
+\begin{flushleft}{#1}\end{flushleft}
+\end{minipage}
+}}
+\newcommand{\TT}[1]{\ensuremath{\text{\tt{#1}}}}
+\newcommand{\TTI}[1]{\TT{\textit{#1}}}
+
+
+\usepackage{fancyvrb}
+
+\newcommand{\SW}[1]{\begin{sideways}{#1}\end{sideways}}
+
+\newenvironment{changemargin}[2]{%
+  \begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\leftmargin}{#1}%
+    \setlength{\rightmargin}{#2}%
+    \setlength{\listparindent}{\parindent}%
+    \setlength{\itemindent}{\parindent}%
+    \setlength{\parsep}{\parskip}%
+  }%
+  \item[]}{\end{list}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex}
+
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\include{CC}
+
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\tableofcontents
+
+\include{preface}
+
+\mainmatter
+
+\include{intro}
+
+\include{start}
+
+\include{arrows}
+
+\include{functions}
+
+\include{examples}
+
+
+\appendix
+
+\include{files}
+
+
+
+%\include{future}
+
+
+\include{GPL}
+
+\include{bib}
+
+\end{document}

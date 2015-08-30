@@ -1,0 +1,119 @@
+\documentclass[12pt,letterpaper,landscape]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[left=.75in,right=.75in,top=.5in,bottom=.5in]{geometry} 
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage{multirow}
+\author{B.E.Shapiro}
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{center}
+{\textbf{{ \tt py[xlr8r]} / {\tt Cellerator} Arrow Comparison }\footnote{Version 6, \today, BES}}
+\vspace{.25in}
+
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{{\tt Cellerator} Form} & \textbf{\tt{py[xlr8r]} format} & \textbf{Biochemical or ODE} & \textbf{Note} \\ \hline
+$\tt{\{S\to P, k\}}$ & 
+$[\tt S->P, rates[k]]$ & 
+$S\overset{k}{\to}P$ & a,f\\ \hline
+
+$\tt{\{S\overset{X}{\to} P,k\}}$ & 
+$[\tt S-->P, mod[X], rates[k]$] & 
+$S+X\overset{k}{\to}P+X$ & a,b,f \\\hline
+
+$\tt\{S \rightleftarrows P,k1,k2 \}$ &
+$[\tt S <->P, rates[k1,k2] ] $  & 
+$ S\underset{k2}{\overset{k1}  \rightleftarrows } P$ & f \\ \hline
+
+
+$\tt\{S \overset{X}{\rightleftarrows} P,k1,k2,k3 \}$ &
+$[\tt S=>P, mod[X], rates[k1,k2,k3] ] $ & 
+$ X+S\underset{k2}{\overset{k1}  \rightleftarrows } XS \overset{k3}{\to} X+P$ & b,f
+\\ \hline
+
+$\tt\{S \overset{X}{\rightleftarrows} P,k1,k2,k3,k4 \}$ &
+$[\tt S=>P, mod[X], rates[k1,k2,k3,k4] ]$ & 
+$ X+S\underset{k2}{\overset{k1}  \rightleftarrows } XS \underset{k4}{ \overset{k3}{\rightleftarrows}} X+P$ & b,f \\ \hline
+
+$\tt\{S \underset{Y}{\overset{X}{\rightleftarrows}} P,k1,k2,\dots,k8 \}$ &
+$[\tt S<=>P, mod[X,Y], rates[k1,k2,\dots,k8] ]$ &
+$
+\begin{array}{l}
+X+S\underset{k2}{\overset{k1}  \rightleftarrows } XS \underset{k4}{ \overset{k3}{\rightleftarrows}} X+P
+\\
+Y+P\underset{k6}{\overset{k5}  \rightleftarrows } YP \underset{k8}{ \overset{k7}{\rightleftarrows}} X+S
+\end{array}
+$
+&f\\\hline
+
+
+$\tt\{S \overset{X}{\rightleftharpoons} P,k1,k2,\dots,k6 \}$ &
+$[\tt S:=>P, mod[X], rates[k1,k2,\dots,k6] ] $ & 
+$ X+S\underset{k2}{\overset{k1}  \rightleftarrows } XS \underset{k4}{ \overset{k3}{\rightleftarrows} } XP \underset{k6}{\overset{k5}{\rightleftarrows}} X+P$
+&b,f \\ \hline 
+
+
+$\tt\{X\mapsto Y, ${\tt \textit {type}}$\tt [a1,a2,\dots, an]\}$&
+$[\tt X |-> Y,${\tt \textit{type}}$\tt [ a1, a2,\dots, an ]]$ &
+ {\tt \textit{type}} $\in$ \{ {\tt Hill}, {\tt GRN}, {\tt SSystem}, & e \\ \cline{1-2}
+
+$\tt\{X\overset{ E}{\mapsto} \tt Y,${\tt \textit{type}}${\tt [a1,a2,\dots, an]\}}$&
+$[\tt X |--> Y, mod[E], ${\tt \textit{type}}${\tt[a1, a2,\dots, an] ]} $ &
+  \hfill {\tt NHCA}, {\tt USER} \} & \\ \hline 
+
+$\tt\{X \implies Y, MM[\mathit{parameters}]\}$&
+$[\tt X :-> Y, MMH[\mathit{parameters}]] $& \multirow{2}{*}{MMH Equations, $\frac{S \mathcal{E} v_{\max
+   }}{K_M+S}$} & \multirow{2}{*}{c}\\ 
+
+\cline{1-2}
+$\tt\{X \overset{E}{\implies} Y, MM[\mathit{parameters}]\}$&
+$[\tt X :--> Y, mod[E],  MMH[\mathit{parameters}]]
+$&  & \\ \hline
+
+
+$\tt\left \{S \overset{E}{\implies} P, MWC[\rm \mathit{parameters}\tt ]  \right \} $&
+$[\tt S ==> P, mod[E], MWC[ \rm \mathit{parameters}]]$ 
+&  MWC: $\frac{k \mathcal{E} \left(c L
+   s (c s+1)^{n-1}+s
+   (s+1)^{n-1}\right)}{L (c
+   s+1)^n+(s+1)^n}$&d\\ \cline{1-2}
+
+
+$\tt\left \{S \underset{\{A,I\}}{ \overset{E}{\implies}} P, MWC[\rm \mathit{parameters}\tt ]  \right \} $&
+$[\tt S ==> P, mod[E, [A, I]], MWC[ \rm \mathit{parameters}]]$ & $\frac{k \mathcal{E} \left(s
+   (a+1)^n (s+1)^{n-1}+c L s
+   (i+1)^n (c
+   s+1)^{n-1}\right)}{(a+1)^n
+   (s+1)^n+L (i+1)^n (c
+   s+1)^n}$ &  \\ \hline
+
+
+$\tt\{\{ \{A,B,C\},\{P,Q,R\}\} $&
+$[\tt [[A,B,C],[P,Q,R]] ==>$ & \multirow{2}{*}{$\frac{dS}{dt}=\frac{a_0 + a_ 1 A^{n_1}+B^{n_2}+\cdots}{d_0+d_1 P^{m_1}+d_2 P^{m_2}+\cdots}$} &  \\ 
+
+\hfill $\tt\implies S, {\tt rational}[..] \} $&
+$\tt$ ${\tt rational[[a_0,..],[d_0,..],[m_1,,],[n_1,..]]}$ &  &  \\ \hline
+
+
+
+\end{tabular}
+\end{center}
+\textbf{Notes}: 
+(a) When only a single rate constant is expected the {\tt rates} keyword may be omitted. 
+(b) When only a single modifier is expected the {\tt mod} keyword may be omitted. 
+(c) MMH = Michaelis-Menten-Henri. 
+(d) MWC = Monod-Wyman-Changeaux. In the shorthand version,  {\tt A} and {\tt I} are lists of zero or more species delimited by commas and enclosed by square brackets as in {\tt [A1,A2,A3]}; an empty list would be {\tt [\ ]}. 
+(e). {\tt Hill}: $\frac{v \mathcal{E} \left(\sum T_i X_i+\alpha \right){}^n} {+K^n + \left(\sum T_i X_i+\alpha \right)^n}$; 
+{\tt GRN}: $\frac{v}{1+\exp\left(-h-\sum \beta_i X_i^{n_i}\right)}$;
+{\tt SSystem}: $\frac{\left( k_{+}\prod X_i^{C_{i,+}}-k_{-}\prod X_i^{C_{i,-}} \right)}{\tau}$;
+{\tt NHCA}: $ \frac{v(1+T_{+}X^n)^m}{k(1+T_{-}X^n)^m  + (1+T_{+}X^n)^m}$;
+{\tt USER}: $ v f(h + \sum T_i A_i^{n_i} )$
+(f) Uses mass-action kinetics
+
+
+\end{document}

@@ -1,0 +1,100 @@
+\setcounter {tocdepth}{1}
+\contentsline {chapter}{Preface}{v}{chapter*.2}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Installation}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Install Python}{5}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Installing on Windows}{5}{subsection.2.1.1}
+\contentsline {subsubsection}{Anaconda Python}{5}{section*.3}
+\contentsline {subsubsection}{Enthought Canopy}{6}{section*.4}
+\contentsline {subsubsection}{Using the Binary Installers}{6}{section*.5}
+\contentsline {subsection}{\numberline {2.1.2}Installing on Macintosh OS}{6}{subsection.2.1.2}
+\contentsline {subsubsection}{Upgrade Mac Python using \tt pip}{7}{section*.6}
+\contentsline {subsection}{\numberline {2.1.3}Installing on Linux}{7}{subsection.2.1.3}
+\contentsline {section}{\numberline {2.2}Install libSBML}{8}{section.2.2}
+\contentsline {section}{\numberline {2.3}Install pycellerator}{8}{section.2.3}
+\contentsline {chapter}{\numberline {3}Arrows}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}Introduction}{9}{section.3.1}
+\contentsline {section}{\numberline {3.2}Equations for Rates}{11}{section.3.2}
+\contentsline {section}{\numberline {3.3}Indexed Species}{11}{section.3.3}
+\contentsline {paragraph}{Implementation Note:}{12}{section*.7}
+\contentsline {section}{\numberline {3.4}{\tt Nil} \& {\tt EmpytSet} Species}{12}{section.3.4}
+\contentsline {section}{\numberline {3.5}Mass Action Arrows}{12}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Simple Mass Action}{12}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Simple Mass Action, with stoichiometry}{13}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}Simple Mass Action, Catalyzed}{13}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {3.5.4}Reversible Mass Action}{14}{subsection.3.5.4}
+\contentsline {subsection}{\numberline {3.5.5}Catalytic Mass Action, Intermediate Substrate/Catalyst Complex Formation}{14}{subsection.3.5.5}
+\contentsline {subsection}{\numberline {3.5.6}Catalytic Mass Action, Intermediate Substrate/Catalyst Complex Formation, Reversible}{15}{subsection.3.5.6}
+\contentsline {subsection}{\numberline {3.5.7}Catalytic Mass Action with Substrate/Enzyme and Product/Enzyme Intermediate Complexes}{16}{subsection.3.5.7}
+\contentsline {section}{\numberline {3.6}Equilibrium / Steady-State Models}{17}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Michaelis-Menten-Henri (MMH) Reactions }{17}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Monod-Wyman-Changeaux (MWC) Reactions}{18}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Non-regulatory Hill Functions}{19}{subsection.3.6.3}
+\contentsline {section}{\numberline {3.7}Regulatory Arrows}{19}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}Hill Functions}{19}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}GRN Arrows}{20}{subsection.3.7.2}
+\contentsline {subsection}{\numberline {3.7.3}S-Systems}{21}{subsection.3.7.3}
+\contentsline {subsection}{\numberline {3.7.4}NHCA}{21}{subsection.3.7.4}
+\contentsline {subsection}{\numberline {3.7.5}Rational Functions}{22}{subsection.3.7.5}
+\contentsline {subsection}{\numberline {3.7.6}User Defined Regulatory Arrows}{23}{subsection.3.7.6}
+\contentsline {section}{\numberline {3.8}User Defined Stoichiometric Arrows}{25}{section.3.8}
+\contentsline {section}{\numberline {3.9}Cascades}{26}{section.3.9}
+\contentsline {section}{\numberline {3.10}Flux Arrows}{26}{section.3.10}
+\contentsline {chapter}{\numberline {4}Functions}{29}{chapter.4}
+\contentsline {section}{\numberline {4.1}parser}{29}{section.4.1}
+\contentsline {paragraph}{Command Line Syntax:}{29}{section*.8}
+\contentsline {paragraph}{Command Line in Shell:}{30}{section*.9}
+\contentsline {paragraph}{API (functions):}{30}{section*.10}
+\contentsline {subparagraph}{\tt parser(*keywords)\\}{30}{section*.11}
+\contentsline {subparagraph}{\tt ParseArrow(r)\\}{30}{section*.12}
+\contentsline {paragraph}{API (class):}{30}{section*.13}
+\contentsline {subparagraph}{\tt Reaction(r)\\}{31}{section*.14}
+\contentsline {paragraph}{Examples.\\}{31}{section*.15}
+\contentsline {section}{\numberline {4.2}expander}{33}{section.4.2}
+\contentsline {paragraph}{Command Line Syntax:}{33}{section*.16}
+\contentsline {paragraph}{Command Line in Shell:}{33}{section*.17}
+\contentsline {paragraph}{API:}{33}{section*.18}
+\contentsline {subparagraph}{\tt expand(r)\\}{33}{section*.19}
+\contentsline {subparagraph}{\tt expandReactions(filename)\\}{34}{section*.20}
+\contentsline {paragraph}{Example Input File:}{34}{section*.21}
+\contentsline {paragraph}{Full Example}{34}{section*.22}
+\contentsline {section}{\numberline {4.3}interpreter}{35}{section.4.3}
+\contentsline {paragraph}{Command Line Syntax:}{35}{section*.23}
+\contentsline {paragraph}{Command Line in Shell:}{38}{section*.24}
+\contentsline {paragraph}{API:\\}{38}{section*.25}
+\contentsline {subparagraph}{\tt makeODETerms(r, s, *keywords)\\}{38}{section*.26}
+\contentsline {subparagraph}{\tt interpret(filename, *keywords)\\}{38}{section*.27}
+\contentsline {paragraph}{Example:}{38}{section*.28}
+\contentsline {section}{\numberline {4.4}solver}{40}{section.4.4}
+\contentsline {paragraph}{Command Line Syntax:}{40}{section*.29}
+\contentsline {paragraph}{Command Line in Shell:}{40}{section*.30}
+\contentsline {section}{\numberline {4.5}converter}{41}{section.4.5}
+\contentsline {paragraph}{Command Line Syntax:}{41}{section*.31}
+\contentsline {paragraph}{Command Line in Shell:}{42}{section*.32}
+\contentsline {paragraph}{API:\\}{42}{section*.33}
+\contentsline {subparagraph}{\tt convert(*keywords)\\}{42}{section*.34}
+\contentsline {section}{\numberline {4.6}SBML}{43}{section.4.6}
+\contentsline {subsection}{\numberline {4.6.1}Reading SBML Files}{43}{subsection.4.6.1}
+\contentsline {subsubsection}{Supported Features}{43}{section*.35}
+\contentsline {subsubsection}{Syntax}{44}{section*.36}
+\contentsline {subsection}{\numberline {4.6.2}Writing SBML Files}{44}{subsection.4.6.2}
+\contentsline {subsubsection}{Syntax}{44}{section*.37}
+\contentsline {chapter}{\numberline {5}Examples}{45}{chapter.5}
+\contentsline {section}{\numberline {5.1}Simple Catalyzed Mass Action}{46}{section.5.1}
+\contentsline {section}{\numberline {5.2}MAP-Kinase with Oscillations}{46}{section.5.2}
+\contentsline {section}{\numberline {5.3}Enzymes with Intermediate Complex}{47}{section.5.3}
+\contentsline {section}{\numberline {5.4}Repressilator}{47}{section.5.4}
+\contentsline {section}{\numberline {5.5}Lineage Determination}{50}{section.5.5}
+\contentsline {section}{\numberline {5.6}NF-$\kappa \beta $ Signaling Model}{51}{section.5.6}
+\contentsline {section}{\numberline {5.7}Minimal Mitotic Model}{54}{section.5.7}
+\contentsline {section}{\numberline {5.8}Ring Oscillator (Mass Action)}{55}{section.5.8}
+\contentsline {section}{\numberline {5.9}Ring Oscillator (MMH)}{56}{section.5.9}
+\contentsline {section}{\numberline {5.10}Ring Oscillator Using GRN Reactions}{57}{section.5.10}
+\contentsline {section}{\numberline {5.11}Ring Oscillator (NHCA)}{58}{section.5.11}
+\contentsline {section}{\numberline {5.12}Recombinant \textit {E coli} growth model}{58}{section.5.12}
+\contentsline {section}{\numberline {5.13}Monow-Wyman-Changeaux (MWC)}{60}{section.5.13}
+\contentsline {section}{\numberline {5.14}MAPK Cascade with Indexed Stages}{60}{section.5.14}
+\contentsline {chapter}{\numberline {A}File Formats}{61}{appendix.A}
+\contentsline {section}{\numberline {A.1}Reaction Files}{61}{section.A.1}
+\contentsline {section}{\numberline {A.2}Model Files}{62}{section.A.2}
+\contentsline {chapter}{\numberline {B}Software License}{65}{appendix.B}

@@ -1,0 +1,157 @@
+
+\chapter{Installation}
+
+\section[Install Python]{Install a Basic Python System}
+
+To use {\tt pycellerator}, python 2.7 and several python libraries must be installed on your computer. Python is free, open source, and available on all major operating systems.  This section provides an overview of how to install a basic python system on Windows, Macintosh OX, and Linux operating systems. 
+
+\subsection{Installing on Windows}
+
+There are two basic ways to install python: (1) install a ``commercial'' base distribution or (2) use a binary installer from  \url{https://www.python.org/downloads/windows/}{https://www.python.org/downloads/windows/}. There are several commercial distributions that provide free installers that will install the base python system for you. If you use a binary distribution, you will also have to install a number of other packages. The easiest commercial distributions to use are \textbf{Anaconda} and \textbf{Enthought Canopy}. 
+
+\subsubsection{Anaconda Python}
+
+To install Anaconda Python, go to \href{http://continuum.io/downloads}{http://continuum.io/downloads} and scroll down to select the appropriate installer for your operating system. This will download a file (e.g., Anaconda-2.3.0-x86\_64.exe, or something similar). 
+
+Double click on the installer and follow the instructions to install python. 
+
+After you are done, locate the {\tt Anaconda Command Prompt} from the windows search menu and type in the following. Type enter after line and wait until the command prompt (the name of the current folder)  is shown. 
+\begin{verbatim}
+    conda update conda
+    conda update ipython ipython-notebook ipython-qtconsole
+    conda update numpy scipy sympy matplotlib
+    python -m pip install --upgrade pip
+    pip install pyparsing
+    pip install pulp
+\end{verbatim}
+
+\clearpage 
+
+\subsubsection{Enthought Canopy}
+
+As an alternative to Anaconda, Enthought Canopy is at \href{https://store.enthought.com/downloads/}{https://store.enthought.com/downloads/}. Pick your operating system from the button on the top of page and download the binary installer. 
+
+After downloading the installation package (e.g., {\tt canopy-1.5.5-win-64.msi} or a similarly named file), double click on the installer to install python. It will be sufficient to answer all of the questions in the dialogs with the default values. 
+
+When the installer is finished, the canopy dashboard should open automatically. You must run the dashboard at least once to finish the installation. The dashboard will open a menu that says ``Welcome to Canopy'' at the top. If the dashboard does not open, there should be a Canopy icon on your desktop. Click this to open the Canopy dashboard. If this icon is not installed, open Canopy from the windows search menu. If it does not appear, the installation has not completed properly.
+
+From the Canopy dashboard select {\tt Edit > Preferences > General} and verify that Canopy is set as your default python environment. If it is not, click on the button that says ``Set as Default'', then click on ``OK.'' 
+
+Then go to {\tt tools > package manager > available packages} and click on ``install all available packages.'
+
+Then exit from Canopy by selecting {\tt File > Exit}. 
+
+From the windows search menu, open {\tt Command Prompt} and type in the following commands, one at a time. Type enter after line and wait until the command prompt (the name of the current folder)  is shown. 
+
+\begin{verbatim}
+    python -m pip install --upgrade pip
+    pip install --upgrade numpy scipy sympy matplotlib
+    pip install pyparsing
+    pip install pulp
+\end{verbatim}
+
+\subsubsection{Using the Binary Installers}
+
+From \href{https://www.python.org/downloads/windows}{https://www.python.org/downloads/windows}, download the latest MSI installer for Python 2.7. At the time this was written, the file name was {\tt python-2.7.9.amd64.msi}. 
+
+Locate the installer file, double click, and answer all the prompts. Make sure during the installation that python.exe and pip and checked off as visible to all. 
+
+Next, download a Microsoft Visual C compiler for Python from \href{http://www.microsoft.com/en-us/download/details.aspx?id=44266}{http://www.microsoft.com/en-us /download/details.aspx?id=44266}. The installer file is called {\tt VCforPython27.msi}. Locate the installer, double click, and follow the instructions. Restart your computer after the installation is complete.
+
+Open a command prompt (Windows search, type {\tt command prompt}) and enter the following:
+
+\begin{verbatim}
+    python -m pip install --upgrade pip   
+    pip install sympy pulp pyparsing setuptools
+    pip install numpy scipy matplotlib
+    pip install ipython[notebook]
+\end{verbatim}
+
+
+\subsection{Installing on Macintosh OS}
+
+If you have a Mac, then Python is already installed on your computer. The base system is pre-installed as part of the Mac operating system. The base system does not include the numerical libraries that are also required. You can either install these using {\tt pip} or install one of the commercial systems like Anaconda or Enthought Canopy. 
+
+Follow the instructions for Windows if you want to install the commercial system. You will not need to install Visual C; instead, you may be prompted to download and install XCode tools from Apple during the installation process.  
+
+\subsubsection{Upgrade Mac Python using \tt pip}
+
+Locate the {\tt terminal} application in the {\tt utilities} folder and open it. Enter
+
+\begin{verbatim}
+    sudo easy_install pip
+\end{verbatim}
+
+When requested, enter you password (you must have administrator access on you Mac). If (when) you are prompted to install XCode from Apple, click yes, and follow the instructions on any dialog that follows. 
+
+When the XCode installation is completed (or if it was not suggested), open a new terminal session and type in the following. Hit the enter key after each line and wait for the prompt (the name of the current working directory) before typing in the next line. 
+
+\begin{verbatim}
+    pip install sympy pulp pyparsing
+    pip install numpy scipy matplotlib
+    pip install ipython[notebook]
+\end{verbatim}
+
+If you have a virtual operating system like Parallels Desktop installed on your computer, make sure that Safari (or some other web browser such as Firefox or Chrome) is set as your default browser, and not Parallels. Otherwise ipython will try to open your virtual operating system every time it runs python. 
+
+
+\subsection{Installing on Linux}
+
+You can either install a base python system from your package manager, download binaries from \href{python.org}{python.org}, or build from source (also available at \href{python.org}{python.org}. Pycellerator requires python 2.7.X but is not compatible with python 3.x. 
+
+The standard python installation includes its own package manage called {\tt pip}. If you install the base system from 
+\href{python.org}{python.org} this should automatically be installed for your. Otherwise, you should look to also install {\tt pip} from your package manager. This allows you to bypass your package manager when updating python.
+
+To upgrade to the latest version of {\tt pip},
+\begin{verbatim}
+    python -m pip install --upgrade pip
+\end{verbatim}
+To add any missing packages to python, 
+\begin{verbatim}
+    pip install packagename
+\end{verbatim}
+To upgrade to the latest version of any package,
+\begin{verbatim}
+    pip install --upgrade package
+\end{verbatim}
+Pycellerator needs the following packages which you can get from pip: {\tt pyparsing}, {\tt pulp}, {\tt sympy}, {\tt numpy}, {\tt scipy}, and{\tt matplotlib}.
+\begin{verbatim}
+    pip install pyparsing
+    pip install pulp
+    pip install sympy
+    pip install numpy
+    pip install scipy
+    pip install matplotlib
+\end{verbatim}
+You can also put all the function names on a single line:
+\begin{verbatim}
+    pip install pyparsing pulp sympy numpy scipy matplotlib
+\end{verbatim}
+Binary installers and source code versions are also available for each of these packages. 
+
+\begin{center}
+\begin{tabular}{|ll|}
+\hline
+\textbf{Package} & \textbf{Project Home Page} \\ 
+\hline
+{\tt numpy} & \url{http://numpy.org/}\\
+{\tt scipy} & \url{http://scipy.org/}\\
+{\tt matplotlib}  & \url{http://matplotlib.sourceforge.net/}\\
+{\tt pyparsing} & \url{http://pyparsing.wikispaces.com/} \\
+{\tt sympy} &  \url{http://code.google.com/p/sympy/} \\
+{\tt pulp} & \url{https://github.com/coin-or/pulp}\\
+
+\hline
+\end{tabular}
+\end{center}
+
+
+\section{Install libSBML}
+
+If you want to work with SBML files, you will also need to install a version of libSBML that is appropriate for your operating system. Make sure to install a version that is compatible with Python. 
+
+Follow the instructions at \href{http://sbml.org/Software/libSBML}{http://sbml.org/Software/libSBML} to find the appropriate binary installer for your operating system. 
+
+You do not have to have libSBML installed if you do not plan on using SBML files. If libSBML is not installed, all non-SBML related functionality of pycellerator will be unaffected. 
+
+\section{Install pycellerator}
