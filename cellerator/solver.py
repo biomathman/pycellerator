@@ -4,7 +4,7 @@
 # solver module for Cellerator
 # 11/11/14 add parameter for mxiterations 
 # revised 4/1-4/24/15 various B.E.S.
-# revised 8/30/15 for Github release
+# revised 8/30/15 for Github release and to reflect new direc. structure.
 #
 #
 #****************************************************************************
@@ -424,7 +424,7 @@ def generateSimulation(inputfile="", step=1, duration=100, plot=False, format="C
     f=open(pyfile,"w")
     
     f.write("import numpy as np\n")
-    # f.write("import pycellerator.solver\n")
+    f.write("import cellerator.solver\n")
     f.write("from scipy.integrate import odeint\n")
     f.write("\n")
     for line in rhs: f.write(line)
@@ -542,9 +542,9 @@ def generateSimulation(inputfile="", step=1, duration=100, plot=False, format="C
                 plotcols=int(sys.argv[i])
         plotcols = max(plotcols, 1)
         if ("-sameplot" in sys.argv) or sameplot==True:
-            f.write("    pycellerator.solver.samePlot(sol, t, variables, filename, plotvars)\n")
+            f.write("    cellerator.solver.samePlot(sol, t, variables, filename, plotvars)\n")
         else:  
-            f.write("    pycellerator.solver.plotVariables(sol, t, variables, filename,"\
+            f.write("    cellerator.solver.plotVariables(sol, t, variables, filename,"\
             +" plotvars, columns="+str(plotcols)+")\n")
         f.write("    return\n\n")
         
