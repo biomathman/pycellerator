@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #
 # B.E.Shapiro 11 April 2015 
+# revised 30 Aug 30 for github load
 #
 # Convenient Cellerator Function Wrapper for iPython notebook
 # usage of Python Cellerator implemenation functions
@@ -187,8 +188,18 @@ Return value: when run=True (default)
     # name the solver program
     #
     pyfile = solverfile
+    #print "DBG>>>solverfile:", solverfile
+    #print "DBG>>> INPUT >>>", inputfile
+
     if pyfile=="":
-        pyfile=utils.timed_file_name("solver-for-"+inputfile,"py")
+        inputdrive, inputpath = os.path.splitdrive(inputfile)
+        inputpath, inputfilename = os.path.split(inputpath)
+        #print "DBG:drive:", inputdrive
+        #print "DBG:path:", inputpath
+        #print "DBG:file:", inputfilename
+        pyfile=utils.timed_file_name("solver-for-"+inputfilename,"py")
+        pyfile = os.path.join(inputpath, pyfile)
+        #print "DBG: resolved pyfile:", pyfile
     else:
         pyfile = utils.uniqueFileName(pyfile, type="py")   
     
