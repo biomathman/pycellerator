@@ -16,4 +16,4 @@ in the archive.
 
 To uninstall pycellerator
 ==========================
-Drag the folder "pycllerator" to the trash.
+Drag the folder "pycellerator" to the trash.
