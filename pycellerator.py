@@ -5,7 +5,9 @@
 #
 #****************************************************************************
 #
-#    Copyright (C) 2012 Bruce E Shapiro
+#    Copyright (C) 2012-15 Bruce E Shapiro
+#    8/30/15 Set version number to 1.0 from alpha sequence for release
+#    on github
 #    
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -33,7 +35,7 @@ import cellerator.flux
 import sys
 import subprocess
 
-versionNumber = 1508.077
+versionNumber = 1.0
 
 #
 #****************************************************************************
