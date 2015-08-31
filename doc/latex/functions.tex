@@ -18,7 +18,19 @@ The {\tt \$} is used to indicate the command prompt is several examples.
 Examples of reactions, such as those that should be written in input files, are written in {\tt typewriter} font {\tt like this}. Note that reaction syntax requires the 
 use of square brackets, and the contents of square brackets are not optional in this case. 
 
+\section{Command Line Interface}
 
+The generic command line syntax is
+
+\fbox{
+\begin{minipage}{\textwidth}
+%\begin{verbatim}
+\tt   \$ python pycellerator.py keyword [options]
+%\end{verbatim}
+\end{minipage}
+}
+
+where {\tt keyword} is one of {\tt EXPAND}, {\tt INTERPRET}, {\tt CONVERT}, {\tt PARSE}, {\tt SOLVE}, {\tt SBML}, {\tt FLUX} and {\tt VERSION}, and {\tt [options]} is an optional sequence of command line options that is difference for each keyword. The case (upper or lower) of the {tt keyword} does not matter. The syntax and options for each keyword are discussed in the following sections. 
  
 \section{parser}
 

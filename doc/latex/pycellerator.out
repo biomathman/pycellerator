@@ -16,28 +16,29 @@
 \BOOKMARK [1][-]{section.3.9}{Cascades}{chapter.3}% 16
 \BOOKMARK [1][-]{section.3.10}{Flux Arrows}{chapter.3}% 17
 \BOOKMARK [0][-]{chapter.4}{Functions}{}% 18
-\BOOKMARK [1][-]{section.4.1}{parser}{chapter.4}% 19
-\BOOKMARK [1][-]{section.4.2}{expander}{chapter.4}% 20
-\BOOKMARK [1][-]{section.4.3}{interpreter}{chapter.4}% 21
-\BOOKMARK [1][-]{section.4.4}{solver}{chapter.4}% 22
-\BOOKMARK [1][-]{section.4.5}{converter}{chapter.4}% 23
-\BOOKMARK [1][-]{section.4.6}{SBML}{chapter.4}% 24
-\BOOKMARK [0][-]{chapter.5}{Examples}{}% 25
-\BOOKMARK [1][-]{section.5.1}{Simple Catalyzed Mass Action}{chapter.5}% 26
-\BOOKMARK [1][-]{section.5.2}{MAP-Kinase with Oscillations}{chapter.5}% 27
-\BOOKMARK [1][-]{section.5.3}{Enzymes with Intermediate Complex}{chapter.5}% 28
-\BOOKMARK [1][-]{section.5.4}{Repressilator}{chapter.5}% 29
-\BOOKMARK [1][-]{section.5.5}{Lineage Determination}{chapter.5}% 30
-\BOOKMARK [1][-]{section.5.6}{NF- Signaling Model}{chapter.5}% 31
-\BOOKMARK [1][-]{section.5.7}{Minimal Mitotic Model}{chapter.5}% 32
-\BOOKMARK [1][-]{section.5.8}{Ring Oscillator \(Mass Action\)}{chapter.5}% 33
-\BOOKMARK [1][-]{section.5.9}{Ring Oscillator \(MMH\)}{chapter.5}% 34
-\BOOKMARK [1][-]{section.5.10}{Ring Oscillator Using GRN Reactions}{chapter.5}% 35
-\BOOKMARK [1][-]{section.5.11}{Ring Oscillator \(NHCA\)}{chapter.5}% 36
-\BOOKMARK [1][-]{section.5.12}{Recombinant E coli growth model}{chapter.5}% 37
-\BOOKMARK [1][-]{section.5.13}{Monow-Wyman-Changeaux \(MWC\)}{chapter.5}% 38
-\BOOKMARK [1][-]{section.5.14}{MAPK Cascade with Indexed Stages}{chapter.5}% 39
-\BOOKMARK [0][-]{appendix.A}{File Formats}{}% 40
-\BOOKMARK [1][-]{section.A.1}{Reaction Files}{appendix.A}% 41
-\BOOKMARK [1][-]{section.A.2}{Model Files}{appendix.A}% 42
-\BOOKMARK [0][-]{appendix.B}{Software License}{}% 43
+\BOOKMARK [1][-]{section.4.1}{Command Line Interface}{chapter.4}% 19
+\BOOKMARK [1][-]{section.4.2}{parser}{chapter.4}% 20
+\BOOKMARK [1][-]{section.4.3}{expander}{chapter.4}% 21
+\BOOKMARK [1][-]{section.4.4}{interpreter}{chapter.4}% 22
+\BOOKMARK [1][-]{section.4.5}{solver}{chapter.4}% 23
+\BOOKMARK [1][-]{section.4.6}{converter}{chapter.4}% 24
+\BOOKMARK [1][-]{section.4.7}{SBML}{chapter.4}% 25
+\BOOKMARK [0][-]{chapter.5}{Examples}{}% 26
+\BOOKMARK [1][-]{section.5.1}{Simple Catalyzed Mass Action}{chapter.5}% 27
+\BOOKMARK [1][-]{section.5.2}{MAP-Kinase with Oscillations}{chapter.5}% 28
+\BOOKMARK [1][-]{section.5.3}{Enzymes with Intermediate Complex}{chapter.5}% 29
+\BOOKMARK [1][-]{section.5.4}{Repressilator}{chapter.5}% 30
+\BOOKMARK [1][-]{section.5.5}{Lineage Determination}{chapter.5}% 31
+\BOOKMARK [1][-]{section.5.6}{NF- Signaling Model}{chapter.5}% 32
+\BOOKMARK [1][-]{section.5.7}{Minimal Mitotic Model}{chapter.5}% 33
+\BOOKMARK [1][-]{section.5.8}{Ring Oscillator \(Mass Action\)}{chapter.5}% 34
+\BOOKMARK [1][-]{section.5.9}{Ring Oscillator \(MMH\)}{chapter.5}% 35
+\BOOKMARK [1][-]{section.5.10}{Ring Oscillator Using GRN Reactions}{chapter.5}% 36
+\BOOKMARK [1][-]{section.5.11}{Ring Oscillator \(NHCA\)}{chapter.5}% 37
+\BOOKMARK [1][-]{section.5.12}{Recombinant E coli growth model}{chapter.5}% 38
+\BOOKMARK [1][-]{section.5.13}{Monow-Wyman-Changeaux \(MWC\)}{chapter.5}% 39
+\BOOKMARK [1][-]{section.5.14}{MAPK Cascade with Indexed Stages}{chapter.5}% 40
+\BOOKMARK [0][-]{appendix.A}{File Formats}{}% 41
+\BOOKMARK [1][-]{section.A.1}{Reaction Files}{appendix.A}% 42
+\BOOKMARK [1][-]{section.A.2}{Model Files}{appendix.A}% 43
+\BOOKMARK [0][-]{appendix.B}{Software License}{}% 44
