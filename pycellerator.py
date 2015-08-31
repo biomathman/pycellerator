@@ -22,24 +22,24 @@
 #
 #****************************************************************************
 #
-import pycellerator.converter
-import pycellerator.expander
-import pycellerator.interpreter
-import pycellerator.reader
-import pycellerator.solver
-import pycellerator.parser
-import pycellerator.sbml
-import pycellerator.flux
+import cellerator.converter
+import cellerator.expander
+import cellerator.interpreter
+import cellerator.reader
+import cellerator.solver
+import cellerator.parser
+import cellerator.sbml
+import cellerator.flux
 import sys
 import subprocess
 
-versionNumber = 1411.076
+versionNumber = 1508.077
 
 #
 #****************************************************************************
 #
 def solve():
-    f = pycellerator.solver.makesolver()
+    f = cellerator.solver.makesolver()
     if "-norun" in sys.argv: return
     subprocess.call("python "+f, shell=True)
     return
@@ -50,14 +50,14 @@ def version():
 #
 #****************************************************************************
 #
-handlers={"EXPAND":   pycellerator.expander.expander,
-         "INTERPRET": pycellerator.interpreter.interpreter,
-         "CONVERT":   pycellerator.converter.converter,
-         "PARSE":     pycellerator.parser.runpyx,
+handlers={"EXPAND":   cellerator.expander.expander,
+         "INTERPRET": cellerator.interpreter.interpreter,
+         "CONVERT":   cellerator.converter.converter,
+         "PARSE":     cellerator.parser.runpyx,
          "SOLVE":     solve,
          "VERSION":   version, 
-         "SBML":      pycellerator.sbml.runsbml,
-         "FLUX":      pycellerator.flux.fat
+         "SBML":      cellerator.sbml.runsbml,
+         "FLUX":      cellerator.flux.fat
          }
 
 #
