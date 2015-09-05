@@ -14,8 +14,24 @@ Python libraries are needed and how to get them.
 an ipython notebook. A demonstration notebook "demo.ipynb" is included
 in the archive. 
 
-quickstart
-==========
+quickstart (command line)
+=========================
+In the terminal, cd to the folder that contains pycellerator.py and enter:
+
+      python pycellerator.py solve -in Gold1.model -plot
+
+This will run a simulation based on the file Gold1.model, generating and 
+saving a python code file, a csv file, and plotting results on the
+screen.
+
+quickstart (ipython notebook)
+=============================
+In the terminal cd enter
+     
+      ipython notebook
+
+Navigate to the notebook demo.ipynb and click to open that notebook.
+
 
 To uninstall pycellerator
 ==========================
