@@ -14,6 +14,9 @@ Python libraries are needed and how to get them.
 an ipython notebook. A demonstration notebook "demo.ipynb" is included
 in the archive. 
 
+quickstart
+==========
+
 To uninstall pycellerator
 ==========================
 Drag the folder "pycellerator" to the trash.
