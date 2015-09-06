@@ -44,15 +44,14 @@ This chapter present some models that are illustrative of pycellerator. The foll
 \end{center}
 \newpage
 
-\section[Simple Catalyzed Mass Action]{Something That Illustrates Simple Catalyzed Mass Action (TBD)}
+%\section[Simple Catalyzed Mass Action]{Something That Illustrates Simple Catalyzed Mass Action (TBD)}
 
 \section{MAP-Kinase with Oscillations}
 \label{section:MAPK}
 
 The following model (unpublished) demonstrates MAPK oscillations and illustrates the use of both catalyzed reactions and enzymatic cascacdes.
-\begin{multicols}{2}
-\begin{tiny}
-\begin{Verbatim}[frame=single]
+%\begin{multicols}{2}
+\begin{lstlisting}
 $Reactions
 #
 # kinases
@@ -105,26 +104,23 @@ $Rates
  a7 =  1
  d7 =  1
 $
- \end{Verbatim} 
-\end{tiny}
-\end{multicols}
+ \end{lstlisting} 
 
-\begin{verbatim}
-  $ python pyx.py solve -in MAPK.model -plot KK KKK MAPK -sameplot -run 5000 2
-\end{verbatim}
+
+\begin{lstlisting}
+  $ python pycelerator.py solve -in MAPK.model -plot KK KKK MAPK 
+     -sameplot -run 5000 2
+\end{lstlisting}
 
 \begin{center}
-\includegraphics[width = .75\textwidth]{MAPK.png}
+\includegraphics[width = \textwidth]{MAPK.png}
 \end{center}
 
-\section[Enzymes with Intermediate Complex]{Something That Illustrates Substrate/Enzyme and Product/Enzyme Complex Formation (TBD)} 
-
+%\section[Enzymes with Intermediate Complex]{Something That Illustrates Substrate/Enzyme and Product/Enzyme Complex Formation (TBD)} 
+\clearpage
 \section{Repressilator}
 This model demonstrates the use of {\tt Hill} and {\tt rational} arrows.  An alternative version that uses {\tt USER} reactions is given at the end of this section.  A simulation model for the repressilator \cite{Repressilator} is given by\footnote{The terminating dollar sign at the end of the models is optional.}
-\begin{center}
-\begin{minipage}{4in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}
 $reactions
  [PX -> Nil, Beta]
  [PY -> Nil, Beta]
@@ -152,24 +148,18 @@ $rates
 $ic
  PX = 5
  PZ = 15
-$
-\end{Verbatim}
-\end{scriptsize}
-\end{minipage}
-\end{center}
-If we call this file {\tt repressilator.model} then the command\footnote{The leading dollar sign in the command refers to the bash prompt and should not be manually entered.}
-\begin{center}
-{\tt  \$ python solver.py -in repressilator.model -plot -run 100 .1}
-\end{center}
-will produce a plot such as this:
+\end{lstlisting}
+
+If we call this file \CODE{repressilator.model} then the command\footnote{The leading dollar sign in the command refers to the bash prompt and should not be manually entered.}
+\begin{lstlisting}
+$ python pycellerator solve -in repressilator.model -plot -run 100 .1
+\end{lstlisting}
+will produce a plot such as this:\clearpage
 \begin{center}
 \includegraphics[width=.9\textwidth]{repressilator.png}
 \end{center}
 as well as a {\tt CSV} file that looks something like this:
-\begin{center}
-\begin{minipage}{5.5in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}[xleftmargin=-.25in,xrightmargin=-.25in]
 0.0,15.0,5.0,0.0,0.0,0.0,0.0
 0.1,14.2278260331,3.05384634588,0.247394702031,1.34912572721,0.0990958803047,23.562567514
 0.2,21.504406326,1.90401628677,1.28225870666,4.57557848574,0.149799701424,37.9011356108
@@ -180,15 +170,10 @@ as well as a {\tt CSV} file that looks something like this:
 99.8 0.648217893072,98.8724564077,14.3446430729,11.4817962739,113.312240676,0.649415887468
 99.9,0.655884845799,105.886314242,12.9821534961,10.3905866114,119.451386878,0.685929274901
 100.0,0.678921934741,112.385765424,11.7488271934,9.4030395272,124.765357623,0.74177680618
-\end{Verbatim}
-\end{scriptsize}
-\end{minipage}
-\end{center}
+\end{lstlisting}
+
 To see the differential equations produced by this model one could isolate the reactions in a file such as 
-\begin{center}
-\begin{minipage}{4in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}
  [PX -> Nil, Beta]
  [PY -> Nil, Beta]
  [PZ -> Nil, Beta]
@@ -204,53 +189,39 @@ To see the differential equations produced by this model one could isolate the r
  [[[Nil],[PY]] ==> Z, rational[[alpha], [K, 1],[1], [n,n]]]
  [[[Nil],[PZ]] ==> X, rational[[alpha], [K, 1],[1], [n,n]]]
  [[[Nil],[PX]] ==> Y, rational[[alpha], [K, 1],[1], [n,n]]]
-\end{Verbatim}
-\end{scriptsize}
-\end{minipage}
-\end{center}
-If we call this file {\tt repressilator.dat} then the command
-\begin{center}
-{\tt \$ python interpreter.py -in repressilator.dat}
-\end{center}
+\end{lstlisting}
+If we call this file \CODE{repressilator.dat} then the command
+\begin{lstlisting}
+  python interpreter.py -in repressilator.dat
+\end{lstlisting}
 will produce the output
-\begin{center}
-\begin{minipage}{4.5in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}
 PZ' = Beta*Z - Beta*PZ
 PX' = Beta*X - Beta*PX
 PY' = Beta*Y - Beta*PY
 Y' = alpha0 - Y*k1 + alpha/(K**n + PX**n) + alpha1*PX**n/(K**n + PX**n)
 X' = alpha0 - X*k1 + alpha/(K**n + PZ**n) + alpha1*PZ**n/(K**n + PZ**n)
 Z' = alpha0 - Z*k1 + alpha/(K**n + PY**n) + alpha1*PY**n/(K**n + PY**n)
-\end{Verbatim}
-\end{scriptsize}
-\end{minipage}
-\end{center}
+\end{lstlisting}
+Within the ipython interface. the simpler command \CODE{cellerator.printODES()} would
+be sufficient to do this after loading model.
 
-A second version of the repressilator, would replace the three {\tt rational} reactions 
+The repressilator can also be implementend using \CODE{rational} and \CODE{USER} reactions:
 
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}
 [[[Nil],[PY]] ==> Z, rational[[alpha], [K, 1],[1], [n,n]]]
 [[[Nil],[PZ]] ==> X, rational[[alpha], [K, 1],[1], [n,n]]]
 [[[Nil],[PX]] ==> Y, rational[[alpha], [K, 1],[1], [n,n]]]
-\end{Verbatim}
-
-with the three {\tt USER} reactions to generate the same identical differential equations:
-
-\begin{Verbatim}[frame=single]
 [PY |-> Z, USER[alpha, -1, n, 0, "lambda x: 1/(K**n+x)"]]
 [PZ |-> X, USER[alpha, -1, n, 0, "lambda x: 1/(K**n+x)"]]
 [PX |-> Y, USER[alpha, -1, n, 0, "lambda x: 1/(K**n+x)"]]
-\end{Verbatim}
+\end{lstlisting}
 
-\newpage
+\clearpage
 \section{Lineage Determination}
 
 This model demonstrates the use of the rational with product notation. The model is based on \cite{Chickarmane}. 
-\begin{multicols}{2}
-\begin{tiny}
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}
 $REACTIONS
  [[[A,O*S,O*S*N],[A, O,O*S,O*S*N,C*O,GC]]==>O, rational[[a0,a1,a2,a3],
      [1,b0,b1,b2,b3,b4,b5], [],[]]]
@@ -328,27 +299,17 @@ a0 = 0.001
  q2 = 15
  gammag = 0.1
 $ 
-\end{Verbatim}
-\end{tiny}
-\end{multicols}
-\begin{verbatim}
-      python pyx.py solve -in CP.model -plot -run 300 1 -sameplot
-\end{verbatim}
-\begin{center}
-\includegraphics[width=.75\textwidth]{chickarmane.png}
-\end{center}
+\end{lstlisting}
 
-\newpage
+\includegraphics[width=\textwidth]{chickarmane.png}
+
 
 \section{NF-$\kappa\beta$ Signaling Model}
 
 A pycellerator model of the the  NF-$\kappa\beta$ signaling model of \cite{NFKB} is given by:
 
-\begin{changemargin}{1.5in}{1in}
-%\begin{center}
-%\begin{minipage}{4.5in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single,xrightmargin=\leftmargin]
+
+\begin{lstlisting}
 $Reactions
  [IkBa + NFkB <-> IkBa_NFkB, rates[a1, d1]]
  [IKK_IkBa + NFkB <-> IKK_IkBa_NFkB, rates[a2, d2]]
@@ -407,82 +368,56 @@ $Rates
  trb=0.0000921375
  adapt= 0.0072
 $
-\end{Verbatim}
-\end{scriptsize}
-%\end{minipage}
-%\end{center}
-\end{changemargin}
+\end{lstlisting}
 
 Running a simulation with this file as {\tt NFKB.model} using the command
-\begin{center}
-{\tt  python solver.py -in NFKB.model -plot IKK IkBa NFkB -run 500 .1}
-\end{center}
+\begin{lstlisting}
+ python pycellerator solve -in NFKB.model -plot IKK IkBa NFkB -run 500 .1
+\end{lstlisting}
 
 
 will produce the following plot:
+%\clearpage
+
 \begin{center}
 \includegraphics[width=\textwidth]{NFKB.png}
 \end{center}
 
-The differential equations produced from the file {\tt NFKB.dat}:
-\begin{changemargin}{1.5in}{1in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single,xrightmargin=\leftmargin]
- [IkBa + NFkB <-> IkBa_NFkB, rates[a1, d1]]
- [IKK_IkBa + NFkB <-> IKK_IkBa_NFkB, rates[a2, d2]]
- [NFkB <-> NFkBn, rates[tr1, tr2]]
- [IkBa_NFkB -> NFkB, deg1]
- [IkBan + NFkBn <-> IkBan_NFkBn, rates[a1, d1]] 
- [IkBa + IKK <-> IKK_IkBa, rates[a3, d3]]
- [IkBat -> Nil, deg3]
- [IkBa <-> IkBan, rates[tr3, tr4]]
- [IKK_IkBa_NFkB -> IKK + NFkB, k1] 
- [IKK_IkBa -> IKK, k2]
- [IkBat |-> IkBa, Hill[v1, n1, K1]]
- [IkBa_NFkB <-> IkBan_NFkBn, rates[tr5, tr6]]
- [IkBa -> Nil, deg2]
- [NFkBn |-> IkBat, Hill[v2, n2, K2]] 
- [Nil -> IkBat, trb]
- [IkBa_NFkB + IKK <-> IKK_IkBa_NFkB, rates[a4, d4]] 
- [IKK -> Nil, adapt]
-\end{Verbatim}
-\end{scriptsize}
-\end{changemargin}
-are obtained via
-\begin{center}
-{\tt python interpreter.py -in NFKB.dat}
-\end{center}
-and look like this:
-\begin{changemargin}{0.2in}{1in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single,xrightmargin=\leftmargin]
-IkBa_NFkB' = IKK_IkBa_NFkB*d4 + IkBan_NFkBn*tr6 - IkBa_NFkB*d1 - IkBa_NFkB*deg1 - IkBa_NFkB*tr5 +
-  IkBa*NFkB*a1 - IKK*IkBa_NFkB*a4
-IkBan_NFkBn' = IkBa_NFkB*tr5 - IkBan_NFkBn*d1 - IkBan_NFkBn*tr6 + IkBan*NFkBn*a1
-IKK_IkBa' = IKK_IkBa_NFkB*d2 - IKK_IkBa*d3 - IKK_IkBa*k2 + IKK*IkBa*a3 - IKK_IkBa*NFkB*a2
+The differential equations can be obtained from 
+\begin{lstlisting}
+ python pycellerator.py  interpret -in NFKB.model
+\end{lstlisting}
+which produces the following output, 
+\begin{lstlisting}
+IkBa_NFkB' = IKK_IkBa_NFkB*d4 + IkBan_NFkBn*tr6 - IkBa_NFkB*d1 - 
+  IkBa_NFkB*deg1 - IkBa_NFkB*tr5 + IkBa*NFkB*a1 - IKK*IkBa_NFkB*a4
+IkBan_NFkBn' = IkBa_NFkB*tr5 - IkBan_NFkBn*d1 - IkBan_NFkBn*tr6 + 
+  IkBan*NFkBn*a1
+IKK_IkBa' = IKK_IkBa_NFkB*d2 - IKK_IkBa*d3 - IKK_IkBa*k2 + 
+  IKK*IkBa*a3 - IKK_IkBa*NFkB*a2
 NFkBn' = IkBan_NFkBn*d1 + NFkB*tr1 - NFkBn*tr2 - IkBan*NFkBn*a1
-IKK_IkBa_NFkB' = -IKK_IkBa_NFkB*d2 - IKK_IkBa_NFkB*d4 - IKK_IkBa_NFkB*k1 + IKK*IkBa_NFkB*a4 + 
+IKK_IkBa_NFkB' = -IKK_IkBa_NFkB*d2 - IKK_IkBa_NFkB*d4 - 
+ IKK_IkBa_NFkB*k1 + IKK*IkBa_NFkB*a4 + 
  IKK_IkBa*NFkB*a2
-NFkB' = IKK_IkBa_NFkB*d2 + IKK_IkBa_NFkB*k1 + IkBa_NFkB*d1 + IkBa_NFkB*deg1 + NFkBn*tr2 - NFkB*tr1 -
+NFkB' = IKK_IkBa_NFkB*d2 + IKK_IkBa_NFkB*k1 + IkBa_NFkB*d1 + 
+ IkBa_NFkB*deg1 + NFkBn*tr2 - NFkB*tr1 -
  IKK_IkBa*NFkB*a2 - IkBa*NFkB*a1
 IkBan' = IkBa*tr3 + IkBan_NFkBn*d1 - IkBan*tr4 - IkBan*NFkBn*a1
-IkBa' = IKK_IkBa*d3 + IkBa_NFkB*d1 + IkBan*tr4 - IkBa*deg2 - IkBa*tr3 - IKK*IkBa*a3 - IkBa*NFkB*a1 +
+IkBa' = IKK_IkBa*d3 + IkBa_NFkB*d1 + IkBan*tr4 - IkBa*deg2 - 
+ IkBa*tr3 - IKK*IkBa*a3 - IkBa*NFkB*a1 +
  v1*IkBat**n1/(IkBat**n1 + K1**n1)
 IkBat' = trb - IkBat*deg3 + v2*NFkBn**n2/(K2**n2 + NFkBn**n2)
-IKK' = IKK_IkBa*d3 + IKK_IkBa*k2 + IKK_IkBa_NFkB*d4 + IKK_IkBa_NFkB*k1 - IKK*adapt - IKK*IkBa*a3 -
+IKK' = IKK_IkBa*d3 + IKK_IkBa*k2 + IKK_IkBa_NFkB*d4 + 
+ IKK_IkBa_NFkB*k1 - IKK*adapt - IKK*IkBa*a3 -
  IKK*IkBa_NFkB*a4
-\end{Verbatim}
-\end{scriptsize}
-\end{changemargin}
+\end{lstlisting}
 If the {\tt code} option is requested, e.g., 
-\begin{center}
-{\tt python interpreter.py -in NFKB.dat -format CODE -out nfkb.py}
-\end{center}
-The the file {\tt nfkb.py} will look something like this:\footnote{While each line of code terminates with a newline character, individual lines of code are not line-wrapped and may be very line. The wrapping shown here was edited for illustration in this document, so in fact, it is likely that most lines of code will exceed the standard 80 character page width. This is why the usual python line wrap characters are not shown in the example.}
+\begin{lstlisting}
+  python pycellerator.py interpret -in NFKB.dat -format CODE -out nfkb.py
+\end{lstlisting}
+The the file \CODE{nfkb.py} will look something like this:\footnote{While each line of code terminates with a newline character, individual lines of code are not line-wrapped and may be very line. The wrapping shown here was edited for illustration in this document, so in fact, it is likely that most lines of code will exceed the standard 80 character page width. This is why the usual python line wrap characters are not shown in the example.}
 
-\begin{changemargin}{0.3in}{1in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single,xrightmargin=\leftmargin]
+\begin{lstlisting}[xleftmargin=0in,xrightmargin=0in]
 def f(y,t):
     y[0] = IkBa_NFkB
     y[1] = IkBan_NFkBn
@@ -495,33 +430,38 @@ def f(y,t):
     y[8] = IkBat
     y[9] = IKK
     yp[0] = IKK_IkBa_NFkB*d4 + IkBan_NFkBn*tr6 - IkBa_NFkB*d1 - 
-    	IkBa_NFkB*deg1 - IkBa_NFkB*tr5 + IkBa*NFkB*a1 - IKK*IkBa_NFkB*a4
-    yp[1] = IkBa_NFkB*tr5 - IkBan_NFkBn*d1 - IkBan_NFkBn*tr6 + IkBan*NFkBn*a1
-    yp[2] = IKK_IkBa_NFkB*d2 - IKK_IkBa*d3 - IKK_IkBa*k2 + IKK*IkBa*a3 
+    	        IkBa_NFkB*deg1 - IkBa_NFkB*tr5 + IkBa*NFkB*a1 -
+    	        IKK*IkBa_NFkB*a4
+    yp[1] = IkBa_NFkB*tr5 - IkBan_NFkBn*d1 - IkBan_NFkBn*tr6 + 
+            IkBan*NFkBn*a1
+    yp[2] = IKK_IkBa_NFkB*d2 - IKK_IkBa*d3 - IKK_IkBa*k2 + 
+            IKK*IkBa*a3 
     	- IKK_IkBa*NFkB*a2
-    yp[3] = IkBan_NFkBn*d1 + NFkB*tr1 - NFkBn*tr2 - IkBan*NFkBn*a1
-    yp[4] = -IKK_IkBa_NFkB*d2 - IKK_IkBa_NFkB*d4 - IKK_IkBa_NFkB*k1 + IKK*IkBa_NFkB*a4 
-    	+ IKK_IkBa*NFkB*a2
-    yp[5] = IKK_IkBa_NFkB*d2 + IKK_IkBa_NFkB*k1 + IkBa_NFkB*d1 + IkBa_NFkB*deg1 + NFkBn*tr2 
-    	- NFkB*tr1 - IKK_IkBa*NFkB*a2 - IkBa*NFkB*a1
+    yp[3] = IkBan_NFkBn*d1 + NFkB*tr1 - NFkBn*tr2 - 
+            IkBan*NFkBn*a1
+    yp[4] = -IKK_IkBa_NFkB*d2 - IKK_IkBa_NFkB*d4 - IKK_IkBa_NFkB*k1 + 
+            IKK*IkBa_NFkB*a4 + IKK_IkBa*NFkB*a2
+    yp[5] = IKK_IkBa_NFkB*d2 + IKK_IkBa_NFkB*k1 + IkBa_NFkB*d1 + 
+            IkBa_NFkB*deg1 + NFkBn*tr2 
+    	        - NFkB*tr1 - IKK_IkBa*NFkB*a2 - IkBa*NFkB*a1
     yp[6] = IkBa*tr3 + IkBan_NFkBn*d1 - IkBan*tr4 - IkBan*NFkBn*a1
-    yp[7] = IKK_IkBa*d3 + IkBa_NFkB*d1 + IkBan*tr4 - IkBa*deg2 - IkBa*tr3 - IKK*IkBa*a3 
-    	- IkBa*NFkB*a1 + v1*IkBat**n1/(IkBat**n1 + K1**n1)
+    yp[7] = IKK_IkBa*d3 + IkBa_NFkB*d1 + IkBan*tr4 - IkBa*deg2 -  
+            IkBa*tr3 - IKK*IkBa*a3 
+          	- IkBa*NFkB*a1 + v1*IkBat**n1/(IkBat**n1 + K1**n1)
     yp[8] = trb - IkBat*deg3 + v2*NFkBn**n2/(K2**n2 + NFkBn**n2)
-    yp[9] = IKK_IkBa*d3 + IKK_IkBa*k2 + IKK_IkBa_NFkB*d4 + IKK_IkBa_NFkB*k1 - IKK*adapt 
-    	- IKK*IkBa*a3 - IKK*IkBa_NFkB*a4
+    yp[9] = IKK_IkBa*d3 + IKK_IkBa*k2 + IKK_IkBa_NFkB*d4 + 
+            IKK_IkBa_NFkB*k1 - IKK*adapt 
+         	- IKK*IkBa*a3 - IKK*IkBa_NFkB*a4
     return (yp)
-\end{Verbatim}
-\end{scriptsize}
-\end{changemargin}
+\end{lstlisting}
+
 
 \pagebreak
 \section{Minimal Mitotic Model}
 \label{section:Goldbeter}
 
 This is a standard minimal model of a mitotic oscillator\cite{Goldbeter}. It illustrates the use non-catalytic Hill function arrows as well as the use of equations as part of the rate constants. The model is given by:
-\begin{tiny}
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}
 # Goldbeter, A. A minimal cascade model for the mitotic
 # oscillator involving cyclin and cdc2 kinase. Proc. Natl.
 # Acad. Sci. USA 88:9107-1101 (1991).
@@ -551,23 +491,23 @@ $RATES
  Kc = 0.3
  Kd = 0.02
 $
-\end{Verbatim}
-\end{tiny}
-\begin{verbatim}
-  $  python pyx.py solve -in Goldbeter.model  -plot -run 100 .1 -sameplot
-\end{verbatim}
+\end{lstlisting}
+The syntax for running the model is
+\begin{lstlisting}
+  $  python pycellerator.py solve -in Goldbeter.model  -plot -run 100 .1
+     -sameplot
+\end{lstlisting}
+ 
 \begin{center}
-\includegraphics[width=.85\textwidth]{Goldbeter.png}
+\includegraphics[width=.5\textwidth]{Goldbeter.png}
 \end{center}
 
-\pagebreak
 
+\clearpage
 \section[Ring Oscillator (Mass Action)]{Ring Oscillator Using Mass Action Equations}
 
 The following model describes a ring oscillator using only mass-action equations: 
-\begin{changemargin}{1.5in}{1in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single,xrightmargin=\leftmargin]
+\begin{lstlisting}
 $Reactions
  [X  <=> XP,   mod[Z, ZPP], rates[a, d, k, 0,  a, d, k]]
  [XP <=> XPP,  mod[Z, ZPP], rates[a, d, k, 0, a, d, k]]
@@ -584,26 +524,25 @@ $Rates
  d = 1.0
  k = 1.0
 $
-\end{Verbatim}
-\end{scriptsize}
-\end{changemargin}
+\end{lstlisting}
 
-\begin{center}
-{\tt  python solver.py -in ringma.model -plot -run 100 .1 -plotcolumns 1}
-\end{center}
+Syntax:
+
+\begin{lstlisting}
+ python pycellerator.py solver -in ringma.model -plot -run 100 .1 
+ -plotcolumns 1
+\end{lstlisting}
 
 \includegraphics[width=\textwidth]{ringma.png}
 
-\pagebreak
+ \clearpage
 
 %\section{Something That Illustrates MMH alternate form (TBD)} 
 
 \section[Ring Oscillator (MMH)]{Ring Oscillator Using Michaelis-Menten-Henri Reactions}
 
 
-\begin{changemargin}{1.5in}{1in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single,xrightmargin=\leftmargin]
+\begin{lstlisting}
 $Reactions
  [X :--> XP, mod[Z], MMH[K,v]]
  [XP:--> X,  mod[ZP],MMH[K,v]]
@@ -619,27 +558,21 @@ $Rates
  v=1.0
  K=0.5
 $
-\end{Verbatim}
-\end{scriptsize}
-\end{changemargin}
+\end{lstlisting}
 
-\begin{center}
-{\tt  python solver.py -in ringmm.model -plot -run 25 .1 -plotcolumns 1}
-\end{center}
+\begin{lstlisting}
+  python pycellerator solve -in ringmm.model -plot -run 25 .1 -plotcolumns 1
+\end{lstlisting}
 
 \begin{center}
 \includegraphics[width=\textwidth]{ringmm.png}
 \end{center}
 
-\pagebreak
-
-%\section{GRN Multiple Substrates (TBD)}
-
+ \clearpage
+ 
 \section{Ring Oscillator Using GRN Reactions}
 
-\begin{changemargin}{1.5in}{1in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single,xrightmargin=\leftmargin]
+\begin{lstlisting}
 $Reactions
  [U |-> V, GRN[v, b, n, h]]
  [V |-> W, GRN[v, b, n, h]]
@@ -658,26 +591,23 @@ $Rates
  k = 0.5
  b = -10
 $
-\end{Verbatim}
-\end{scriptsize}
-\end{changemargin}
+\end{lstlisting}
 
-\begin{center}
-{\tt  python solver.py -in ringgrn.model -plot -run 50 .1 -sameplot}
-\end{center}
+\begin{lstlisting}
+ python pycelerator solve -in ringgrn.model -plot -run 50 .1 -sameplot
+\end{lstlisting}
 
 \begin{center}
 \includegraphics[width=.7\textwidth]{ringgrn.png}
 \end{center}
 
-\pagebreak
+\clearpage
+ 
 %\section{Something That Illustrates NHCA Multiple Substrates(TBD)}
 
 \section[Ring Oscillator (NHCA)]{Ring Oscillator Using NHCA Reactions}
 
-\begin{changemargin}{1.5in}{1in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single,xrightmargin=\leftmargin]
+\begin{lstlisting}
 $Reactions
  [U |-> V, NHCA[v,TP,TM,n,m,K]]
  [V |-> W, NHCA[v,TP,TM,n,m,K]]
@@ -698,25 +628,22 @@ $Rates
  TP=.2
  TM=-5
 $
-\end{Verbatim}
-\end{scriptsize}
-\end{changemargin}
+\end{lstlisting}
 
-\begin{center}
-{\tt  python solver.py -in ringnhca.model -plot -run 25 .1 -sameplot}
-\end{center}
+\begin{lstlisting}
+ python pycellerator.py solve -in ringnhca.model -plot -run 25 .1 -sameplot
+\end{lstlisting}
 
 \begin{center}
 \includegraphics[width=.7\textwidth]{ringnhca.png}
 \end{center}
 
+\clearpage
 \section{Recombinant \textit{E coli} growth model}
 
 This model uses an S-System approach that is given by \cite{ecoli}.
 
-\begin{changemargin}{1.25in}{1in}
-\begin{scriptsize}
-\begin{Verbatim}[frame=single,xrightmargin=\leftmargin]
+\begin{lstlisting}
 $reactions
 [[X1,X2] |-> X1,    SSystem[1, a1, b1, [g11,g12], [h11,h12]]]
 [[X1,X2] |-> X2,    SSystem[1, a2, b2, [0, 0], [h21, h22]]]
@@ -762,31 +689,32 @@ h33 = -0.0110
 h44 = -0.0100
 h55 = -0.0426
 $
-\end{Verbatim}
-\end{scriptsize}
-\end{changemargin}
+\end{lstlisting}
 
 
-\begin{center}
-{\tt  python solver.py -in ecoli.model -plot -run 24 .1 -sameplot}
-\end{center}
+
+\begin{lstlisting}
+  python pycellerator.py solve -in ecoli.model -plot -run 24 .1 -sameplot
+\end{lstlisting}
 
 \begin{center}
 \includegraphics[width=.7\textwidth]{ecoli-ssystem.png}
 \end{center}
 
+\clearpage
 
-\section[Monow-Wyman-Changeaux (MWC)]{Something That Illustrates MWC (TBD)}
+%\section[Monow-Wyman-Changeaux (MWC)]{Something That Illustrates MWC (TBD)}
 
 \section{MAPK Cascade with Indexed Stages}
 
-\begin{multicols}{2}
-\begin{tiny}
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}
 $Reactions
- [K(3,0) <=> K(3,1), mod[RAFK, RAFph], rates[a1,d1,k1,0,a2,d2,k2,0]]
- [K(2,0) <=> K(2,1) <=> K(2,2), mod[ K(3,1), MEKph ], rates[ a3, d3, k3, 0, a4, d4, k4, 0, a5, d5, k5, 0, a6, d6, k6, 0]]
- [K(1,0) <=> K(1,1) <=> K(1,2), mod[ K(2,2), MAPKph ], rates[ a7, d7, k7, 0, a8, d8, k8, 0, a9, d9, k9, 0, a10, d10, k10, 0]]
+ [K(3,0) <=> K(3,1), mod[RAFK, RAFph], 
+    rates[a1,d1,k1,0,a2,d2,k2,0]]
+ [K(2,0) <=> K(2,1) <=> K(2,2), mod[ K(3,1), MEKph ], 
+    rates[ a3, d3, k3, 0, a4, d4, k4, 0, a5, d5, k5, 0, a6, d6, k6, 0]]
+ [K(1,0) <=> K(1,1) <=> K(1,2), mod[ K(2,2), MAPKph ], 
+    rates[ a7, d7, k7, 0, a8, d8, k8, 0, a9, d9, k9, 0, a10, d10, k10, 0]]
 $IC
  K(3,0) = 1
  K(2,0) = 2.5
@@ -824,12 +752,12 @@ $Rates
  k9=.1
  k10=.1
 $
-\end{Verbatim}
-\end{tiny}
-\end{multicols}
+\end{lstlisting}
 
-{\tt \$ python pyx.py solve -in MAPK-Indexed.model -solve -plot K(1,0) \\
- \hspace{.5in} K(1,1) K(1,2) K(2,0) K(2,1) K(2,2) K(3,0) K(3,1) -sameplot }
+\begin{lstlisting}
+ python pycellerator.py solve -in MAPK-Indexed.model -solve -plot K(1,0) 
+     K(1,1) K(1,2) K(2,0) K(2,1) K(2,2) K(3,0) K(3,1) -sameplot 
+\end{lstlisting}
  
 \begin{center}
 \includegraphics[width=.75\textwidth]{MAPK-Indexed.png}

@@ -22,15 +22,11 @@ use of square brackets, and the contents of square brackets are not optional in 
 
 The generic command line syntax is
 
-\fbox{
-\begin{minipage}{\textwidth}
-%\begin{verbatim}
-\tt   \$ python pycellerator.py keyword [options]
-%\end{verbatim}
-\end{minipage}
-}
-
-where {\tt keyword} is one of {\tt EXPAND}, {\tt INTERPRET}, {\tt CONVERT}, {\tt PARSE}, {\tt SOLVE}, {\tt SBML}, {\tt FLUX} and {\tt VERSION}, and {\tt [options]} is an optional sequence of command line options that is difference for each keyword. The case (upper or lower) of the {tt keyword} does not matter. The syntax and options for each keyword are discussed in the following sections. 
+\begin{lstlisting}
+ $ python pycellerator.py keyword [options]
+\end{lstlisting}
+ 
+where \CODE{keyword} is one of \CODE{EXPAND}, \CODE{INTERPRET}, \CODE{CONVERT}, \CODE{PARSE}, \CODE{SOLVE}, \CODE{SBML}, \CODE{FLUX} and \CODE{VERSION}, and {\tt [options]} is an optional sequence of command line options that is difference for each keyword. The case (upper or lower) of the {tt keyword} does not matter. The syntax and options for each keyword are discussed in the following sections. 
  
 \section{parser}
 
@@ -40,24 +36,23 @@ The parser converts from text-based arrow notation into an internal python class
 
 \paragraph{Command Line Syntax:}\ \\
 
-\fbox{
-\begin{minipage}{\textwidth}
-{\tt \$ python pycellerator parse -in \textit{filename} [-dump] [-trace]}
+\begin{lstlisting}
+     $ python pycellerator parse -in \textit{filename} [-dump] [-trace]}
+\end{lstlisting}
 
-\vspace{12pt}
-{\tt \$ python parser.py -in \textit{filename} [-dump] [-trace]}
-\end{minipage}
-}
+\begin{lstlisting}
+     $ python parser.py -in \textit{filename} [-dump] [-trace]}
+\end{lstlisting}
 
 The {\tt in \textit{filename}} specifies the input file name, which contains a list of text reactions. An example is given by the following:
-\begin{Verbatim}[frame=single]
+\begin{lstlisting} 
  [X  <=> XP,   mod[Z, ZPP], rates[a, d, k, 0, a, d, k]]  # first reaction
  [XP <=> XPP,  mod[Z, ZPP], rates[a, d, k, 0, a, d, k]]  # second reaction
  [Y  <=> YP,   mod[X, XPP], rates[a, d, k, 0, a, d, k]] 
  [YP <=> YPP,  mod[X, XPP], rates[a, d, k, 0, a, d, k]] 
  [Z  <=> ZP,   mod[Y, YPP], rates[a, d, k, 0, a, d, k]]
  [ZP <=> ZPP,  mod[Y, YPP], rates[a, d, k, 0, a, d, k]]
-\end{Verbatim}
+\end{lstlisting}
 One reaction may be placed per line; additional white space is ignored. The {\tt \#} character indicates a comment; 
 anything written to the right of this character will be ignored. 
 
@@ -67,12 +62,11 @@ If the {\tt -dump} option is used, the {\tt Dump()} method will be applied (and 
 
 \paragraph{Command Line in Shell:}\ \\
 
-\fbox{
-\begin{minipage}{\textwidth}
-{\tt >>> import pyx}\\
-{\tt >>> pyx.run("parse -in \textit{filename} {\tt [-dump]} {\tt [-trace]}")}
-\end{minipage}
-}
+\begin{lstlisting}
+ >>> import pycellerator
+ >>> pycellerator.run("parse -in  filename [-dump]  [-trace]")
+\end{lstlisting}
+
 
 
 \paragraph{API (functions):}
@@ -97,7 +91,7 @@ If the {\tt -dump} option is used, the {\tt Dump()} method will be applied (and 
 & invokes the class directly and the other does it via a functional interface.
 \end{tabular}
 
-
+\clearpage
 \paragraph{API (class):}
 
 \subparagraph{\tt Reaction(r)\\}
@@ -146,25 +140,26 @@ Comparison of {\tt Arrow()} and {\tt ArrowType()}. See previous chapter for desc
 
 \paragraph{Examples.\\}
 
+
 \begin{enumerate}
 \item Input with {-trace}
-\begin{small}
-\begin{Verbatim}[frame=single]
+ 
+\begin{lstlisting}
  $more catalytic.dat
   [X => Y, mod[E], rates[k1,k2,k3]]
   [Y => X, mod[F], rates[k4,k5,k6]]
- $python pyx.py -in catalytic.dat -trace
-  py[xlr8r]: parser (2012-03-02 17:58:18)
+ $python pycellerator.py -in catalytic.dat -trace
+  py[cellerator]: parser (2015-03-02 17:58:18)
   input: [X => Y, mod[E], rates[k1,k2,k3]]
   input: [Y => X, mod[F], rates[k4,k5,k6]]
   [<__main__.Reaction object at 0x7f0442369a50>, 
     <__main__.Reaction object at 0xe47dd0>]
-\end{Verbatim}
-\end{small}
+\end{lstlisting}
+ 
 
 \item Input with {-dump}
-\begin{small}
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}
+ 
 $cat sto.dat
   [ 3A + 4B -> P + Q + R,  k]
 $ python pyx.py -in sto.dat -dump
@@ -182,8 +177,8 @@ RH_STOIC:  ['1', '1', '1']
 modifiers: []
 rates:     ['k']
 [<__main__.Reaction object at 0x7f6b1c3d2c90>]
-\end{Verbatim}
-\end{small}
+\end{lstlisting}
+ 
 
 
 
@@ -193,7 +188,7 @@ rates:     ['k']
 
 
 % *****************************************************************************************************
-\newpage
+%\newpage
 
 \section{expander}
 
@@ -215,14 +210,14 @@ The output of the expander is a list of the expanded reactions, either as {\tt R
 
 \paragraph{Command Line Syntax:}\ 
 
-\fbox{
-\begin{minipage}{\textwidth}
-{\tt \$ python expander.py -in \textit{inputfile}} {\tt [-dump] [-out  \textit{outputfile}} {\tt ]}
-\vspace{12pt}
+\begin{lstlisting}
+ $ python expander.py -in  inputfile  [-dump] [-out   outputfile]
+\end{lstlisting}
 
-{\tt \$ python pycellerator.py expand -in \textit{inputfile}} {\tt [-dump] [-out  \textit{outputfile}} {\tt ]}
-\end{minipage}
-}
+\begin{lstlisting}
+ $ python pycellerator.py expand -in inputfile [-dump] [-out  outputfile]
+\end{lstlisting}
+
 
 The {\tt \textit{inputfile}} may be either a reaction file or a model file. If it is a model file it must have file extension {\tt .model}. 
 
@@ -238,12 +233,12 @@ Existing files will not be over-written; if the requested file already exists a 
 
 \paragraph{Command Line in Shell:}\ \\
 
-\fbox{
-\begin{minipage}{\textwidth}
-{\tt >>> import pyx}\\
-{\tt >>> pyx.run ("expand -in \textit{inputfile} {\tt [-dump] [-out } \textit{outputfile}{\tt ]")}}
-\end{minipage}
-}
+ 
+\begin{lstlisting}
+ >>> import pycellerator
+ >>> pycellerator.run ("expand -in inputfile [-dump] [-out } outputfile]")
+\end{lstlisting}
+
 
 
 
@@ -271,23 +266,28 @@ none
 \end{tabular}
 
 \paragraph{Example Input File:}
-\begin{Verbatim}[frame=single]
+
+Here is an example of a typical input file, followed by a full example of the dump command using th  an shorter input file.
+
+\begin{lstlisting} 
  [X  <=> XP,   mod[Z, ZPP], rates[a, d, k, 0, a, d, k]]
  [XP <=> XPP,  mod[Z, ZPP], rates[a, d, k, 0, a, d, k]]
  [Y  <=> YP,   mod[X, XPP], rates[a, d, k, 0, a, d, k]] 
  [YP <=> YPP,  mod[X, XPP], rates[a, d, k, 0, a, d, k]] 
  [Z  <=> ZP,   mod[Y, YPP], rates[a, d, k, 0, a, d, k]]
  [ZP <=> ZPP,  mod[Y, YPP], rates[a, d, k, 0, a, d, k]]
-\end{Verbatim}
+\end{lstlisting}
 
 \paragraph{Full Example}
 
-\begin{verbatim}
+In the following example, we will dump a model that is generated from a single line file. 
+
+\begin{lstlisting}
 $ more test.dat
   [X :=> Y,   mod[Z], rates[k1,k2,k3,k4,k5]]
 $
 $ python expander.py -in test.dat -dump -out test.out
-py[xlr8r]: expander (2012-03-01 10:39:34)
+py[cellerator]: expander (2015-09-01 10:39:34)
 [X+Z->X_Z,k1]
 [X_Z->X+Z,k2]
 [X_Z->Z_Y,k3]
@@ -304,12 +304,12 @@ $ more test.out
 [Z_Y->Y+Z,k5]
 [Y+Z->Z_Y,0]
 $
-\end{verbatim}
+\end{lstlisting}
 
 
 % *****************************************************************************************************
 
-\newpage
+%\newpage
 
 \section{interpreter}
 
@@ -317,55 +317,57 @@ The interpreter converts reactions from arrow format into differential equations
 
 \paragraph{Command Line Syntax:}\ 
 
-\fbox{
-\begin{minipage}{\textwidth}
-{\tt \$ python interpreter.py -in \textit{filename} [-out  \textit{filename}]}
-{\tt [ -dump ]} 
-{\tt [ -format \textit{format}]} 
-{\tt [ -frozen \textit{variable variable ...}]}
+\begin{lstlisting}
+ $ python interpreter.py -in filename -out filename]
+     [ -dump ]
+     [ -format FORMAT]
+     [ -frozen variable variable ...]
+\end{lstlisting}
 
-\vspace{12pt}
-{\tt \$ python pycellerator interpret -in \textit{filename}  [-out \textit{filename}]}
-{\tt [ -dump ]} 
-{\tt [ -format \textit{format}]} 
-{\tt [ -frozen \textit{variable variable ...}]}
-\end{minipage}
+\begin{lstlisting}
+  $ python pycellerator.py interpret -in  filename -out filename]
+     [ -dump ]
+     [ -format FORMAT]
+     [ -frozen variable variable ...]
+\end{lstlisting}
 }
 
-The input \textit{filename} may be either a reaction file or a model file. If it is a model file it must have a file extension of {\tt .model}. Here is an example reaction file:
+The input \textit{filename} may be either a reaction file or a model file. If it is a model file it must have a file extension of \CODE{.model}. Here is an example reaction file:
 
-\begin{Verbatim}[frame=single]
+\begin{lstlisting} 
 [Br + BrO3 -> HBrO2 + HOBr, k1] 
 [Br + HBrO2 -> 2*HOBr, k2]
 [BrO3 + HBrO2 -> 2*Ce + 2*HBrO2, k3] 
 [2*HBrO2-> BrO3 + HOBr, k4] 
 [Ce -> 0.5*Br, k5]
-\end{Verbatim}
+\end{lstlisting}
 
-If the {\tt -dump} option is specified the {\tt Reaction} object database will be dumped to the screen.
+If the \CODE{-dump} option is specified the \CODE{Reaction} object database will be dumped to the screen.
 
-If the {\tt -out} option is specified the text output of the interpreter will be written to the requested file. If no
-file name is given a default file name will be generated (e.g., {\tt interpreted- reactions.out}). 
+If the \CODE{-out} option is specified the text output of the interpreter will be written to the requested file. If no file name is given a default file name will be generated (e.g., \CODE{interpreted -out reactions.out}). 
 
-If the {\tt -out} option is not used, the result will be written to the screen.
+If the \CODE{-out} option is not used, the result will be written to the screen.
 
 Existing files will not be over-written; if the requested file already exists a new file name will be generated that is based on the requested file name but has a unique string attached to the end of it.
 
-Output formats are {\tt ODE} (default), {\tt CODE}, {\tt PYTHON}, {\tt LATEX}, {\tt DICT}, {\tt JACOBIAN}, {\tt STEADYSTATE} and are not case-sensitive.
+Output formats are \CODE{ODE} (default), \CODE{CODE}, \CODE{PYTHON}, \CODE{LATEX}, \CODE{DICT}, \CODE{JACOBIAN}, \CODE{STEADYSTATE} and are not case-sensitive.
 
-{\tt -format ODE} will return a text-formatted table of differential equations. Here is an example of {\tt ODE} format:
 
-\begin{Verbatim}[frame=single]
+\clearpage
+
+\CODE{-format ODE} will return a text-formatted table of differential equations. Here is an example of \CODE{ODE} format:
+
+\begin{lstlisting}
 BrO3' = -Br*BrO3*k1 - BrO3*HBrO2*k3 + k4*HBrO2**2.0
 HOBr' = Br*BrO3*k1 + 2.0*Br*HBrO2*k2 + k4*HBrO2**2.0
 Br' = 0.5*Ce*k5 - Br*BrO3*k1 - Br*HBrO2*k2
 HBrO2' = Br*BrO3*k1 + BrO3*HBrO2*k3 - Br*HBrO2*k2 - 2.0*k4*HBrO2**2.0
 Ce' = -Ce*k5 + 2.0*BrO3*HBrO2*k3
-\end{Verbatim}
+\end{lstlisting}
 
-{\tt -format CODE} or {\tt -format=PYTHON} will return a python function that will evaluate the differential equations. Here is an example of the output of the {\tt CODE} or {\tt PYTHON} format:
+\CODE{-format CODE} or \CODE{-format=PYTHON} will return a python function that will evaluate the differential equations. Here is an example of the output of the \CODE{CODE} or \CODE{PYTHON} format:
 
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}[frame=single]
 def f(y,t):
     y[0] = BrO3
     y[0] = HOBr
@@ -378,15 +380,15 @@ def f(y,t):
     yp[3] = Br*BrO3*k1 + BrO3*HBrO2*k3 - Br*HBrO2*k2 - 2.0*k4*HBrO2**2.0
     yp[4] = -Ce*k5 + 2.0*BrO3*HBrO2*k3
     return (yp)
-\end{Verbatim}
+\end{lstlisting}
 
-Note that this code is not directly useable because the values of parameters are not specified. Also, this is not the same code that is returned by the solver module, as that code has the rate constants fully instantiated, unless the \textit{inputfile} following the {\tt -in} option is a model file with file extension {\tt model} that has all of the rate constants fully defined in the {\tt \$RATES} block. 
+Note that this code is not directly useable because the values of parameters are not specified. Also, this is not the same code that is returned by the solver module, as that code has the rate constants fully instantiated, unless the \textit{inputfile} following the \CODE{-in} option is a model file with file extension \CODE{.model} that has all of the rate constants fully defined in the \CODE{\$RATES} block. 
 
-{\tt -format LATEX} will return a \LaTeX encoding of the equations within a minimal wrapper that makes it compatible with both {\tt latex} and {\tt pdflatex}. 
-This option uses the {\tt sympy latex} function and may not produce the expected output. 
+\CODE{-format LATEX} will return a \LaTeX\ encoding of the equations within a minimal wrapper that makes it compatible with both \CODE{latex} and \CODE{pdflatex}. 
+This option uses the \CODE{sympy latex} function and may not produce the expected output. 
 For example, the above file will produce
 
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}
 	\documentclass[12pt,letterpaper]{article}
 	\usepackage[latin1]{inputenc}
 	\usepackage{amsmath, amsfonts, amssymb}
@@ -406,36 +408,34 @@ For example, the above file will produce
 	Ce' &= .0 BrO_{3} HBrO_{2} k_{3} - Ce k_{5\\
 	\end{align*}
 	\end{document}
-\end{Verbatim}
+\end{lstlisting}
 
-{\tt -format DICT} will return a python dictionary of \verb!{"variable":ode, "variable":ode,...}! where each {\tt ode} is the right-hand side of the symbolic differential equation for the corresponding variable. Here is an example of a dictionary: 
-\begin{Verbatim}[frame=single]
+\clearpage
+
+\CODE{-format DICT} will return a python dictionary of the form\CODE{{"variable":ode, "variable":ode,...}} where each \CODE{ ode} is the right-hand side of the symbolic differential equation for the corresponding variable. Here is an example of a dictionary: 
+\begin{lstlisting}
 {'BrO3': -Br*BrO3*k1 - BrO3*HBrO2*k3 + k4*HBrO2**2.0, 
  'HOBr': Br*BrO3*k1 + 2.0*Br*HBrO2*k2 + k4*HBrO2**2.0, 
  'Br': 0.5*Ce*k5 - Br*BrO3*k1 - Br*HBrO2*k2, 
  'HBrO2': Br*BrO3*k1 + BrO3*HBrO2*k3 - Br*HBrO2*k2 - 2.0*k4*HBrO2**2.0, 
  'Ce': -Ce*k5 + 2.0*BrO3*HBrO2*k3}
-\end{Verbatim}
+\end{lstlisting}
 
 
-{\tt -format JACOBIAN} will return the Jacobian matrix of the system: 
+\CODE{-format JACOBIAN} will return the Jacobian matrix of the system: 
 
-\begin{footnotesize}
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}[xleftmargin=0in, xrightmargin=0in]
 $ python pyx.py interpret -in oregonator.dat -format Jacobian
-  [-Br*k1 - HBrO2*k3, 0,             -BrO3*k1,        -BrO3*k3 + 2*HBrO2*k4,      0]
-  [            Br*k1, 0, BrO3*k1 + 2*HBrO2*k2,         2*Br*k2 + 2*HBrO2*k4,      0]
-  [           -Br*k1, 0,  -BrO3*k1 - HBrO2*k2,                       -Br*k2, 0.5*k5]
-  [ Br*k1 + HBrO2*k3, 0,   BrO3*k1 - HBrO2*k2, BrO3*k3 - Br*k2 - 4*HBrO2*k4,      0]
-  [       2*HBrO2*k3, 0,                    0,                    2*BrO3*k3,    -k5]
-$ 
-\end{Verbatim}
-\end{footnotesize}
+[-Br*k1 - HBrO2*k3, 0,             -BrO3*k1,        -BrO3*k3 + 2*HBrO2*k4,      0]
+[            Br*k1, 0, BrO3*k1 + 2*HBrO2*k2,         2*Br*k2 + 2*HBrO2*k4,      0]
+[           -Br*k1, 0,  -BrO3*k1 - HBrO2*k2,                       -Br*k2, 0.5*k5]
+[ Br*k1 + HBrO2*k3, 0,   BrO3*k1 - HBrO2*k2, BrO3*k3 - Br*k2 - 4*HBrO2*k4,      0]
+[       2*HBrO2*k3, 0,                    0,                    2*BrO3*k3,    -k5]
+\end{lstlisting}
 
 
-{\tt -format STEADYSTATE} will return the steady state of the system. Consider, for example, the following simple model {\tt simple.model}:
-\begin{footnotesize}
-\begin{Verbatim}[frame=single]
+\CODE{-format STEADYSTATE} will return the steady state of the system. Consider, for example, the following simple model \CODE{simple.model}:
+\begin{lstlisting}
 $Reactions
  [2*A -> B, k]
  [B -> Nil, k1]
@@ -450,58 +450,55 @@ $Rates
  k2=.1
  k3 = 1
 $
-\end{Verbatim}
-\end{footnotesize}
+\end{lstlisting}
 This model has a single realizable (physical) steady state and a second non-realizable steady state (with negative concentrations).
-\begin{Verbatim}[frame=single]
-$ python pyx.py interpret -in simple.model -format steadystate
+\begin{lstlisting}
+$ python pycellerator.py interpret -in simple.model -format steadystate
 There are 2 steady states
 (A, B) = (-0.723746864455746, 0.476190476190476) has eigenvalues 
         [2.85841999579395, -1.06343253797097]
 (A, B) = (0.723746864455746, 0.476190476190476) has eigenvalues 
         [-1.02268894521036, -2.97229851261262]
 $
-\end{Verbatim}
+\end{lstlisting}
 
-The {\tt -symbolic} option may be used in conjunction with {\tt -format STEADYSTATE} to return a tuple ${\tt (vars,ss,evs)}$, where {\tt vars} is a tuple of the system variables; {\tt ss} is a list of the steady states, each as a tuple; and {\tt evs} is a list of the eigenvalues of the Jacobian at that steady state. This format is probably more meaningful form within the Python Shell: 
+\clearpage 
+The \CODE{-symbolic} option may be used in conjunction with \CODE{-format STEADYSTATE} to return a tuple \CODE{(vars,ss,evs)}, where \CODE{vars} is a tuple of the system variables; \CODE{ss} is a list of the steady states, each as a tuple; and \CODE{evs} is a list of the eigenvalues of the Jacobian at that steady state. This format is probably more meaningful form within the Python Shell: 
 
-\begin{footnotesize}
-\begin{Verbatim}[frame=single]
+\begin{lstlisting}
 >>> import pycellerator.interpreter as interp
->>> s,ss,evs=interp.interpret("simple.model",format="steadystate",symbolic=True)
+>>> s,ss,evs=interp.interpret("simple.model",
+    format="steadystate",symbolic=True)
 >>> s
 [A, B]
 >>> ss
-[(-0.723746864455746, 0.476190476190476), (0.723746864455746, 0.476190476190476)]
+[(-0.723746864455746, 0.476190476190476), 
+ (0.723746864455746, 0.476190476190476)]
 >>> evs
-[[2.85841999579395, -1.06343253797097], [-1.02268894521036, -2.97229851261262]]
+[[2.85841999579395, -1.06343253797097], 
+ [-1.02268894521036, -2.97229851261262]]
 >>>
-\end{Verbatim}
-\end{footnotesize}
+\end{lstlisting}
 
 
 
-If the {\tt -frozen} option is used it should be followed by one or more unquoted variable names in the model. These variables will be treated as frozen variables, i.e., the right hand sides of their differential equations will be set to zero. Note that these may also be additional variables that are not otherwise specified in the model equations, in which case additional equations will be added to the file. 
+If the \CODE{-frozen} option is used it should be followed by one or more unquoted variable names in the model. These variables will be treated as frozen variables, i.e., the right hand sides of their differential equations will be set to zero. Note that these may also be additional variables that are not otherwise specified in the model equations, in which case additional equations will be added to the file. 
 
 
 \paragraph{Command Line in Shell:}\ \\
 
-\fbox{
-\begin{minipage}{\textwidth}
-{\tt >>> import pyx}\\
-{\tt >>> pyx.run ("interpret -in \textit{inputfile} 
-{\tt [-out} \textit{filename} {\tt ]}
-{\tt [ -dump ]} \\
-{\tt [ -format} \textit{format}{\tt ]} 
-{\tt [ -frozen} \textit{variable variable ...} {\tt ] [ -symbolic]}
-")}
-\end{minipage}
-}
+\begin{lstlisting}
+ >>> import pycellerator
+ >>> pycellerator.run ("interpret -in inputfile [ -out filename]
+	 [ -dump ] [ -format FORMAT][ -frozen variable variable ..]
+	 [ -symbolic] ")
+\end{lstlisting}
+
 
 
 \paragraph{API:\\}
 
-\subparagraph{\tt makeODETerms(r, s, *keywords)\\}
+\subparagraph {\CODE{ makeODETerms(r, s, *keywords)}\\}
 
 \begin{tabular}{ll}
 \textbf{input:} & {\tt r}: list of reactions as {\tt Reaction} class objects\\
@@ -515,8 +512,9 @@ If the {\tt -frozen} option is used it should be followed by one or more unquote
 & equations are held fixed, as in \verb.frozen=["var1","var2",...]. The entries in the \\
 & return dictionary will be \verb!.."var1":0,"var2":0,..! for these variables.
 \end{tabular}
+\clearpage
 
-\subparagraph{\tt interpret(filename, *keywords)\\}
+\subparagraph{\CODE{interpret(filename, *keywords)}\\}
 
 \begin{tabular}{ll}
 \textbf{input:} & name of input file \\
@@ -535,9 +533,10 @@ If the {\tt -frozen} option is used it should be followed by one or more unquote
 
 This example uses the input file illustrated above.
 
-\begin{Verbatim}[frame=single]
+
+\begin{lstlisting}
 $ python interpreter.py -in oregonator.dat -frozen BrO3 -format code
-py[xlr8r]: interpreter (2012-03-02 11:53:09)
+py[cellerator]: interpreter (2015-09-02 11:53:09)
 def f(y,t):
     y[0] = Ce
     y[0] = HOBr
@@ -551,143 +550,147 @@ def f(y,t):
     yp[4] = 0.5*Ce*k5 - Br*BrO3*k1 - Br*HBrO2*k2
     return (yp)
 $
-\end{Verbatim}
+\end{lstlisting}
 
 % *****************************************************************************************************
 
-\newpage
+%\newpage
 \section{solver}
 
 The solver will write a stand-alone python script to run a simulation on a model, and then will execute that script. 
 \paragraph{Command Line Syntax:}\ 
 
-\fbox{
-\begin{minipage}{\textwidth}
-{\tt \$ python solver.py -in \textit{filename} }
-{\tt [-run  \textit{stepsize duration}]}
-{\tt [-plot [\textit{variable variable variable ...}]]}  
-{\tt [-plotcolumns \textit{n}]}
-{\tt [-sameplot]}
-{\tt [-out\textit{filename} ]}
-{\tt [-format \textit{format} ]}
-{\tt [-pyfile \textit{filename}]}
-{\tt [-norun]}
+ 
 
-\vspace{18pt}
 
-{\tt \$ python pyx.py solve -in \textit{filename} }
-{\tt [-run \textit{stepsize duration}  ]}
-{\tt [-plot [\textit{variable variable variable ...}]]}  
-{\tt [-plotcolumns \textit{n}]}
-{\tt [-sameplot]}
-{\tt [-out \textit{filename}]}
-{\tt [-format \textit{format}]}
-{\tt [-pyfile \textit{filename}]}
-{\tt [-norun]}
-\end{minipage}
-}
+\begin{lstlisting}
+     $ python pycellerator.py solve -in filename
+              [-run  stepsize duration]
+              [-plot  variable variable variable ...]]
+              [-plotcolumns  n]
+              [-sameplot]
+              [-out filename} ]
+              [-format  FORMAT} ]
+              [-pyfile  filename}]
+              [-norun]
+              \end{lstlisting}
 
-{\tt -in \textit{filename}} specifies the name of the model file.
+or
+\clearpage
+\begin{lstlisting}
+     $ python solver.py -in  filename
+              [-run  stepsize duration]
+              [-plot  variable variable variable ...]]
+              [-plotcolumns  n]
+              [-sameplot]
+              [-out filename} ]
+              [-format  FORMAT} ]
+              [-pyfile  filename}]
+              [-norun]
+              \end{lstlisting}
 
-{\tt -run  \textit{stepsize duration}} - specifies the step size (for plotting and output files) and duration of the run. The default values are 100 and 1. 
 
-{\tt -plot [\textit{variable variable variable ...} \tt ]}  - if {\tt -plot} is used alone, without any variable names, all variables are plotted on a grid. If any variables are listed, then only the requested variables are plotted. 
+\CODE{-in filename} specifies the name of the model file.
 
-{\tt -plotcolumns} \textit{n}  - number of columns to use in the grid of plots (default is 3). Only used in conjunction with the {\tt -plot} option. 
+\CODE{-run  stepsize duration}  specifies the step size (for plotting 
+and output files) and duration of the run. The default values are 100 and 1. 
 
-{\tt -sameplot} - the variables will all be plotted on a single graph rather than a grid. This options supersedes {\tt -plotcolumns}. 
+\CODE{-plot  variable variable variable }  - if \CODE{ -plot} is used 
+alone, without any variable names, all variables are plotted on a grid. If any variables are listed, then only the requested variables are plotted. 
 
-{\tt -out \textit{filename}}  - optional output file to write the solution to to at the requested step size (as given in {\tt -run} option). 
+\CODE{-plotcolumns n}  defines the number of columns to use in the grid of plots (default is 3). Only used in conjunction with the \CODE{-plot} option. 
 
-{\tt -format \textit{format}} - format of output file; values of \textit{format} are {\tt CSV} (comma-separated values); {\tt TSV} (tab-separated values); and {\tt TABLE} (space-separated values). The default format is {\tt CSV}. 
+\CODE{-sameplot} - the variables will all be plotted on a single graph rather than a grid. This options supersedes \CODE{-plotcolumns}. 
 
-{\tt -norun} - just generate the code, don't run it. 
+\CODE{-out filename}  - optional output file to write the solution to  at the requested step size (as given in \CODE{ -run} option). 
 
-{\tt -mxstep n} - the default number of steps in {\tt ODEINT} is 500. This is increased to 500000 by {\tt pycellerator}. 
+\CODE{-format FORMAT} - format of output file; values of \CODE{FORMAT} are \CODE{CSV} (comma-separated values); \CODE{TSV} (tab-separated values); and \CODE{TABLE} (space-separated values). The default format is \CODE{CSV}. 
 
-{\tt -pyfile \textit{filename}} - gives the name of the python code to be generated, otherwise a default file name will be used. Existing files will not be overwritten, so if the file already exists, and approximation to the requested file name will be used instead. 
+\CODE{-norun} - just generate the code, don't run it. 
+
+\CODE{-mxstep n} - the default number of steps in \CODE{ ODEINT} is 500. This is increased to 500000 by {\tt pycellerator}. 
+
+\CODE{-pyfile  filename}  gives the name of the python code to be generated, otherwise a default file name will be used. Existing files will not be overwritten, so if the file already exists, and approximation to the requested file name will be used instead. 
 
 
 \paragraph{Command Line in Shell:}\ \\
 
-\fbox{
-\begin{minipage}{\textwidth}
-{\tt >>> import pyx}\\
-{\tt >>> pyx.run ("interpret -in \textit{inputfile} 
-{\tt [-run } \textit{stepsize duration} {\tt ]}
-{\tt [-plot [}\textit{variable variable variable ...} {\tt ]]}  
-{\tt [-plotcolumns} \textit{n} {\tt ]}
-{\tt [-sameplot]}
-{\tt [-out} \textit{filename} {\tt ]}
-{\tt [-format} \textit{format} {\tt ]}
-{\tt [-pyfile} \textit{filename} {\tt]}
-{\tt [-norun]}
-")}
-\end{minipage}
-}
+ 
+\begin{lstlisting}
+ >>>import pycellerator
+ >>> pycellerator.run("interpret -in inputfile 
+                       [-run stepsize duration]
+                       [-plot [ variable variable variable ...]
+                       [-plotcolumns n]
+                       [-sameplot] 
+                       [-out filename ]
+                       [-format FORMAT ]
+                       [-pyfile filename ]
+                       [-norun]")
+\end{lstlisting}
+
 
 % *****************************************************************************************************
 \newpage
 \section{converter}
 
-The converter module is will convert {\tt pycellerator} text reactions to {\tt Cellerator} ({\tt xlr8r}) \textit{Mathematica} reaction notebooks. 
+The converter module is will convert \CODE{pycellerator} text reactions to {\tt Cellerator} ({\tt xlr8r}) \textit{Mathematica} reaction notebooks. 
 
 The reactions will be specified in their \textit{Mathematica} {\tt FullForm} notation, so that they can be written as ASCII text files. This notation can be read directly or copied and pasted directly into an xlr8r notebook and is fully compatible with the xlr8r {\tt interpret} and {\tt run} commands.
 
-Still to be implemented functions of the converter: SBML input/output, Cambium input/output.
-
-Note that \LaTeX output is provided by the interpreter module.  
+Note that \LaTeX\ output is provided by the interpreter module, and SBML  input and output is provided by the SBML module.
 
 \paragraph{Command Line Syntax:}\ \\
 
-\fbox{\begin{minipage}{\textwidth}
-{\tt \$ python converter.py -in \textit{filename}}
-{\tt [-out \textit{filename}}
-{\tt ] [-dump]}
-\end{minipage}
-}
+\begin{lstlisting}
+ $ python pycellerator.py convert  -in filename [-out filename] [-dump]
+\end{lstlisting}
 
-The {\tt -in \textit{filename}} specifies the input file name, which is a list of text pycellerator reactions, identical in format to the reactions sent to the parser, such as: 
 
-\begin{Verbatim}[frame=single]
+The \CODE{-in  filename} specifies the input file name, which is a list of text pycellerator reactions, identical in format to the reactions sent to the parser, such as: 
+
+\begin{lstlisting} 
  [X  <=> XP,   mod[Z, ZPP], rates[a, d, k, 0, a, d, k]]
  [XP <=> XPP,  mod[Z, ZPP], rates[a, d, k, 0, a, d, k]]
  [Y  <=> YP,   mod[X, XPP], rates[a, d, k, 0, a, d, k]] 
  [YP <=> YPP,  mod[X, XPP], rates[a, d, k, 0, a, d, k]] 
  [Z  <=> ZP,   mod[Y, YPP], rates[a, d, k, 0, a, d, k]]
  [ZP <=> ZPP,  mod[Y, YPP], rates[a, d, k, 0, a, d, k]]
-\end{Verbatim}
+\end{lstlisting}
 
-The input {\tt \textit{filename}} may also be a model file (with file extension {\tt .model}). In this case the output will include not only {\tt xlr8r} reactions, but lists of initial conditions and rate constants in formats compatible with the {\tt xlr8r run} function. 
+The input \CODE{filename} may also be a model file (with file extension \CODE{.model}. In this case the output will include not only {\tt xlr8r} reactions, but lists of initial conditions and rate constants in formats compatible with the {\tt xlr8r run} function. 
 
-The {\tt -out \textit{filename}} specifies the output file name. which is typically a \textit{Mathematica} notebook. If it is not specified a unique file name will be generated. The contents of this file will typically look something like this: 
-\begin{footnotesize}
-\begin{Verbatim}[frame=single]
-model = {List[Underoverscript[RightArrowLeftArrow[X, XP], ZPP, Z],a,d,k,0,a,d,k,0],
- List[Underoverscript[RightArrowLeftArrow[XP, XPP], ZPP, Z], a, d, k, 0, a, d, k, 0],
- List[Underoverscript[RightArrowLeftArrow[Y, YP], XPP, X], a, d, k, 0, a, d, k, 0],
- List[Underoverscript[RightArrowLeftArrow[YP, YPP], XPP, X], a, d, k, 0, a, d, k, 0],
- List[Underoverscript[RightArrowLeftArrow[Z, ZP], YPP, Y], a, d, k, 0, a, d, k, 0],
- List[Underoverscript[RightArrowLeftArrow[ZP, ZPP], YPP, Y], a, d, k, 0, a, d, k, 0]}
-\end{Verbatim}
-\end{footnotesize}
+The \CODE{-out filename} specifies the output file name. which is typically a \textit{Mathematica} notebook. If it is not specified a unique file name will be generated. The contents of this file will typically look something like this: 
+\begin{lstlisting}
+model = {
+ List[Underoverscript[RightArrowLeftArrow[X, XP], ZPP, Z],
+      a, d, k, 0, a, d, k ,0],
+ List[Underoverscript[RightArrowLeftArrow[XP, XPP], ZPP, Z],
+      a, d, k, 0, a, d, k, 0],
+ List[Underoverscript[RightArrowLeftArrow[Y, YP], XPP, X], 
+      a, d, k, 0, a, d, k, 0],
+ List[Underoverscript[RightArrowLeftArrow[YP, YPP], XPP, X],
+      a, d, k, 0, a, d, k, 0],
+ List[Underoverscript[RightArrowLeftArrow[Z, ZP], YPP, Y], 
+      a, d, k, 0, a, d, k, 0],
+ List[Underoverscript[RightArrowLeftArrow[ZP, ZPP], YPP, Y],
+      a, d, k, 0, a, d, k, 0]}
+\end{lstlisting}
 
-The {\tt -dump} option indicates that the intermediate {\tt Reaction} database should be dumped to the screen. 
+The \CODE{ -dump} option indicates that the intermediate {\tt Reaction} database should be dumped to the screen. 
 
 \newpage
 
 \paragraph{Command Line in Shell:}\ 
 
-\fbox{\begin{minipage}{\textwidth}
-
-{\tt >>> import pyx}\\
-{\tt >>> pyx.run("convert -in \textit{filename} [-out \textit{filename}] [-dump]")}
-
-\end{minipage}}
+\begin{lstlisting}
+ >>> import pycellerator
+ >>> pycellerator.run("convert -in  filename [-out  filename] [-dump]")
+\end{lstlisting}
 
 \paragraph{API:\\}
 
-\subparagraph{\tt convert(*keywords)\\}
+\subparagraph{\CODE{ convert(*keywords)}\\}
 
 \begin{tabular}{ll}
 \textbf{input:} & (by keyword only)\\
@@ -700,61 +703,195 @@ The {\tt -dump} option indicates that the intermediate {\tt Reaction} database s
 \end{tabular}
 
 % *****************************************************************************************************
-\newpage
+%\newpage
 \section[SBML]{SBML Support}
+
+
 
 \subsection{Reading SBML Files}
 
+
+When an SBML model is read, it is converted to a {\tt py[cellerator]} model file.  A model file that is generated from an SBML model will typically look somewhat different from a hand-generated model because the reactions and other structures will not normally correspond to the typical biological entities that we think of as reactions.
+
+Rather than running models directly from SBML, the \CODE{SBML read} command converts an SBML model directly into a pycellerator model file. This arrow file can be used like any other pycellerator model file. SBML entities that are not implemented in pycellerator but are referenced in the SBML file cannot be converted to pycellerator. 
+
+
+
+\subsubsection{Syntax}
+
+\begin{lstlisting}
+  python pycellerator.py sbml read -in filename [-model filename]
+\end{lstlisting}
+If \CODE{-model fjiename} is specified, the output will be written to the specified file. Otherwise the output will be written to the file \CODE{tmp.model}. Existing files will not be overwritten, and an approximation to the requested name will be used if the file already exists. 
+
+
+\textbf{Caution}: Unexpected errors could occur if variables (e.g., \CODE{species}) in the SBML model are the same as predefined functions in python, particularly \CODE{sympy} functions. For example, model 9 (Huang, 1996, ``Ultrasensitivity in the MAPK Cascade'') 
+in the Biomodels database (\url{https://www.ebi.ac.uk/biomodels-main/BIOMD0000000009}) contains the variable \CODE{E1} which is also the name of an elliptic integral function in \CODE{sympy}. Attempting to convert this model directly would produce the somewhat obscure looking error
+\begin{lstlisting}
+TypeError: unsupported operand type(s) for *: 'Symbol' and 'function'
+\end{lstlisting}
+To fix this, the user is fore-warned to change the names of all symbols, such as \CODE{E1}, to non-conflicting symbols. 
+
+In the following example, Biomodel 9 species \CODE{E1} was converted globally (in a text editor) to a new species \CODE{Species\_E1} prior to use. The revised SBML file was saved in a new file \CODE{BM9.xml}. To convert this file to a {\tt pycellerator} model file \CODE{BM9.model}, use
+
+
+\begin{lstlisting}
+ python pycellerator.py SBML READ -in BM9.xml -model BM9.model
+\end{lstlisting}
+
+The following model file was generated from the biomodels file
+\begin{lstlisting}[xleftmargin=0in,xrightmargin=0in]
+$ASSIGNMENTS
+ K_PP_norm=(KPase_PP_K + PP_K)/(K + KPase_PP_K + KPase_P_K + 
+           PP_K + PP_KK_K + PP_KK_P_K + P_K)
+ rel_K_PP_max=1.11105062057732*K_PP_norm
+ KK_PP_norm=(KKPase_PP_KK + PP_KK + PP_KK_K + PP_KK_P_K)/(KK + KKPase_PP_KK + 
+ KKPase_P_KK + PP_KK + PP_KK_K + PP_KK_P_K + P_KK + P_KKK_KK + P_KKK_P_KK)
+ KKK_P_norm=(P_KKK + P_KKK_KK + P_KKK_P_KK)/(KKK + P_KKK + P_KKK_KK + P_KKK_P_KK)
+ r1a=compartment*(1000.0*KKK*Species_E1 - 150.0*Species_E1_KKK)
+ r1b=150.0*Species_E1_KKK*compartment
+ r2a=compartment*(1000.0*E2*P_KKK - 150.0*E2_P_KKK)
+ r2b=150.0*E2_P_KKK*compartment
+ r3a=compartment*(1000.0*KK*P_KKK - 150.0*P_KKK_KK)
+ r3b=150.0*P_KKK_KK*compartment
+ r4a=compartment*(1000.0*KKPase*P_KK - 150.0*KKPase_P_KK)
+ r4b=150.0*KKPase_P_KK*compartment
+ r5a=compartment*(1000.0*P_KK*P_KKK - 150.0*P_KKK_P_KK)
+ r5b=150.0*P_KKK_P_KK*compartment
+ r6a=compartment*(1000.0*KKPase*PP_KK - 150.0*KKPase_PP_KK)
+ r6b=150.0*KKPase_PP_KK*compartment
+ r7a=compartment*(1000.0*K*PP_KK - 150.0*PP_KK_K)
+ r7b=150.0*PP_KK_K*compartment
+ r8a=compartment*(1000.0*KPase*P_K - 150.0*KPase_P_K)
+ r8b=150.0*KPase_P_K*compartment
+ r9a=compartment*(1000.0*PP_KK*P_K - 150.0*PP_KK_P_K)
+ r9b=150.0*PP_KK_P_K*compartment
+ r10a=compartment*(1000.0*KPase*PP_K - 150.0*KPase_PP_K)
+ r10b=150.0*KPase_PP_K*compartment
+$REACTIONS
+ [Species_E1 -> Nil, using["r1a/compartment"]]
+ [Nil -> Species_E1_KKK, using["r1a/compartment"]]
+ [KKK -> Nil, using["r1a/compartment"]]
+ [Nil -> Species_E1, using["r1b/compartment"]]
+ [Species_E1_KKK -> Nil, using["r1b/compartment"]]
+ [Nil -> P_KKK, using["r1b/compartment"]]
+ [Nil -> E2_P_KKK, using["r2a/compartment"]]
+ [P_KKK -> Nil, using["r2a/compartment"]]
+ [E2 -> Nil, using["r2a/compartment"]]
+ [E2_P_KKK -> Nil, using["r2b/compartment"]]
+ [Nil -> KKK, using["r2b/compartment"]]
+ [Nil -> E2, using["r2b/compartment"]]
+ [KK -> Nil, using["r3a/compartment"]]
+ [Nil -> P_KKK_KK, using["r3a/compartment"]]
+ [P_KKK -> Nil, using["r3a/compartment"]]
+ [P_KKK_KK -> Nil, using["r3b/compartment"]]
+ [Nil -> P_KK, using["r3b/compartment"]]
+ [Nil -> P_KKK, using["r3b/compartment"]]
+ [Nil -> KKPase_P_KK, using["r4a/compartment"]]
+ [P_KK -> Nil, using["r4a/compartment"]]
+ [KKPase -> Nil, using["r4a/compartment"]]
+ [KKPase_P_KK -> Nil, using["r4b/compartment"]]
+ [Nil -> KK, using["r4b/compartment"]]
+ [Nil -> KKPase, using["r4b/compartment"]]
+ [Nil -> P_KKK_P_KK, using["r5a/compartment"]]
+ [P_KK -> Nil, using["r5a/compartment"]]
+ [P_KKK -> Nil, using["r5a/compartment"]]
+ [P_KKK_P_KK -> Nil, using["r5b/compartment"]]
+ [Nil -> PP_KK, using["r5b/compartment"]]
+ [Nil -> P_KKK, using["r5b/compartment"]]
+ [Nil -> KKPase_PP_KK, using["r6a/compartment"]]
+ [PP_KK -> Nil, using["r6a/compartment"]]
+ [KKPase -> Nil, using["r6a/compartment"]]
+ [KKPase_PP_KK -> Nil, using["r6b/compartment"]]
+ [Nil -> P_KK, using["r6b/compartment"]]
+ [Nil -> KKPase, using["r6b/compartment"]]
+ [Nil -> PP_KK_K, using["r7a/compartment"]]
+ [K -> Nil, using["r7a/compartment"]]
+ [PP_KK -> Nil, using["r7a/compartment"]]
+ [PP_KK_K -> Nil, using["r7b/compartment"]]
+ [Nil -> PP_KK, using["r7b/compartment"]]
+ [Nil -> P_K, using["r7b/compartment"]]
+ [Nil -> KPase_P_K, using["r8a/compartment"]]
+ [P_K -> Nil, using["r8a/compartment"]]
+ [KPase -> Nil, using["r8a/compartment"]]
+ [KPase_P_K -> Nil, using["r8b/compartment"]]
+ [Nil -> K, using["r8b/compartment"]]
+ [Nil -> KPase, using["r8b/compartment"]]
+ [Nil -> PP_KK_P_K, using["r9a/compartment"]]
+ [PP_KK -> Nil, using["r9a/compartment"]]
+ [P_K -> Nil, using["r9a/compartment"]]
+ [Nil -> PP_K, using["r9b/compartment"]]
+ [PP_KK_P_K -> Nil, using["r9b/compartment"]]
+ [Nil -> PP_KK, using["r9b/compartment"]]
+ [PP_K -> Nil, using["r10a/compartment"]]
+ [Nil -> KPase_PP_K, using["r10a/compartment"]]
+ [KPase -> Nil, using["r10a/compartment"]]
+ [Nil -> KPase, using["r10b/compartment"]]
+ [KPase_PP_K -> Nil, using["r10b/compartment"]]
+ [Nil -> P_K, using["r10b/compartment"]]
+$RATES
+ K_PP_norm_max=0.900049
+ compartment=4e-12
+$IC
+ Species_E1=3e-05
+ E2=0.0003
+ KKK=0.003
+ P_KKK=0.0
+ KK=1.2
+ P_KK=0.0
+ PP_KK=0.0
+ K=1.2
+ P_K=0.0
+ PP_K=0.0
+ KPase=0.12
+ KKPase=0.0003
+ Species_E1_KKK=0.0
+ E2_P_KKK=0.0
+ P_KKK_KK=0.0
+ P_KKK_P_KK=0.0
+ PP_KK_K=0.0
+ PP_KK_P_K=0.0
+ KKPase_PP_KK=0.0
+ KKPase_P_KK=0.0
+ KPase_PP_K=0.0
+ KPase_P_K=0.0
+ K_PP_norm=0.0
+ KK_PP_norm=0.0
+ KKK_P_norm=0.0
+ rel_K_PP_max=0.0
+\end{lstlisting}
+
+This file can support simulations as with any other model file, e.g. 
+\begin{lstlisting}
+ python pycellerator.py solve -in BM9.model -plot
+\end{lstlisting}
+
 \subsubsection{Supported Features}
 
-The following SBML features are not supported by {\tt py[xlr8r]} and will be ignored in SBML models: \hfill {\tt unitDefinitions}, {\tt compartmentTypes}, {\tt speciesTypes}, {\tt initialAssignments}, \\{ \tt algebraicRules},  {\tt constraints}, and  {\tt events}.  Support for these features may be added at a later date. 
-
-When an SBML model is read, it is converted to a {\tt py[xlr8r]} model file.  A model file that is generated from an SBML model will typeically look somewhat different from a hand-generated model because the reactions and other structures will not normally correspond to the typical biological entities that we think of as reactions. A model will look something like this:
-
-\begin{Verbatim}[frame=single]
-     $ASSIGNMENTS
-      V1 = # a list of expressions for assignment rules in the SBML
-      V2 = # 
-      ...
-      K1 = # a list of expressions representing a kinetic laws in the SBML
-      K2 = # ...
-      ...
-     $REACTIONS
-      [X -> NIL, using["K1/V"]] # a list of reactions, one for each species 
-      [NIL->Y, using["K2/V"]]   # in each SBML reaction
-      ...
-      [NIL -> U, using["expression"]] # a list of reactions, one for each 
-      ...                             # rate rule in the SBML
-     $RATES
-      ...
-     $IC
-      ...
-     $FROZEN
-      ...
-     $
-\end{Verbatim}
-
+The following SBML features are not supported by {\tt pycellerator} and will be ignored in SBML models: \CODE{unitDefinitions}, \CODE{compartmentTypes}, \CODE{speciesTypes}, \CODE{initialAssignments},  \CODE{algebraicRules}, \CODE{constraints}, and  \CODE{events}.  Support for these features may be added at a later date. 
 Since some of the structures need to be translated, and the way things are evaluated may not correspond to the expected rules of SBML evaluation, as described in the following paragraphs.
 
 
 \begin{enumerate}
-\item All variables that have either their {\tt boundaryCondition} or {\tt constant} flag set to {\tt True} are converted to {\tt Frozen} variables in the model. This means that they may be set by {\tt using} reactions or by {\tt assignment} statements. Either of these could potentially conflict with the intent of the SBML model. For example, if the {\tt constant} field is set to {\tt True}, SBML says that such variables should never change, but if either a rate or assignment rule is present in the SBML model it will be used in the {\tt pycellerator} model (technically this would be an invalid SBML model, so should  not lead to problems). However, if both values are set to {\tt False} and the variable is set in both a rule and a reaction, then there could be a combination of assignments and ODES for that variable, in conflict with the intent of the SBML (again this would be invalid SBML, so the situation should not arise). 
-\item If a {\tt parameter} is a {\tt variable} in an {\tt assignmentRule} and has a {\tt value} in a {\tt parameter} statement, then the {\tt value} in the {\tt parameter} statement will take precedence and the {\tt assignmentRule} will be ignored. 
-\item All {\tt rateRules} are converted to {\tt "using"} reactions of the form {\tt Nil -> Variable} and the {\tt variable} is added to the list of {\tt frozen} variables, so that it cannot be changed by any other reactions. 
-\item All reaction {\tt kineticLaws} are assigned to {\tt assignment} statements with the same variable as the reaction {\tt id}. 
-\item Each {\tt reaction} is converted to a collection of {\tt using} creation and annihilation reactions, with one reaction for each species in the reaction. The reaction will always have the form of {\tt X -> Nil} or {\tt Nil -> X}, depending on the net stoichiometry of the species in the reaction. Thus, for example, if the SBML file has a reaction 
-$$\TT{A + 3B -> 2A + B + C}$$ 
-with a kinetic law {\tt K}, 
+\item All variables that have either their \CODE{boundaryCondition} or \CODE{constant} flag set to \CODE{True} are converted to \CODE{Frozen} variables in the model. This means that they may be set by \CODE{using} reactions or by \CODE{assignment} statements. Either of these could potentially conflict with the intent of the SBML model. For example, if the \CODE{constant} field is set to \CODE{True}, SBML says that such variables should never change, but if either a rate or assignment rule is present in the SBML model it will be used in the {\tt pycellerator} model (technically this would be an invalid SBML model, so should  not lead to problems). However, if both values are set to \CODE{False} and the variable is set in both a rule and a reaction, then there could be a combination of assignments and ODES for that variable, in conflict with the intent of the SBML (again this would be invalid SBML, so the situation should not arise). 
+\item If a \CODE{parameter} is a \CODE{variable} in an \CODE{assignmentRule} and has a \CODE{value} in a \CODE{parameter} statement, then the \CODE{value} in the \CODE{parameter} statement will take precedence and the \CODE{assignmentRule} will be ignored. 
+\item All \CODE{rateRules} are converted to \CODE{"using"} reactions of the form \CODE{Nil -> Variable} and the \CODE{variable} is added to the list of \CODE{frozen} variables, so that it cannot be changed by any other reactions. 
+\item All reaction \CODE{kineticLaws} are assigned to {\tt assignment} statements with the same variable as the reaction \CODE{id}. 
+\item Each \CODE{reaction} is converted to a collection of \CODE{using} creation and annihilation reactions, with one reaction for each species in the reaction. The reaction will always have the form of \CODE{ X -> Nil} or \CODE{Nil -> X}, depending on the net stoichiometry of the species in the reaction. Thus, for example, if the SBML file has a reaction 
+\begin{lstlisting}
+A + 3B -> 2A + B + C
+\end{lstlisting}
+with a kinetic law \CODE{K}, 
 the following {\tt pycellerator} reactions will be generated:
-\begin{align*}
-&\TT{[Nil -> A, using["K/VA"]]}\\
-&\TT{[B -> Nil, using["2*K/VB"]]}\\
-&\TT{[Nil -> C, using["K/VC"]]}
-\end{align*}
-where {\tt VA}, {\tt VB}, and {\tt VC} are the volumes of the compartments that species {\tt A}, {\tt B} and {\tt C} reside in, respectively. All of the stoichiometries inside the {\tt using} expression are expressed as positive quantities because the sign will be calculated automatically by the interpreter module, because the reaction {\tt [X -> Nil, using["K"]]} will produce the same ODE term as {\tt [Nil -> X, using["-K"]]}, namely, ${\tt[X]}'=-{\tt K}$.
+\begin{lstlisting}
+ [Nil -> A, using["K/VA"]]
+ [B -> Nil, using["2*K/VB"]]
+ [Nil -> C, using["K/VC"]]
+\end{lstlisting}
+where \CODE{VA}, \CODE{VB}, and \CODE{VC} are the volumes of the compartments that species \CODE{A}, \CODE{B} and \CODE{C} reside in, respectively. All of the stoichiometries inside the \CODE{using} expression are expressed as positive quantities because the sign will be calculated automatically by the interpreter module, because the reaction {\tt [X -> Nil, using["K"]]} will produce the same ODE term as \CODE{[Nil -> X, using["-K"]]}, namely, ${\tt[X]}'=-{\tt K}$.
 
-\item At each integration step, all {\tt assignmentRules} (with their parameter values instantiated) are evaluated before the differential equations are updated.  Thus a differential equation may refer to any variable defined by an {\tt assignmentRule}
-\item All functions defined in the {\tt listOfFunctions} are instantiated globally so that any rule or reaction may refer to them. 
+\item At each integration step, all \CODE{assignmentRules} (with their parameter values instantiated) are evaluated before the differential equations are updated.  Thus a differential equation may refer to any variable defined by an \CODE{assignmentRule}
+\item All functions defined in the \CODE{listOfFunctions} are instantiated globally so that any rule or reaction may refer to them. 
 
 
 \end{enumerate}
@@ -762,16 +899,141 @@ where {\tt VA}, {\tt VB}, and {\tt VC} are the volumes of the compartments that 
 
 
 
-\subsubsection{Syntax}
-
-{\tt \$ python pyx.py sbml read -in \textit{filename} [-model \textit{filename}]}
-
-If {\tt -model \textit{filename}} is specified, the output will be written to the specified file. Otherwise the output will be written to the file {\tt tmp.model}. Existing files will not be overwritten, and an approximation to the requested name will be used if the file already exists. 
-
 \subsection{Writing SBML Files}
 
 Not all features of SBML are supported. Only reactions, initial conditions, and parameters are written to the SBML file. Functions and assignment rules are not written to SBML in the present version.
 
 \subsubsection{Syntax}
 
-{\tt \$ python pyx.py sbml write -in \textit{modelfile} [-out \textit{sbmlfile}]}
+\begin{lstlisting}
+ python pycellerator.py SBML write -in file [-out filename]
+\end{lstlisting}
+
+SBML files are very lengthy so only a very simple example will be given here. Consider the model file \CODE{catalytic.model}
+\begin{lstlisting}
+$Reactions
+ [X => Y, mod[E], rates[k1,k2,k3]]
+ [Y -> Nil, k]
+$IC
+ X = 1.0
+ Y = 0.0
+ E = 1.0
+$Rates
+ k1 = 1.0
+ k2 = 1.0
+ k3 = 1.0
+ k = .001
+\end{lstlisting}
+To convert this to SBML, the syntax is
+\begin{lstlisting}
+ python pycellerator.py SBML WRITE -in catalytic.model
+\end{lstlisting}
+Here is the output.
+\begin{lstlisting}[xrightmargin=0in]
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" 
+		version="1">
+  <model substanceUnits="item" timeUnits="dimensionless" extentUnits="item">
+    <listOfCompartments>
+      <compartment id="compartment" spatialDimensions="3" size="1"
+      	 units="dimensionless" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="Y" compartment="compartment" initialAmount="0" 
+      	hasOnlySubstanceUnits="true" boundaryCondition="false" 
+      	constant="false"/>
+      <species id="X" compartment="compartment" initialAmount="1" 
+      	hasOnlySubstanceUnits="true" boundaryCondition="false" 
+      	constant="false"/>
+      <species id="E" compartment="compartment" initialAmount="1" 
+      	hasOnlySubstanceUnits="true" boundaryCondition="false" 
+      	constant="false"/>
+      <species id="Nil" compartment="compartment" initialAmount="0" 
+      	hasOnlySubstanceUnits="true" boundaryCondition="false" 
+      	constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k3" value="1" units="dimensionless" constant="true"/>
+      <parameter id="k2" value="1" units="dimensionless" constant="true"/>
+      <parameter id="k1" value="1" units="dimensionless" constant="true"/>
+      <parameter id="k" value="0.001" units="dimensionless" 
+      constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="r1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="X" stoichiometry="1" constant="false"/>
+          <speciesReference species="E" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="X_E" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> E </ci>
+              <ci> X </ci>
+              <ci> k1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r2" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="X_E" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="X" stoichiometry="1" constant="false"/>
+          <speciesReference species="E" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> X_E </ci>
+              <ci> k2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r3" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="X_E" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Y" stoichiometry="1" constant="false"/>
+          <speciesReference species="E" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> X_E </ci>
+              <ci> k3 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r4" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="Y" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Nil" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> Y </ci>
+              <ci> k </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
+\end{lstlisting}
+

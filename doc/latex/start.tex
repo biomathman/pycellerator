@@ -16,14 +16,14 @@ To install Anaconda Python, go to \href{http://continuum.io/downloads}{http://co
 Double click on the installer and follow the instructions to install python. 
 
 After you are done, locate the {\tt Anaconda Command Prompt} from the windows search menu and type in the following. Type enter after line and wait until the command prompt (the name of the current folder)  is shown. 
-\begin{verbatim}
+\begin{lstlisting}
     conda update conda
     conda update ipython ipython-notebook ipython-qtconsole
     conda update numpy scipy sympy matplotlib
     python -m pip install --upgrade pip
     pip install pyparsing
     pip install pulp
-\end{verbatim}
+\end{lstlisting}
 
 \clearpage 
 
@@ -43,12 +43,12 @@ Then exit from Canopy by selecting {\tt File > Exit}.
 
 From the windows search menu, open {\tt Command Prompt} and type in the following commands, one at a time. Type enter after line and wait until the command prompt (the name of the current folder)  is shown. 
 
-\begin{verbatim}
+\begin{lstlisting}
     python -m pip install --upgrade pip
     pip install --upgrade numpy scipy sympy matplotlib
     pip install pyparsing
     pip install pulp
-\end{verbatim}
+\end{lstlisting}
 
 \subsubsection{Using the Binary Installers}
 
@@ -60,12 +60,12 @@ Next, download a Microsoft Visual C compiler for Python from \href{http://www.mi
 
 Open a command prompt (Windows search, type {\tt command prompt}) and enter the following:
 
-\begin{verbatim}
+\begin{lstlisting}
     python -m pip install --upgrade pip   
     pip install sympy pulp pyparsing setuptools
     pip install numpy scipy matplotlib
     pip install ipython[notebook]
-\end{verbatim}
+\end{lstlisting}
 
 
 \subsection{Installing on Macintosh OS}
@@ -78,19 +78,19 @@ Follow the instructions for Windows if you want to install the commercial system
 
 Locate the {\tt terminal} application in the {\tt utilities} folder and open it. Enter
 
-\begin{verbatim}
+\begin{lstlisting}
     sudo easy_install pip
-\end{verbatim}
+\end{lstlisting}
 
 When requested, enter you password (you must have administrator access on you Mac). If (when) you are prompted to install XCode from Apple, click yes, and follow the instructions on any dialog that follows. 
 
 When the XCode installation is completed (or if it was not suggested), open a new terminal session and type in the following. Hit the enter key after each line and wait for the prompt (the name of the current working directory) before typing in the next line. 
 
-\begin{verbatim}
+\begin{lstlisting}
     pip install sympy pulp pyparsing
     pip install numpy scipy matplotlib
     pip install ipython[notebook]
-\end{verbatim}
+\end{lstlisting}
 
 If you have a virtual operating system like Parallels Desktop installed on your computer, make sure that Safari (or some other web browser such as Firefox or Chrome) is set as your default browser, and not Parallels. Otherwise ipython will try to open your virtual operating system every time it runs python. 
 
@@ -103,30 +103,30 @@ The standard python installation includes its own package manage called {\tt pip
 \href{python.org}{python.org} this should automatically be installed for your. Otherwise, you should look to also install {\tt pip} from your package manager. This allows you to bypass your package manager when updating python.
 
 To upgrade to the latest version of {\tt pip},
-\begin{verbatim}
+\begin{lstlisting}
     python -m pip install --upgrade pip
-\end{verbatim}
+\end{lstlisting}
 To add any missing packages to python, 
-\begin{verbatim}
+\begin{lstlisting}
     pip install packagename
-\end{verbatim}
+\end{lstlisting}
 To upgrade to the latest version of any package,
-\begin{verbatim}
+\begin{lstlisting}
     pip install --upgrade package
-\end{verbatim}
+\end{lstlisting}
 Pycellerator needs the following packages which you can get from pip: {\tt pyparsing}, {\tt pulp}, {\tt sympy}, {\tt numpy}, {\tt scipy}, and{\tt matplotlib}.
-\begin{verbatim}
+\begin{lstlisting}
     pip install pyparsing
     pip install pulp
     pip install sympy
     pip install numpy
     pip install scipy
     pip install matplotlib
-\end{verbatim}
+\end{lstlisting}
 You can also put all the function names on a single line:
-\begin{verbatim}
+\begin{lstlisting}
     pip install pyparsing pulp sympy numpy scipy matplotlib
-\end{verbatim}
+\end{lstlisting}
 Binary installers and source code versions are also available for each of these packages. 
 
 \begin{center}
@@ -154,4 +154,50 @@ Follow the instructions at \href{http://sbml.org/Software/libSBML}{http://sbml.o
 
 You do not have to have libSBML installed if you do not plan on using SBML files. If libSBML is not installed, all non-SBML related functionality of pycellerator will be unaffected. 
 
+The following describes how to install libSBML in ubuntu if you are primarily interested in using libSBML for python and not for other languages. It was taken from \url{http://sourceforge.net/projects/sbml/files/libsbml/5.11.6-experimental/binaries/Linux/} on 5 Sept 2015, and you should check for the latest information. 
+
+\begin{enumerate}
+\item Install the  prerequisite software packages installed on your operating system: \CODE{python-dev}, \CODE{libxml2-dev}, \CODE{libz-dev}, and \CODE{libbz2-dev}.
+\begin{lstlisting}
+  sudo apt-get install python-dev libxml2-dev libz-dev libbz2-dev
+\end{lstlisting}
+\item From the terminal type:
+\begin{lstlisting}
+  sudo pip install python-libsbml
+\end{lstlisting}
+\end{enumerate}
+
+For windows, the latest (as of 5 Sept 2015) binary python installers are at \url{http://sourceforge.net/projects/sbml/files/libsbml/5.11.4/stable/Windows/64-bit/python/}. These installers will only install libSBML for python, and not for other languages. 
+
+The Mac installers are at \url{http://sourceforge.net/projects/sbml/files/libsbml/5.11.4/stable/Mac\%20OS\%20X/} and the instructions given for installation are similar to those for linux.
+
 \section{Install pycellerator}
+
+The procedure to install pycellerator follows. 
+
+  
+
+\begin{enumerate}
+\item Get the latest \textbf{release} from github. This can be found at \url{https://github.com/biomathman/pycellerator/releases}. Download the file \CODE{Install-pycellerator-v-X.zip}, where \CODE{X} is the latest version number. This will be a compressed archive (zip file) of the files you need to install pycellerator.
+
+\item  Unzip the archive.  Copy the folder \CODE{pycellerator} (e.g., drag and drop the entire folder) to wherever you want to keep your pycellerator files. For example, this may be a folder in your home directory. If your home folder is \CODE{johnsmith}, and you drag \CODE{pycellerator} onto your home folder, then your \CODE{pycellerator} folder will be \CODE{johnsmith/pycellerator}, i.e., the folder \CODE{pycellerator} inside your home folder. 
+
+\item Inside the \CODE{pycellerator} folder is detailed documentation in the 
+file \CODE{pycellerator.pdf} (the file you are reading now). Chapter 2 gives detailed instructions on how to
+install Python (if you don't already have it installed); and what additional
+Python libraries are needed and how to get them.
+
+\item A quickstart check of the command line utility, from inside the \CODE{pycellerator} folder, type the following into the terminal:
+\begin{lstlisting}
+    python pycellerator.py solve -in Gold1.model -plot
+\end{lstlisting}
+
+\item For a quickstart check of the ipython notebook, type the following into the terminal:
+\begin{lstlisting}
+    ipython notebook
+\end{lstlisting}
+Navigate to the notebook \CODE{demo.ipynb} and open it.
+
+\end{enumerate}
+
+

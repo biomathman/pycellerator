@@ -17,13 +17,13 @@ This chapter will provide an overview of pycellerator structure and functionalit
 
 The parser module reads lists of text-formatted reactions, typically from a text file that you will manually edit by hand, that describe a particular biochemical phenomenon.  For example, a simplified version of the famous Belousov-Zhabotinsy reaction\cite{BZ1,BZ2} known as the Oregonator\cite{Oregonator1,Oregonator2} can be written in this language as:
 
-\begin{verbatim}
+\begin{lstlisting}
           [Br + BrO3 -> HBrO2 + HOBr, k1] 
           [Br + HBrO2 -> 2 HOBr, k2]
           [BrO3 + HBrO2 -> 2 Ce + 2 HBrO2, k3] 
-          [2\ HBrO2-> BrO3 + HOBr, k4] 
+          [2 HBrO2-> BrO3 + HOBr, k4] 
           [Ce -> 0.5 Br, k5]
-\end{verbatim}
+\end{lstlisting}
 
 The parser module converts the reactions into an internal data structure that can be interrogated by the other modules with such questions as ``What are the products of this reaction?"
 
@@ -31,9 +31,9 @@ The parser module is not normally invoked directly by the user.
 
 \item [Expander:] The expander module converts a list of complex reactions into its most basic form. For example, the input reaction
 
-\begin{verbatim}
+\begin{lstlisting}
 	[X => Y, mod[E], rates[k1,k2,k3]]
-\end{verbatim}
+\end{lstlisting}
 
 is a shorthand that represents the set of biochemical reactions
 \begin{align*}
@@ -42,11 +42,11 @@ is a shorthand that represents the set of biochemical reactions
 \TT{X\_E}&\overset{k_3}{\to}\TT{X+Y}
 \end{align*}
 where $\TT{X\_E}$ is the name of the complex formed when {\tt E} is bound to {\tt X}.  The expander converts the input reaction to its three component reactions: 
-\begin{verbatim}
+\begin{lstlisting}
           [X+E->X_E,k1]
           [X_E->X+E,k2]
           [X_E->Y+E,k3]
-\end{verbatim}
+\end{lstlisting}
 
 While it is possible for the user to call the expander directly to see what the component reactions look like, usually this will be done automatically by the interpreter or solver modules and the user will generally not be required to directly interact with the expander. 
 
@@ -62,7 +62,7 @@ The primary function of the solver module is to produce a python function that i
 
 \item [Converters:] The converters module is used to convert to and from other formats, particularly {\tt Cellerator} ({\tt xlr8r}) arrows. Every arrow implemented in {\tt pycellerator} is equivalent to some arrow in {\tt xlr8r} and vice-versa. 
 
-Additional planned (not yet implemented) functionality of this module include SBML input and output. 
+
 
 
 

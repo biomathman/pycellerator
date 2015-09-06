@@ -460,13 +460,19 @@ def getModifierSpeciesReferences(listOfModifierSpeciesReferences):
 #**************************************************** 
 
 def replaceTerms(formula, parameterdict):
+		
+    #print "DBG: formula: ", formula, " parameterdict: ", parameterdict
+    #print "DBG: formula is ", type(formula)
     # 
     # replace all terms in string formula with 
     # values given in parameter dictionary
     #
+    #print "DBG sympify:", sympify(formula)
     f = sympify(formula)
+    #print "DBG: f is", type(f)
     for x in parameterdict:
         val = parameterdict[x]
+       
         f = f.subs(x,val)
     formula = str(f)    
 
@@ -504,6 +510,10 @@ def getTheKineticLaw(k):
     # replace all local parameters with values
     # since py[cellerator] does not have "local" parameters
     #
+    
+    #print "DBG: math = ", math
+    # print "DBG: maths=", maths, " parameters=", parameters
+    
     maths = replaceTerms(maths, parameters)
     
     klaw = maths   
@@ -514,17 +524,20 @@ def getTheKineticLaw(k):
 #**************************************************** 
 
 def getReactions(model):
+   
     LOR = model.getListOfReactions()
     n = len(LOR)
     reactions=[]
     for i in range(n):
         r = model.getReaction(i)
+        # print "DBG: ", r
         rev = r.getReversible()
         reactants = getSpeciesReferences(r.getListOfReactants())
         products  = getSpeciesReferences(r.getListOfProducts())
         modifiers = getModifierSpeciesReferences(r.getListOfModifiers())
         reactionid = r.getId()
         tkl = r.getKineticLaw()
+        # print "DBG:", tkl
         klaw,localparameters = getTheKineticLaw(tkl)
         
         reactions.append({"reactants":reactants, "products":products, \

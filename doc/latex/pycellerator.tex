@@ -78,6 +78,36 @@
 \setlength{\parskip}{1ex}
 
 
+\usepackage[usenames,divnames,svgnames,dvinames]{xcolor,colortbl}
+
+\definecolor{pygray}{RGB}{204,255,229} % really its light green
+\newcommand{\GRAY}{\cellcolor{pygray}}
+
+\usepackage{listings}
+
+\usepackage{pdfpages}
+%
+% the following changes the selection of the ttfont
+% the default is cmtt (computer modern font), which does not have a bold face
+% replace it with pcr (courier font)
+\renewcommand{\ttdefault}{pcr}
+\lstset{
+	language=Python,
+	basicstyle=\normalfont\ttfamily\small\bfseries,
+	keywordstyle=\ttfamily\bfseries,
+	frame=single,
+	backgroundcolor=\color{pygray},
+	escapeinside={//*}{*//},
+	xleftmargin=.375in,
+	xrightmargin=.375in,
+	showstringspaces=false % turn off squat-u for strings
+	}
+
+
+\newcommand{\CODE}[1]{{\small {\tt \textbf{#1}}}}
+\newcommand{\FCODE}[1]{{\footnotesize {\tt \textbf{#1}}}}
+
+
 \begin{document}
 
 \frontmatter
