@@ -24,21 +24,18 @@
 \BOOKMARK [1][-]{section.4.6}{converter}{chapter.4}% 24
 \BOOKMARK [1][-]{section.4.7}{SBML}{chapter.4}% 25
 \BOOKMARK [0][-]{chapter.5}{Examples}{}% 26
-\BOOKMARK [1][-]{section.5.1}{Simple Catalyzed Mass Action}{chapter.5}% 27
-\BOOKMARK [1][-]{section.5.2}{MAP-Kinase with Oscillations}{chapter.5}% 28
-\BOOKMARK [1][-]{section.5.3}{Enzymes with Intermediate Complex}{chapter.5}% 29
-\BOOKMARK [1][-]{section.5.4}{Repressilator}{chapter.5}% 30
-\BOOKMARK [1][-]{section.5.5}{Lineage Determination}{chapter.5}% 31
-\BOOKMARK [1][-]{section.5.6}{NF- Signaling Model}{chapter.5}% 32
-\BOOKMARK [1][-]{section.5.7}{Minimal Mitotic Model}{chapter.5}% 33
-\BOOKMARK [1][-]{section.5.8}{Ring Oscillator \(Mass Action\)}{chapter.5}% 34
-\BOOKMARK [1][-]{section.5.9}{Ring Oscillator \(MMH\)}{chapter.5}% 35
-\BOOKMARK [1][-]{section.5.10}{Ring Oscillator Using GRN Reactions}{chapter.5}% 36
-\BOOKMARK [1][-]{section.5.11}{Ring Oscillator \(NHCA\)}{chapter.5}% 37
-\BOOKMARK [1][-]{section.5.12}{Recombinant E coli growth model}{chapter.5}% 38
-\BOOKMARK [1][-]{section.5.13}{Monow-Wyman-Changeaux \(MWC\)}{chapter.5}% 39
-\BOOKMARK [1][-]{section.5.14}{MAPK Cascade with Indexed Stages}{chapter.5}% 40
-\BOOKMARK [0][-]{appendix.A}{File Formats}{}% 41
-\BOOKMARK [1][-]{section.A.1}{Reaction Files}{appendix.A}% 42
-\BOOKMARK [1][-]{section.A.2}{Model Files}{appendix.A}% 43
-\BOOKMARK [0][-]{appendix.B}{Software License}{}% 44
+\BOOKMARK [1][-]{section.5.1}{MAP-Kinase with Oscillations}{chapter.5}% 27
+\BOOKMARK [1][-]{section.5.2}{Repressilator}{chapter.5}% 28
+\BOOKMARK [1][-]{section.5.3}{Lineage Determination}{chapter.5}% 29
+\BOOKMARK [1][-]{section.5.4}{NF- Signaling Model}{chapter.5}% 30
+\BOOKMARK [1][-]{section.5.5}{Minimal Mitotic Model}{chapter.5}% 31
+\BOOKMARK [1][-]{section.5.6}{Ring Oscillator \(Mass Action\)}{chapter.5}% 32
+\BOOKMARK [1][-]{section.5.7}{Ring Oscillator \(MMH\)}{chapter.5}% 33
+\BOOKMARK [1][-]{section.5.8}{Ring Oscillator Using GRN Reactions}{chapter.5}% 34
+\BOOKMARK [1][-]{section.5.9}{Ring Oscillator \(NHCA\)}{chapter.5}% 35
+\BOOKMARK [1][-]{section.5.10}{Recombinant E coli growth model}{chapter.5}% 36
+\BOOKMARK [1][-]{section.5.11}{MAPK Cascade with Indexed Stages}{chapter.5}% 37
+\BOOKMARK [0][-]{appendix.A}{File Formats}{}% 38
+\BOOKMARK [1][-]{section.A.1}{Reaction Files}{appendix.A}% 39
+\BOOKMARK [1][-]{section.A.2}{Model Files}{appendix.A}% 40
+\BOOKMARK [0][-]{appendix.B}{Software License}{}% 41

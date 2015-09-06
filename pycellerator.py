@@ -65,7 +65,7 @@ handlers={"EXPAND":   cellerator.expander.expander,
 #
 #****************************************************************************
 #
-def run(args):
+def runpycellerator(args):
 
     if type(args)==type(""):
         arguments = filter((lambda x:len(x)>0), args.split(" "))
@@ -99,5 +99,5 @@ def run(args):
 if __name__ == "__main__":
 
     args = sys.argv 
-    run(args)
+    runpycellerator(args)
     
