@@ -1,14 +1,13 @@
 \setcounter {tocdepth}{1}
-\contentsline {chapter}{Preface}{v}{chapter*.2}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \contentsline {chapter}{\numberline {2}Installation}{5}{chapter.2}
 \contentsline {section}{\numberline {2.1}Install Python}{5}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}Installing on Windows}{5}{subsection.2.1.1}
-\contentsline {subsubsection}{Anaconda Python}{5}{section*.3}
-\contentsline {subsubsection}{Enthought Canopy}{6}{section*.4}
-\contentsline {subsubsection}{Using the Binary Installers}{6}{section*.5}
+\contentsline {subsubsection}{Anaconda Python}{5}{section*.2}
+\contentsline {subsubsection}{Enthought Canopy}{6}{section*.3}
+\contentsline {subsubsection}{Using the Binary Installers}{6}{section*.4}
 \contentsline {subsection}{\numberline {2.1.2}Installing on Macintosh OS}{6}{subsection.2.1.2}
-\contentsline {subsubsection}{Upgrade Mac Python using \tt pip}{7}{section*.6}
+\contentsline {subsubsection}{Upgrade Mac Python using \tt pip}{7}{section*.5}
 \contentsline {subsection}{\numberline {2.1.3}Installing on Linux}{7}{subsection.2.1.3}
 \contentsline {section}{\numberline {2.2}Install libSBML}{8}{section.2.2}
 \contentsline {section}{\numberline {2.3}Install pycellerator}{8}{section.2.3}
@@ -16,7 +15,7 @@
 \contentsline {section}{\numberline {3.1}Introduction}{11}{section.3.1}
 \contentsline {section}{\numberline {3.2}Equations for Rates}{13}{section.3.2}
 \contentsline {section}{\numberline {3.3}Indexed Species}{13}{section.3.3}
-\contentsline {paragraph}{Implementation Note:}{14}{section*.7}
+\contentsline {paragraph}{Implementation Note:}{14}{section*.6}
 \contentsline {section}{\numberline {3.4}{\tt Nil} \& {\tt EmpytSet} Species}{14}{section.3.4}
 \contentsline {section}{\numberline {3.5}Mass Action Arrows}{14}{section.3.5}
 \contentsline {subsection}{\numberline {3.5.1}Simple Mass Action}{14}{subsection.3.5.1}
@@ -43,43 +42,43 @@
 \contentsline {chapter}{\numberline {4}Functions}{29}{chapter.4}
 \contentsline {section}{\numberline {4.1}Command Line Interface}{29}{section.4.1}
 \contentsline {section}{\numberline {4.2}parser}{29}{section.4.2}
-\contentsline {paragraph}{Command Line Syntax:}{29}{section*.8}
-\contentsline {paragraph}{Command Line in Shell:}{30}{section*.9}
-\contentsline {paragraph}{API (functions):}{30}{section*.10}
-\contentsline {subparagraph}{\tt parser(*keywords)\\}{30}{section*.11}
-\contentsline {subparagraph}{\tt ParseArrow(r)\\}{30}{section*.12}
-\contentsline {paragraph}{API (class):}{31}{section*.13}
-\contentsline {subparagraph}{\tt Reaction(r)\\}{31}{section*.14}
-\contentsline {paragraph}{Examples.\\}{31}{section*.15}
+\contentsline {paragraph}{Command Line Syntax:}{29}{section*.7}
+\contentsline {paragraph}{Command Line in Shell:}{30}{section*.8}
+\contentsline {paragraph}{API (functions):}{30}{section*.9}
+\contentsline {subparagraph}{\tt parser(*keywords)\\}{30}{section*.10}
+\contentsline {subparagraph}{\tt ParseArrow(r)\\}{30}{section*.11}
+\contentsline {paragraph}{API (class):}{31}{section*.12}
+\contentsline {subparagraph}{\tt Reaction(r)\\}{31}{section*.13}
+\contentsline {paragraph}{Examples.\\}{31}{section*.14}
 \contentsline {section}{\numberline {4.3}expander}{32}{section.4.3}
-\contentsline {paragraph}{Command Line Syntax:}{32}{section*.16}
-\contentsline {paragraph}{Command Line in Shell:}{33}{section*.17}
-\contentsline {paragraph}{API:}{33}{section*.18}
-\contentsline {subparagraph}{\tt expand(r)\\}{33}{section*.19}
-\contentsline {subparagraph}{\tt expandReactions(filename)\\}{33}{section*.20}
-\contentsline {paragraph}{Example Input File:}{33}{section*.21}
-\contentsline {paragraph}{Full Example}{33}{section*.22}
+\contentsline {paragraph}{Command Line Syntax:}{32}{section*.15}
+\contentsline {paragraph}{Command Line in Shell:}{33}{section*.16}
+\contentsline {paragraph}{API:}{33}{section*.17}
+\contentsline {subparagraph}{\tt expand(r)\\}{33}{section*.18}
+\contentsline {subparagraph}{\tt expandReactions(filename)\\}{33}{section*.19}
+\contentsline {paragraph}{Example Input File:}{33}{section*.20}
+\contentsline {paragraph}{Full Example}{33}{section*.21}
 \contentsline {section}{\numberline {4.4}interpreter}{34}{section.4.4}
-\contentsline {paragraph}{Command Line Syntax:}{34}{section*.23}
-\contentsline {paragraph}{Command Line in Shell:}{37}{section*.24}
-\contentsline {paragraph}{API:\\}{37}{section*.25}
-\contentsline {subparagraph}{{\relax \fontsize {10}{12}\selectfont \abovedisplayskip 10\p@ plus2\p@ minus5\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6\p@ plus3\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 4.5\p@ plus2\p@ minus\p@ \topsep 9\p@ plus3\p@ minus5\p@ \itemsep 4.5\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 6\p@ plus2\p@ minus2\p@ \parsep 3\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip {\tt \textbf { makeODETerms(r, s, *keywords)}}}\\}{37}{section*.26}
-\contentsline {subparagraph}{{\relax \fontsize {10}{12}\selectfont \abovedisplayskip 10\p@ plus2\p@ minus5\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6\p@ plus3\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 4.5\p@ plus2\p@ minus\p@ \topsep 9\p@ plus3\p@ minus5\p@ \itemsep 4.5\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 6\p@ plus2\p@ minus2\p@ \parsep 3\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip {\tt \textbf {interpret(filename, *keywords)}}}\\}{38}{section*.27}
-\contentsline {paragraph}{Example:}{38}{section*.28}
+\contentsline {paragraph}{Command Line Syntax:}{34}{section*.22}
+\contentsline {paragraph}{Command Line in Shell:}{37}{section*.23}
+\contentsline {paragraph}{API:\\}{37}{section*.24}
+\contentsline {subparagraph}{{\relax \fontsize {10}{12}\selectfont \abovedisplayskip 10\p@ plus2\p@ minus5\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6\p@ plus3\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 4.5\p@ plus2\p@ minus\p@ \topsep 9\p@ plus3\p@ minus5\p@ \itemsep 4.5\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 6\p@ plus2\p@ minus2\p@ \parsep 3\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip {\tt \textbf { makeODETerms(r, s, *keywords)}}}\\}{37}{section*.25}
+\contentsline {subparagraph}{{\relax \fontsize {10}{12}\selectfont \abovedisplayskip 10\p@ plus2\p@ minus5\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6\p@ plus3\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 4.5\p@ plus2\p@ minus\p@ \topsep 9\p@ plus3\p@ minus5\p@ \itemsep 4.5\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 6\p@ plus2\p@ minus2\p@ \parsep 3\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip {\tt \textbf {interpret(filename, *keywords)}}}\\}{38}{section*.26}
+\contentsline {paragraph}{Example:}{38}{section*.27}
 \contentsline {section}{\numberline {4.5}solver}{38}{section.4.5}
-\contentsline {paragraph}{Command Line Syntax:}{38}{section*.29}
-\contentsline {paragraph}{Command Line in Shell:}{39}{section*.30}
+\contentsline {paragraph}{Command Line Syntax:}{38}{section*.28}
+\contentsline {paragraph}{Command Line in Shell:}{39}{section*.29}
 \contentsline {section}{\numberline {4.6}converter}{40}{section.4.6}
-\contentsline {paragraph}{Command Line Syntax:}{40}{section*.31}
-\contentsline {paragraph}{Command Line in Shell:}{41}{section*.32}
-\contentsline {paragraph}{API:\\}{41}{section*.33}
-\contentsline {subparagraph}{{\relax \fontsize {10}{12}\selectfont \abovedisplayskip 10\p@ plus2\p@ minus5\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6\p@ plus3\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 4.5\p@ plus2\p@ minus\p@ \topsep 9\p@ plus3\p@ minus5\p@ \itemsep 4.5\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 6\p@ plus2\p@ minus2\p@ \parsep 3\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip {\tt \textbf { convert(*keywords)}}}\\}{41}{section*.34}
+\contentsline {paragraph}{Command Line Syntax:}{40}{section*.30}
+\contentsline {paragraph}{Command Line in Shell:}{41}{section*.31}
+\contentsline {paragraph}{API:\\}{41}{section*.32}
+\contentsline {subparagraph}{{\relax \fontsize {10}{12}\selectfont \abovedisplayskip 10\p@ plus2\p@ minus5\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6\p@ plus3\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 4.5\p@ plus2\p@ minus\p@ \topsep 9\p@ plus3\p@ minus5\p@ \itemsep 4.5\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 6\p@ plus2\p@ minus2\p@ \parsep 3\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip {\tt \textbf { convert(*keywords)}}}\\}{41}{section*.33}
 \contentsline {section}{\numberline {4.7}SBML}{41}{section.4.7}
 \contentsline {subsection}{\numberline {4.7.1}Reading SBML Files}{41}{subsection.4.7.1}
-\contentsline {subsubsection}{Syntax}{41}{section*.35}
-\contentsline {subsubsection}{Supported Features}{44}{section*.36}
+\contentsline {subsubsection}{Syntax}{41}{section*.34}
+\contentsline {subsubsection}{Supported Features}{44}{section*.35}
 \contentsline {subsection}{\numberline {4.7.2}Writing SBML Files}{45}{subsection.4.7.2}
-\contentsline {subsubsection}{Syntax}{45}{section*.37}
+\contentsline {subsubsection}{Syntax}{45}{section*.36}
 \contentsline {chapter}{\numberline {5}Examples}{49}{chapter.5}
 \contentsline {section}{\numberline {5.1}MAP-Kinase with Oscillations}{50}{section.5.1}
 \contentsline {section}{\numberline {5.2}Repressilator}{52}{section.5.2}

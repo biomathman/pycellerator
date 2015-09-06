@@ -1,41 +1,40 @@
-\BOOKMARK [0][-]{chapter*.2}{Preface}{}% 1
-\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 2
-\BOOKMARK [0][-]{chapter.2}{Installation}{}% 3
-\BOOKMARK [1][-]{section.2.1}{Install Python}{chapter.2}% 4
-\BOOKMARK [1][-]{section.2.2}{Install libSBML}{chapter.2}% 5
-\BOOKMARK [1][-]{section.2.3}{Install pycellerator}{chapter.2}% 6
-\BOOKMARK [0][-]{chapter.3}{Arrows}{}% 7
-\BOOKMARK [1][-]{section.3.1}{Introduction}{chapter.3}% 8
-\BOOKMARK [1][-]{section.3.2}{Equations for Rates}{chapter.3}% 9
-\BOOKMARK [1][-]{section.3.3}{Indexed Species}{chapter.3}% 10
-\BOOKMARK [1][-]{section.3.4}{Nil \046 EmpytSet Species}{chapter.3}% 11
-\BOOKMARK [1][-]{section.3.5}{Mass Action Arrows}{chapter.3}% 12
-\BOOKMARK [1][-]{section.3.6}{Equilibrium / Steady-State Models}{chapter.3}% 13
-\BOOKMARK [1][-]{section.3.7}{Regulatory Arrows}{chapter.3}% 14
-\BOOKMARK [1][-]{section.3.8}{User Defined Stoichiometric Arrows}{chapter.3}% 15
-\BOOKMARK [1][-]{section.3.9}{Cascades}{chapter.3}% 16
-\BOOKMARK [1][-]{section.3.10}{Flux Arrows}{chapter.3}% 17
-\BOOKMARK [0][-]{chapter.4}{Functions}{}% 18
-\BOOKMARK [1][-]{section.4.1}{Command Line Interface}{chapter.4}% 19
-\BOOKMARK [1][-]{section.4.2}{parser}{chapter.4}% 20
-\BOOKMARK [1][-]{section.4.3}{expander}{chapter.4}% 21
-\BOOKMARK [1][-]{section.4.4}{interpreter}{chapter.4}% 22
-\BOOKMARK [1][-]{section.4.5}{solver}{chapter.4}% 23
-\BOOKMARK [1][-]{section.4.6}{converter}{chapter.4}% 24
-\BOOKMARK [1][-]{section.4.7}{SBML}{chapter.4}% 25
-\BOOKMARK [0][-]{chapter.5}{Examples}{}% 26
-\BOOKMARK [1][-]{section.5.1}{MAP-Kinase with Oscillations}{chapter.5}% 27
-\BOOKMARK [1][-]{section.5.2}{Repressilator}{chapter.5}% 28
-\BOOKMARK [1][-]{section.5.3}{Lineage Determination}{chapter.5}% 29
-\BOOKMARK [1][-]{section.5.4}{NF- Signaling Model}{chapter.5}% 30
-\BOOKMARK [1][-]{section.5.5}{Minimal Mitotic Model}{chapter.5}% 31
-\BOOKMARK [1][-]{section.5.6}{Ring Oscillator \(Mass Action\)}{chapter.5}% 32
-\BOOKMARK [1][-]{section.5.7}{Ring Oscillator \(MMH\)}{chapter.5}% 33
-\BOOKMARK [1][-]{section.5.8}{Ring Oscillator Using GRN Reactions}{chapter.5}% 34
-\BOOKMARK [1][-]{section.5.9}{Ring Oscillator \(NHCA\)}{chapter.5}% 35
-\BOOKMARK [1][-]{section.5.10}{Recombinant E coli growth model}{chapter.5}% 36
-\BOOKMARK [1][-]{section.5.11}{MAPK Cascade with Indexed Stages}{chapter.5}% 37
-\BOOKMARK [0][-]{appendix.A}{File Formats}{}% 38
-\BOOKMARK [1][-]{section.A.1}{Reaction Files}{appendix.A}% 39
-\BOOKMARK [1][-]{section.A.2}{Model Files}{appendix.A}% 40
-\BOOKMARK [0][-]{appendix.B}{Software License}{}% 41
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [0][-]{chapter.2}{Installation}{}% 2
+\BOOKMARK [1][-]{section.2.1}{Install Python}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{Install libSBML}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.3}{Install pycellerator}{chapter.2}% 5
+\BOOKMARK [0][-]{chapter.3}{Arrows}{}% 6
+\BOOKMARK [1][-]{section.3.1}{Introduction}{chapter.3}% 7
+\BOOKMARK [1][-]{section.3.2}{Equations for Rates}{chapter.3}% 8
+\BOOKMARK [1][-]{section.3.3}{Indexed Species}{chapter.3}% 9
+\BOOKMARK [1][-]{section.3.4}{Nil \046 EmpytSet Species}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.5}{Mass Action Arrows}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.6}{Equilibrium / Steady-State Models}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.7}{Regulatory Arrows}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.8}{User Defined Stoichiometric Arrows}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.9}{Cascades}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.10}{Flux Arrows}{chapter.3}% 16
+\BOOKMARK [0][-]{chapter.4}{Functions}{}% 17
+\BOOKMARK [1][-]{section.4.1}{Command Line Interface}{chapter.4}% 18
+\BOOKMARK [1][-]{section.4.2}{parser}{chapter.4}% 19
+\BOOKMARK [1][-]{section.4.3}{expander}{chapter.4}% 20
+\BOOKMARK [1][-]{section.4.4}{interpreter}{chapter.4}% 21
+\BOOKMARK [1][-]{section.4.5}{solver}{chapter.4}% 22
+\BOOKMARK [1][-]{section.4.6}{converter}{chapter.4}% 23
+\BOOKMARK [1][-]{section.4.7}{SBML}{chapter.4}% 24
+\BOOKMARK [0][-]{chapter.5}{Examples}{}% 25
+\BOOKMARK [1][-]{section.5.1}{MAP-Kinase with Oscillations}{chapter.5}% 26
+\BOOKMARK [1][-]{section.5.2}{Repressilator}{chapter.5}% 27
+\BOOKMARK [1][-]{section.5.3}{Lineage Determination}{chapter.5}% 28
+\BOOKMARK [1][-]{section.5.4}{NF- Signaling Model}{chapter.5}% 29
+\BOOKMARK [1][-]{section.5.5}{Minimal Mitotic Model}{chapter.5}% 30
+\BOOKMARK [1][-]{section.5.6}{Ring Oscillator \(Mass Action\)}{chapter.5}% 31
+\BOOKMARK [1][-]{section.5.7}{Ring Oscillator \(MMH\)}{chapter.5}% 32
+\BOOKMARK [1][-]{section.5.8}{Ring Oscillator Using GRN Reactions}{chapter.5}% 33
+\BOOKMARK [1][-]{section.5.9}{Ring Oscillator \(NHCA\)}{chapter.5}% 34
+\BOOKMARK [1][-]{section.5.10}{Recombinant E coli growth model}{chapter.5}% 35
+\BOOKMARK [1][-]{section.5.11}{MAPK Cascade with Indexed Stages}{chapter.5}% 36
+\BOOKMARK [0][-]{appendix.A}{File Formats}{}% 37
+\BOOKMARK [1][-]{section.A.1}{Reaction Files}{appendix.A}% 38
+\BOOKMARK [1][-]{section.A.2}{Model Files}{appendix.A}% 39
+\BOOKMARK [0][-]{appendix.B}{Software License}{}% 40

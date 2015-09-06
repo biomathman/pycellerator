@@ -5,9 +5,9 @@ This chapter will provide an overview of pycellerator structure and functionalit
 {\tt pycellerator} has the following components, as illustrated in figure \ref{fig:structure}. The functional relationship between these components is illustrated in figure \ref{fig:scheme}. In brief, {\tt pycellerator} first reads a model file with the \textbf{parser} and converts it to an internal database. This database is then processed by the \textbf{expander} module converts the reactions in the database to their most basic form. Control is then passed to the \textbf{interpreter}, which converts the reactions to a second database of terms of terms in differential equations, and then combines all of these terms together to form a system of differential equations out of the model. Finally, the \textbf{solver} writes the system of differential equations to a python program and then runs the program, if required to perform a numerical simulation. 
 
 \begin{figure}[ht]
-\caption{Schematic of {\tt pycellerator} structure.}\label{fig:structure}
+\caption{Schematic of {\tt pycellerator} structure.  Dependencies on standard python libraries (such as numpy, scypy, pyparsing, sympy, etc.) are not shown.)}\label{fig:structure}
 \begin{center}
-\includegraphics[width=.75\textwidth]{pyxlr8r-struct}
+\includegraphics[width=.75\textwidth]{pyxlr8r-structure}
 \end{center}
 \end{figure}
 
@@ -76,7 +76,7 @@ The primary function of the solver module is to produce a python function that i
 \begin{figure}[ht]
 \caption{Functional overview of {\tt pycellerator} operation. Users will interface with
 {\tt pycellerator} in any of the following ways: via the {\tt pycellerator} command line interface, e.g., in the mac {\tt terminal} or or windows command prompt; in an ipython notebook; in the python shell; or by direct functions calls from other programs. 
- Every function is available via any of these techniques. [The database icon is taken from the Wikimedia Commons and has a CC-BY-SA 3.0 license. The Computer icon was taken from Wikimedia commons and has a GPL 2.0 license. These licenses supercede the copyright license of this document. This picture may be copied and reused under the terms of the CC-BY-SA 3.0 and GPL 2.0 licenses.] }\label{fig:scheme}
+ Every function is available via any of these techniques.  }\label{fig:scheme}
 \begin{center}
 \includegraphics[width=.75\textwidth]{pyxlr8r-scheme.png}
 \end{center}

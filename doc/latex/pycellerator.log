@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.27)  5 SEP 2015 21:07
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.27)  6 SEP 2015 11:40
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -586,9 +586,8 @@ File: pppdftex.def 2013/08/25 v0.4v Pdfpages driver for pdfTeX (AM)
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
-(./pycellerator.aux (./CC.aux) (./preface.aux) (./intro.aux) (./start.aux)
-(./arrows.aux) (./functions.aux) (./examples.aux) (./files.aux) (./GPL.aux)
-(./bib.aux))
+(./pycellerator.aux (./CC.aux) (./intro.aux) (./start.aux) (./arrows.aux)
+(./functions.aux) (./examples.aux) (./files.aux) (./GPL.aux) (./bib.aux))
 \openout1 = `pycellerator.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
@@ -606,7 +605,8 @@ LaTeX Font Info:    ... okay on input line 111.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 111.
 
- (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 111.
@@ -696,7 +696,7 @@ LaTeX Info: Redefining \nameref on input line 111.
 
 \c@lstlisting=\count173
 
-<pycellerator-logo.png, id=168, 419.166pt x 133.9404pt>
+<pycellerator-logo.png, id=164, 419.166pt x 133.9404pt>
 File: pycellerator-logo.png Graphic file (type png)
 
 <use pycellerator-logo.png>
@@ -738,30 +738,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 47--48
  [3
 
 
-]
-\openout2 = `preface.aux'.
-
- (./preface.tex [4
-
-
-]) [5] [6
-
+] [4
 
 ]
 \openout2 = `intro.aux'.
 
  (./intro.tex
 Chapter 1.
-<pyxlr8r-struct.png, id=262, 520.8258pt x 421.575pt>
-File: pyxlr8r-struct.png Graphic file (type png)
- <use pyxlr8r-struct.png>
-Package pdftex.def Info: pyxlr8r-struct.png used on input line 10.
-(pdftex.def)             Requested size: 379.4175pt x 307.11678pt.
+<pyxlr8r-structure.png, id=249, 622.2447pt x 415.3116pt>
+File: pyxlr8r-structure.png Graphic file (type png)
 
-[1
+<use pyxlr8r-structure.png>
+Package pdftex.def Info: pyxlr8r-structure.png used on input line 10.
+(pdftex.def)             Requested size: 379.4175pt x 253.24464pt.
+ [1
 
 
- <./pyxlr8r-struct.png>]
+ <./pyxlr8r-structure.png>]
 LaTeX Font Info:    Font shape `OT1/pcr/bx/n' in size <10> not available
 (Font)              Font shape `OT1/pcr/b/n' tried instead on input line 20.
 
@@ -770,15 +763,11 @@ Overfull \hbox (6.18373pt too wide) in paragraph at lines 63--64
 ther for-mats, par-tic-u-larly \OT1/pcr/m/n/10.95 Cellerator
  []
 
-<pyxlr8r-scheme.png, id=275, 444.7014pt x 684.3969pt>
+<pyxlr8r-scheme.png, id=261, 452.6511pt x 531.9072pt>
 File: pyxlr8r-scheme.png Graphic file (type png)
  <use pyxlr8r-scheme.png>
 Package pdftex.def Info: pyxlr8r-scheme.png used on input line 81.
-(pdftex.def)             Requested size: 379.4175pt x 583.93315pt.
-
-
-LaTeX Warning: Float too large for page by 37.90985pt on input line 83.
-
+(pdftex.def)             Requested size: 379.4175pt x 445.87373pt.
 ) [2] [3 <./pyxlr8r-scheme.png>]
 \openout2 = `start.aux'.
 
@@ -1009,14 +998,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 Chapter 5.
-[49] [50] <MAPK.png, id=1431, 724.1454pt x 583.9416pt>
+[49] [50] <MAPK.png, id=1417, 724.1454pt x 583.9416pt>
 File: MAPK.png Graphic file (type png)
  <use MAPK.png>
 Package pdftex.def Info: MAPK.png used on input line 116.
 (pdftex.def)             Requested size: 505.89pt x 407.9455pt.
  [51 <./MAPK.png>] [52
 
-] <repressilator.png, id=1481, 1103.5629pt x 607.7907pt>
+] <repressilator.png, id=1468, 1103.5629pt x 607.7907pt>
 File: repressilator.png Graphic file (type png)
 
 <use repressilator.png>
@@ -1027,7 +1016,7 @@ Package pdftex.def Info: repressilator.png used on input line 159.
  <./repressilator.png>] [54] [55
 
 ]
-<chickarmane.png, id=1597, 869.4081pt x 636.6987pt>
+<chickarmane.png, id=1582, 869.4081pt x 636.6987pt>
 File: chickarmane.png Graphic file (type png)
  <use chickarmane.png>
 Package pdftex.def Info: chickarmane.png used on input line 304.
@@ -1052,7 +1041,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [56 <./chickarmane.png>] [57] <NFKB.png, id=1688, 1558.1412pt x 474.0912pt>
+ [56 <./chickarmane.png>] [57] <NFKB.png, id=1675, 1558.1412pt x 474.0912pt>
 File: NFKB.png Graphic file (type png)
 
 <use NFKB.png>
@@ -1062,12 +1051,12 @@ Package pdftex.def Info: NFKB.png used on input line 383.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [59]
-<Goldbeter.png, id=1771, 843.3909pt x 612.1269pt>
+<Goldbeter.png, id=1758, 843.3909pt x 612.1269pt>
 File: Goldbeter.png Graphic file (type png)
  <use Goldbeter.png>
 Package pdftex.def Info: Goldbeter.png used on input line 502.
 (pdftex.def)             Requested size: 252.94499pt x 183.58344pt.
- [60 <./Goldbeter.png>] <ringma.png, id=1812, 834.7185pt x 438.6789pt>
+ [60 <./Goldbeter.png>] <ringma.png, id=1798, 834.7185pt x 438.6789pt>
 File: ringma.png Graphic file (type png)
  <use ringma.png>
 Package pdftex.def Info: ringma.png used on input line 536.
@@ -1080,21 +1069,21 @@ Overfull \hbox (4.31712pt too wide) in paragraph at lines 564--565
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-<ringmm.png, id=1839, 755.9442pt x 463.2507pt>
+<ringmm.png, id=1825, 755.9442pt x 463.2507pt>
 File: ringmm.png Graphic file (type png)
  <use ringmm.png>
 Package pdftex.def Info: ringmm.png used on input line 568.
 (pdftex.def)             Requested size: 505.89pt x 310.01585pt.
  [62
 
- <./ringmm.png>] <ringgrn.png, id=1863, 586.8324pt x 442.2924pt>
+ <./ringmm.png>] <ringgrn.png, id=1849, 586.8324pt x 442.2924pt>
 File: ringgrn.png Graphic file (type png)
  <use ringgrn.png>
 Package pdftex.def Info: ringgrn.png used on input line 601.
 (pdftex.def)             Requested size: 354.12144pt x 266.90273pt.
  [63
 
- <./ringgrn.png>] <ringnhca.png, id=1890, 621.522pt x 470.4777pt>
+ <./ringgrn.png>] <ringnhca.png, id=1877, 621.522pt x 470.4777pt>
 File: ringnhca.png Graphic file (type png)
 
 <use ringnhca.png>
@@ -1103,7 +1092,7 @@ Package pdftex.def Info: ringnhca.png used on input line 638.
  [64
 
  <./ringnhca.png>]
-<ecoli-ssystem.png, id=1921, 780.516pt x 552.8655pt>
+<ecoli-ssystem.png, id=1907, 780.516pt x 552.8655pt>
 File: ecoli-ssystem.png Graphic file (type png)
  <use ecoli-ssystem.png>
 Package pdftex.def Info: ecoli-ssystem.png used on input line 701.
@@ -1115,7 +1104,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 [66 <./ecoli-ssystem.png>]
-<MAPK-Indexed.png, id=1981, 810.1467pt x 529.7391pt>
+<MAPK-Indexed.png, id=1968, 810.1467pt x 529.7391pt>
 File: MAPK-Indexed.png Graphic file (type png)
  <use MAPK-Indexed.png>
 Package pdftex.def Info: MAPK-Indexed.png used on input line 763.
@@ -1162,20 +1151,20 @@ Underfull \hbox (badness 1057) in paragraph at lines 44--47
 ]) [84]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 150.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 150.
- (./pycellerator.aux (./CC.aux) (./preface.aux) (./intro.aux)
-(./start.aux) (./arrows.aux) (./functions.aux) (./examples.aux) (./files.aux)
-(./GPL.aux) (./bib.aux))
+ (./pycellerator.aux (./CC.aux) (./intro.aux) (./start.aux)
+(./arrows.aux) (./functions.aux) (./examples.aux) (./files.aux) (./GPL.aux)
+(./bib.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 150.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 150.
 Package rerunfilecheck Info: File `pycellerator.out' has not changed.
-(rerunfilecheck)             Checksum: 2F6F106A9A29EE120F6955359879DE1F;2530.
+(rerunfilecheck)             Checksum: BFEDDAEAF8C9CE874DF0B903036FEAE7;2486.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 150.
  ) 
 Here is how much of TeX's memory you used:
- 14048 strings out of 493304
- 197658 string characters out of 6139871
+ 14036 strings out of 493304
+ 197548 string characters out of 6139871
  351460 words of memory out of 5000000
- 15578 multiletter control sequences out of 15000+600000
+ 15576 multiletter control sequences out of 15000+600000
  28857 words of font info for 110 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  35i,16n,40p,1024b,1928s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1213,10 +1202,10 @@ xmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/font
 s/type1/urw/courier/ucrbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro
 8a.pfb>
-Output written on pycellerator.pdf (90 pages, 2422195 bytes).
+Output written on pycellerator.pdf (88 pages, 2798579 bytes).
 PDF statistics:
- 2684 PDF objects out of 2984 (max. 8388607)
- 2503 compressed objects within 26 object streams
- 1604 named destinations out of 1728 (max. 500000)
- 399 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2670 PDF objects out of 2984 (max. 8388607)
+ 2492 compressed objects within 25 object streams
+ 1601 named destinations out of 1728 (max. 500000)
+ 391 words of extra memory for PDF output out of 10000 (max. 10000000)
 
