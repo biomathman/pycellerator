@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 #
 # B.E.Shapiro 11 April 2015 
-# revised 30 Aug 30 for github load
+# revised 30 Aug 15 for github load
+# revised 23 July 15 to allow correct ploting of assigned variables
 #
 # Convenient Cellerator Function Wrapper for iPython notebook
 # usage of Python Cellerator implemenation functions
@@ -144,6 +145,10 @@ Return value: when run=True (default)
     if timer:
         ttimer=time.time()
     (r, ic, rates, frozenvars, functions,assignments, filename)=solver.readmodel(INFILE=inputfile)
+    
+    
+    
+    
     if timer:
         tread=time.time()-ttimer
         
@@ -170,7 +175,23 @@ Return value: when run=True (default)
     (variables, y0, tmpdotpy) = solver.generatePythonFunction(r, rates, 
          ic, frozenvars, functions, assignments, holdrates=hold)
 
-        
+   
+    #print "Cellerator>Solve>assignments=",assignments
+    #print "Cellerator>Solve>frozenvars=",frozenvars
+    #print "Cellerator>Solve>svars=", variables
+    assignreplace=False
+    assign_replace_info=[]
+    for ass in assignments:
+		setequal=ass.find("=")
+		setvar=ass[:setequal].strip()
+		setval=ass[setequal+1:]
+		#print "Cellerator>Solve>assigned var:",setvar, setvar in variables
+		if setvar in variables:
+			svarindex = variables.index(setvar)
+			#print "Cellerator>Solve>",setvar, "is variable",svarindex,"in",variables
+			assignreplace=True
+			assign_replace_info.append([svarindex,setval])
+    #print "Cellerator>Solve>assign_replace_info:",assign_replace_info
     #
     # generatePythonFunction creates the file tmp.py
     #
@@ -223,12 +244,16 @@ Return value: when run=True (default)
     f.write("def thesolver():\n")
     f.write("    filename =\""+filename+"\"\n")
     svars = str(map(utils.deindex, map(str, variables)))
+    
+   
+		
+    
     f.write("    variables="+svars+"\n")
     (runtime, stepsize)=solver.getRunParameters(default_duration=duration,default_step=step)
     f.write("    runtime = "+str(runtime)+" \n")
     f.write("    stepsize = "+str(stepsize)+" \n")
-    t = np.arange(0,runtime+stepsize,stepsize)
-    f.write("    t = np.arange(0,runtime+stepsize,stepsize)\n")
+    times = np.arange(0,runtime+stepsize,stepsize)
+    f.write("    times = np.arange(0,runtime+stepsize,stepsize)\n")
     f.write("    y0 = "+str(y0)+"\n")   
     
     if len(scan)>0:		
@@ -236,14 +261,29 @@ Return value: when run=True (default)
         f.write("    results=[]\n")
         f.write("    "+scanparameter+"="+str(scanstart)+"\n")
         f.write("    while "+ scanparameter+" <= " + str(scanstop) + ":\n")       
-        f.write("        sol = odeint(ode_function_rhs, y0, t, mxstep="+str(mxstep)+")\n") 
+        f.write("        sol = odeint(ode_function_rhs, y0, times, mxstep="+str(mxstep)+")\n") 
         f.write("        "+scanparameter+"+="+str(scandelta)+"\n")
         f.write("        res=["+ scanparameter + "] + list(sol[-1])\n")
         f.write("        results.append(res)\n")
         # f.write("        print res\n")
         f.write("    return results\n")
     else:   
-		f.write("    sol = odeint(ode_function_rhs, y0, t, mxstep="+str(mxstep)+")\n")   
+		f.write("    sol = odeint(ode_function_rhs, y0, times, mxstep="+str(mxstep)+")\n")   
+		if assignreplace:
+			# 
+			# replace held variables with assigned values in interpolation
+			#
+			# f.write("    print 'times', times\n")
+			for information in assign_replace_info:
+			    svarindex,setval = information
+			    # print svarindex, setval
+			    # f.write("    print 'values:', sol[:,"+str(svarindex)+"]\n")
+	
+			    f.write("    result=["+setval+" for t in times]\n")
+			    # f.write("    print result\n")
+			    f.write("    sol[:,"+str(svarindex)+"]=result\n")
+			    
+	
 		f.write("    return sol\n\n")
     #
     # write main program
@@ -288,7 +328,7 @@ Return value: when run=True (default)
     # names of the variables (column headers)
     # the solution - one variable per column. Each column is the time course for the corresponding variable in variables
     #  
-		return (t, variables, temporary_solution)
+		return (times, variables, temporary_solution)
 		
 ###########################################################################
 def SetAx(ax, scales=(), lims=(), labels=()):
