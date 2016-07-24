@@ -226,11 +226,12 @@ Return value: when run=True (default)
 	# Generate a list of extra python commands to write to the 
 	# driver program for the rate constants
 	#		
-    ratestoset = list(ratestoset)
-    xtra_rate_commands=[]
-    for rate_constant in ratestoset:
-		rate_value=rates[rate_constant]
-		xtra_rate_commands.append(rate_constant+"="+str(rate_value))
+    if assignreplace:
+        ratestoset = list(ratestoset)
+        xtra_rate_commands=[]
+        for rate_constant in ratestoset:
+            rate_value=rates[rate_constant]
+            xtra_rate_commands.append(rate_constant+"="+str(rate_value))
     #
     # --- end addition 7/23/16 
 		
