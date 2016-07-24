@@ -44,6 +44,7 @@ import matplotlib.colors as colors
 import random
 import sbmlwrite, sbml
 import time
+import re
 
 
 ######################################################
@@ -88,6 +89,11 @@ def PrintModel(model):
         +"check spelling and try again"
 
 ######################################################
+
+# Solve rev. 7/23/16 to include recalculation of variables in 
+# assignments in driver program after return from odeint
+# because otherwise the combination of assign/frozen will result 
+# in those variables being held fixed in the ouput
 
 def Solve(inputfile, step=1, duration=100,  solverfile="",
     output="solution", mxstep=50000, scan=[], run=True, RATES={}, IC={}, 
@@ -146,8 +152,7 @@ Return value: when run=True (default)
         ttimer=time.time()
     (r, ic, rates, frozenvars, functions,assignments, filename)=solver.readmodel(INFILE=inputfile)
     
-    
-    
+ 
     
     if timer:
         tread=time.time()-ttimer
@@ -175,23 +180,62 @@ Return value: when run=True (default)
     (variables, y0, tmpdotpy) = solver.generatePythonFunction(r, rates, 
          ic, frozenvars, functions, assignments, holdrates=hold)
 
-   
-    #print "Cellerator>Solve>assignments=",assignments
-    #print "Cellerator>Solve>frozenvars=",frozenvars
-    #print "Cellerator>Solve>svars=", variables
+    # ----- begin addition 7/23/16
+    #
+    # look for replacements in assignments
+    # these are needed in the wrapper program so that plots work
+    #
     assignreplace=False
     assign_replace_info=[]
+    ratekeys=set(rates.keys())
+    ratesneeded=set()
     for ass in assignments:
+		#
+		# extract the assignment statement itself
+		#
 		setequal=ass.find("=")
 		setvar=ass[:setequal].strip()
-		setval=ass[setequal+1:]
+		set_rhs=ass[setequal+1:]
 		#print "Cellerator>Solve>assigned var:",setvar, setvar in variables
+		#
+		# Extract the rate constants that are in this assignment statement
+		# Note: variables in RHS expression that are not rates will be missed
+		# 
 		if setvar in variables:
 			svarindex = variables.index(setvar)
 			#print "Cellerator>Solve>",setvar, "is variable",svarindex,"in",variables
+			#print "Cellerator > assignreplace > set_rhs: ", set_rhs
+			# 
+			# variables in assginment statement
+			#
+			vars_on_rhs=set(re.split("[\)\(\[\]<>\*\+-]|\s", set_rhs))
+			# 
+			# variables that are rates
+			#
+			ratestoset = ratekeys.intersection(vars_on_rhs)
+			#
+			# save the name of the rate needed
+			#
+			ratesneeded |= ratestoset
+			#
+			# save the assignment statement for later
 			assignreplace=True
-			assign_replace_info.append([svarindex,setval])
-    #print "Cellerator>Solve>assign_replace_info:",assign_replace_info
+			assign_replace_info.append([svarindex,set_rhs])
+	
+	#
+	# Generate a list of extra python commands to write to the 
+	# driver program for the rate constants
+	#		
+    ratestoset = list(ratestoset)
+    xtra_rate_commands=[]
+    for rate_constant in ratestoset:
+		rate_value=rates[rate_constant]
+		xtra_rate_commands.append(rate_constant+"="+str(rate_value))
+    #
+    # --- end addition 7/23/16 
+		
+
+    
     #
     # generatePythonFunction creates the file tmp.py
     #
@@ -269,20 +313,23 @@ Return value: when run=True (default)
         f.write("    return results\n")
     else:   
 		f.write("    sol = odeint(ode_function_rhs, y0, times, mxstep="+str(mxstep)+")\n")   
+		# --- added 7/23/16 to make plotting work for variables in assign
 		if assignreplace:
 			# 
 			# replace held variables with assigned values in interpolation
 			#
 			# f.write("    print 'times', times\n")
+			for command in xtra_rate_commands:
+				f.write("    "+command+"\n")
 			for information in assign_replace_info:
-			    svarindex,setval = information
-			    # print svarindex, setval
+			    svarindex,set_rhs = information
+			    # print svarindex, set_rhs
 			    # f.write("    print 'values:', sol[:,"+str(svarindex)+"]\n")
 	
-			    f.write("    result=["+setval+" for t in times]\n")
+			    f.write("    result=["+set_rhs+" for t in times]\n")
 			    # f.write("    print result\n")
 			    f.write("    sol[:,"+str(svarindex)+"]=result\n")
-			    
+		# ---- end addition 7/23/16	
 	
 		f.write("    return sol\n\n")
     #
