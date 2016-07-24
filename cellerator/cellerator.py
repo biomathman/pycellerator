@@ -290,7 +290,6 @@ Return value: when run=True (default)
     f.write("    filename =\""+filename+"\"\n")
     svars = str(map(utils.deindex, map(str, variables)))
     
-   
 		
     
     f.write("    variables="+svars+"\n")
@@ -302,10 +301,18 @@ Return value: when run=True (default)
     f.write("    y0 = "+str(y0)+"\n")   
     
     if len(scan)>0:		
-        f.write("    global " + scanparameter + "\n")
+        if scanparameter in variables:
+		    ic_index=variables.index(scanparameter)
+		    varscan=True
+        else:
+            f.write("    global " + scanparameter + "\n")
+            varscan=False
         f.write("    results=[]\n")
         f.write("    "+scanparameter+"="+str(scanstart)+"\n")
-        f.write("    while "+ scanparameter+" <= " + str(scanstop) + ":\n")       
+        f.write("    while "+ scanparameter+" <= " + str(scanstop) + ":\n") 
+        if varscan:
+			f.write("        y0["+str(ic_index)+"]="+scanparameter+"\n")
+     
         f.write("        sol = odeint(ode_function_rhs, y0, times, mxstep="+str(mxstep)+")\n") 
         f.write("        "+scanparameter+"+="+str(scandelta)+"\n")
         f.write("        res=["+ scanparameter + "] + list(sol[-1])\n")

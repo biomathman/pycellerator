@@ -120,7 +120,9 @@ def substituteRateConstants(odeterms, rates, symboltable, ratesToLeaveAsIs):
     return newterms
 
 #*******************************************************************************  
-
+#
+# 7/24/16 - fix missing ODES to be floats, not srings
+#
 def makeODEfunc(odeterms, symbolDictionary,ics):
     # print "symbolDictionary in makeODEfunc: ", symbolDictionary
     odelist=[]
@@ -136,7 +138,7 @@ def makeODEfunc(odeterms, symbolDictionary,ics):
         if v in ics:
             ic = ics[v]
         else:
-            ic = '0'  # there may be auto-generated variables
+            ic = 0.0  # there may be auto-generated variables
         iclist.append(ic)
         
     # print "iclist in makeODEfunc: ", iclist
@@ -175,6 +177,8 @@ def generatePythonFunction(reactions,  rates, ics, frozenvars, functions,
         y0: list of values of variables at initial time
     """    
   
+    #print "solver:assignments:",assignments
+    #print "solver:frozenvars:",frozenvars
     
     d=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
@@ -249,8 +253,9 @@ def generatePythonFunction(reactions,  rates, ics, frozenvars, functions,
             v=rates[k]
             nextline="  "+k+" = " + str(v)+"\n"
             f.write(nextline)
-        
+   
     (y, yprime, ics) = makeODEfunc(newterms, s, ics)
+   
     
     y = map(str, y)
     yprime = map(str,yprime)
@@ -270,12 +275,14 @@ def generatePythonFunction(reactions,  rates, ics, frozenvars, functions,
     f.write("  yp=[0 for i in range("+str(n)+")]\n")
     for i in range(n):
         nextline = "  yp["+str(i)+"] = " + yprime[i]+"\n"
+        #   
         #
         #
         nextline = nextline.replace("{","[").replace("}","]")
         #
         #
         f.write(nextline)
+        #print "solver:",nextline
 
     
     
