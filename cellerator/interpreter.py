@@ -131,6 +131,7 @@ def makeSymbolDictionary(reactions, inputrates, IC):
             return False
         return True
         
+        
     def _addToDict(lis):
      
 
@@ -142,7 +143,7 @@ def makeSymbolDictionary(reactions, inputrates, IC):
             if x not in symbolDictionary:
                 if not is_number(x):
                     if ismath(x):
-                        symbolDictionary[x] = sympify(x[1:-1])
+			            symbolDictionary[x] = sympify(x[1:-1])
                     else:
                         symbolDictionary[x]=Symbol(x)    
                     
@@ -842,25 +843,31 @@ def make_USER_ODE_Terms(r, ODETerms, symbolDictionary, frozen):
     v, T, n, h, f = rates
     # print "make_USER_ODE_Terms: v=",v," T=",T," n=", n," h=",h, " f=", f
     
-    f = f[1:-1].strip() # drop surrounding quotes
-    fparts = f.split(":")
-    if len(fparts) != 2:
-        print "Error: Incorrectly formated lambda expression in User Reaction '"+r.Input()+"'"
-        raise SystemExit("Correct reaction and re-submit job.")
-    fargs,fdef=fparts
-    fargs = fargs.strip()
-    fdef = fdef.strip()
-    # print "make_User_ODE_Terms: fargs='"+fargs+"' fdef='"+fdef+"'"
-    if not fargs.startswith("lambda"):
-        print "Error: Expecting a lambda expression as the final rate in User " \
-        + "Reaction '"+r.Input()+"'"
-        raise SystemExit("Correct reaction and re-submit job.")
-    fargs = flatten(map(lambda x: x.split(","), fargs.split(" ")))
-    fargs = filter(lambda x: len(x)>0, map(lambda x:x.strip(), fargs[1:]))         
-    if len(fargs)!= 1:
-        print "Error: The lambda expression in the User reaction '"+r.Input()+\
-        "' should have precisely one argument; this one has "+str(len(fargs)-1)
-        raise SystemExit("Correct reaction and re-submit job.")
+    #
+    # this section blocked off because functions should be referenced through 
+    # the function section now 7-29-16
+    #
+    if false:
+		f = f[1:-1].strip() # drop surrounding quotes
+		fparts = f.split(":")
+		if len(fparts) != 2:
+			print "Error: Incorrectly formated lambda expression in User Reaction '"+r.Input()+"'"
+			raise SystemExit("Correct reaction and re-submit job.")
+		fargs,fdef=fparts
+		fargs = fargs.strip()
+		fdef = fdef.strip()
+		# print "make_User_ODE_Terms: fargs='"+fargs+"' fdef='"+fdef+"'"
+		if not fargs.startswith("lambda"):
+			print "Error: Expecting a lambda expression as the final rate in User " \
+			+ "Reaction '"+r.Input()+"'"
+			raise SystemExit("Correct reaction and re-submit job.")
+		fargs = flatten(map(lambda x: x.split(","), fargs.split(" ")))
+		fargs = filter(lambda x: len(x)>0, map(lambda x:x.strip(), fargs[1:]))         
+		if len(fargs)!= 1:
+				print "Error: The lambda expression in the User reaction '"+r.Input()+\
+				"' should have precisely one argument; this one has "+str(len(fargs)-1)
+				raise SystemExit("Correct reaction and re-submit job.")
+    
 
     # print "returning from make_USER_ODE_Terms"
 
