@@ -493,7 +493,7 @@ def generateSimulation(inputfile="", step=1, duration=100, plot=False, format="C
         i = (sys.argv).index("-out")+1
         if i<len(sys.argv):
             outfile=sys.argv[i]
-            outfile=utils.uniqueFileName(outfile, type=fmt)
+            output=utils.uniqueFileName(outfile, type=fmt)
         else:
             print "Warning: solver: expecting file name after -out option."
             #outfile = "solution."+fmt
