@@ -53,6 +53,7 @@ ___
 
 ## To Cite Pycellerator
 
-Shapiro, BE, Mjolsness E (2016) Pycellerator: an arrow-based reaction-like  modelling language for biological simulations. Bioinformatics. 2016 Feb 15;32(4):629-31. doi: 10.1093/bioinformatics/btv596. 
-Epub 2015 Oct 26. Journal web cite: http://bioinformatics.oxfordjournals.org/content/32/4/629
+Shapiro, BE, Mjolsness E (2016) Pycellerator: an arrow-based reaction-like  modelling language for 
+biological simulations. Bioinformatics. 2016 Feb 15; 32(4):629-31. doi: 10.1093/bioinformatics/btv596. 
+Epub 2015 Oct 26. Journal web site: http://bioinformatics.oxfordjournals.org/content/32/4/629
 
