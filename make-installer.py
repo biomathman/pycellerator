@@ -5,7 +5,7 @@ import shutil
 
 def make_install():
      
-    ipathbase="Install-pycellerator-v-1"
+    ipathbase="Install-pycellerator-v-1.1"
     i=0
     ipath=ipathbase
     while os.path.exists(ipath):
