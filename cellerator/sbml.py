@@ -135,11 +135,27 @@ def writemodel(filename, functions, compartments, species, parameters,\
         # S is all species
         S = list(set(RS+PS))
         ST = []
+        
+        if DEBUG:
+			print "speciesToStoics: R: ",R
+			print "speciesToStoics: RS: ",RS
+			print "speciesToStoics: PST: ",PST
+			
+		#
+		# add check for non-numeric stoich. 7/1/16
+		#	
         for s in S:
-            st = 0
-            if s in RS: st = st - RST[RS.index(s)]   
-            if s in PS: st = st + PST[PS.index(s)]
-            ST.append(st)      
+			try:
+				st = 0; stdelta=-1
+				if s in RS: st = st - RST[RS.index(s)] 
+				stdelta=1  
+				if s in PS: st = st + PST[PS.index(s)]
+				
+			except: 
+				st=stdelta
+				print "Warning:  unable to convert non-numeric stoichiometry in reaction",\
+					nreactions,"This may produce unexpected results in the model."
+			ST.append(st) 
         return (S, ST)
     #****************************************************  
     def getSpeciesCompartment(s):
