@@ -140,17 +140,69 @@ def species_dict_to_list(db):
         i = db[s]
         species[i]=s
     return species
+#*******************************************************************************    
+
+def identify_cmap(UCmap):
+	maps = plt.cm.datad.keys()
+	for m in maps:
+		if UCmap==m.upper():
+			return(m)
+	return plt.cm.ocean
 
 #*******************************************************************************    
-def visualize_matrix(N):
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.imshow(N,aspect='auto',interpolation='none',vmin=-1,vmax=1)
+def visualize_matrix(Nraw):
+    """ add options 
+	-cmap colormap
+	-image filename
+	-vmin value
+	-vmax value
+	-abs take absolute value of matrix
+"""
+	# revis 8/2/16
+    
+    #fig = plt.figure()
+    #ax = fig.add_subplot(111)
+    
+    
+    N=np.absolute(Nraw) if ("-abs" in sys.argv) else Nraw 
+    big  = 1
+    little = 0 if ("abs" in sys.argv) else -1
+    color_map=plt.cm.ocean
+    if "-cmap" in sys.argv:
+        i = (sys.argv).index("-cmap")+1
+        if i<len(sys.argv):
+            #color_map = identify_cmap(sys.argv[i].upper())
+            color_map = sys.argv[i]
+    if "-vmax" in sys.argv:
+		i=(sys.argv).index("-vmax")+1
+		if i<len(sys.argv):
+			big=float(sys.argv[i])
+    if "-vmin" in sys.argv:
+		i=(sys.argv).index("-vmin")+1
+		if i<len(sys.argv):
+			little=float(sys.argv[i]) 
+				  
+    plt.imshow(N,aspect='auto',interpolation='nearest', vmin=little,
+		vmax=big, cmap=color_map)
+    ax=plt.gca()
     ax.axes.get_yaxis().set_visible(False)
     ax.axes.get_xaxis().set_visible(False)
-    show()
+    plt.colorbar()
+    
+    fig=plt.gcf()
+    fig.tight_layout()
+    
+    picfile="Stoichiometryy-Matrix.png"
+    if "-image" in sys.argv:
+		i=(sys.argv).index("-image")+1
+		if i<len(sys.argv):
+			picfile=sys.argv[i]
+	
 
-    fig.savefig(uniqueFileName("Stoichiometry-Matrix.png"))
+    fig.savefig(uniqueFileName(picfile), dpi=300)
+    
+    show()
+    
     return
     
 #*******************************************************************************    
@@ -256,11 +308,13 @@ def cons_matrix(db,out=""):
     input: Cellerator database of flux-only reactions
     output: conservation matrix as np.array()
     """
+    from sympy.matrices import Matrix
     N, S = stoich_matrix(db)
     # 
     # convert to a sympy matrix from a numpy array
     #
-    NT = matrices.Matrix(N.T)
+    #NT = matrices.Matrix(N.T)
+    NT = Matrix(N.T)
     # determnine nullspace
     gamma = NT.nullspace()
     nullspace=[]
